@@ -35,6 +35,15 @@ const snapshot = await getCountFromServer(studentRef);
 
 document.getElementById("totalStudent").innerHTML = snapshot.data().count
 querySnapshot.forEach((doc) => {
-  // doc.data() is never undefined for query doc snapshots
-  console.log(doc.id, " => ", doc.data());
+  const tablePWA = document.getElementById("tablePWA");
+  const tablePWATemplate = document.getElementById("templatePWA");
+  const cloneNode = tablePWATemplate.cloneNode(true);
+
+  console.log();
+
+  cloneNode.querySelector("#PWAName").innerHTML = doc.data()["LastName"] + ", " + doc.data()["FirstName"];
+  cloneNode.querySelector("#PWAGrade").innerHTML = "Grade " + doc.data()["GradeLevel"]
+
+  cloneNode.classList.remove("hidden");
+  tablePWA.appendChild(cloneNode);
 });
