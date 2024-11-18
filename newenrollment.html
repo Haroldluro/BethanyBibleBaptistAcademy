@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Bethany Bible Baptist Academy</title>
+    <link rel="icon" href="assets/logo/BethanyLogo.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/newenrollment.css">
+    <script src="js/script.js" defer></script>
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <!-- fonts -->
+</head>
+
+<body>
+    <header>
+        <!-- #region nav -->
+        <nav>
+            <img src="assets/logo/NavLogo.png" alt="Logo">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">Community</a></li>
+                <li><a class="selected">Enrollment</a></li>
+                <li><a href="admission.html">Admission</a></li>
+                <li><a href="support.html">Support</a></li>
+                <li></li>
+                <button onclick="window.location.href='student-teacherlogin.html'">Login</button>
+
+            </ul>
+        </nav>
+        <!-- #endregion nav -->
+    </header>
+    <form class="enrollment-form">
+        <h1>Elementary Enrollment</h1>
+
+        <section>
+            <h2>Basic Information</h2>
+            <div class="form-row">
+                <input type="text" placeholder="Student's LRN">
+            </div>
+            <div class="form-row">
+
+                <input type="text" placeholder="Last Name">
+                <input type="text" placeholder="First Name">
+                <input type="text" placeholder="Middle Name">
+            </div>
+            <div class="form-row">
+                <input type="text" placeholder="Sex">
+                <input type="date" placeholder="Birthdate">
+                <input type="text" placeholder="Religion">
+            </div>
+            <div class="form-row">
+                <input type="text" placeholder="Mobile Number">
+                <input type="email" placeholder="Email Address">
+            </div>
+        </section>
+
+        <section>
+            <h2>Current Address</h2>
+            <div class="form-row">
+                <input type="text" placeholder="House No. / Street / Barangay">
+                <input type="text" placeholder="Municipality/City">
+                <input type="text" placeholder="Province">
+            </div>
+        </section>
+
+        <section>
+            <h2>Father's Information</h2>
+            <div class="form-row">
+                <input type="text" placeholder="Father's Name">
+                <input type="text" placeholder="Occupation">
+                <input type="text" placeholder="Mobile Number">
+                <input type="email" placeholder="Email Address">
+            </div>
+        </section>
+
+        <section>
+            <h2>Mother's Information</h2>
+            <div class="form-row">
+                <input type="text" placeholder="Mother's Name">
+                <input type="text" placeholder="Occupation">
+                <input type="text" placeholder="Mobile Number">
+                <input type="email" placeholder="Email Address">
+            </div>
+        </section>
+
+        <section>
+            <h2>Guardian's Information</h2>
+            <div class="form-row">
+                <input type="text" placeholder="Guardian's Name">
+                <input type="text" placeholder="Relationship">
+                <input type="text" placeholder="Mobile Number">
+                <input type="email" placeholder="Email Address">
+            </div>
+        </section>
+
+        <section>
+            <h2>Other Information</h2>
+            <div class="form-row">
+                <input type="text" placeholder="Last School Attended">
+                <div class="select-container">
+                    <label for="grade">Incoming Grade Level</label>
+                    <select name="grade" id="grade">
+                        <option value="Kindergarten1">Kinder 1</option>
+                        <option value="Kindergarten2">Kinder 2</option>
+                        <option value="Grade1">Grade 1</option>
+                        <option value="Grade2">Grade 2</option>
+                        <option value="Grade3">Grade 3</option>
+                        <option value="Grade4">Grade 4</option>
+                        <option value="Grade5">Grade 5</option>
+                        <option value="Grade6">Grade 6</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+
+        <div class="form-actions">
+            <button type="reset" class="clear-btn">Clear</button>
+            <button type="submit" class="submit-btn">Enroll Now</button>
+        </div>
+    </form>
+</body>
+
+</html>
