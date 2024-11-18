@@ -15,21 +15,22 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 function SignIn() {
-    const email = document.getElementById("txtUsername").value;
-    const password = document.getElementById("txtPassword").value;
-    signInWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    console.log(user);
-    window.location.href = "/admin_overview.html"
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(errorCode +": " + errorMessage);
-  });
+  const email = document.getElementById("txtUsername").value;
+  console.log(email);
+  const password = document.getElementById("txtPassword").value;
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      console.log(user);
+      window.location.href = "/superadmin/superadmin-overview.html"
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode + ": " + errorMessage);
+    });
 }
 
 document.getElementById("btnSignIn").addEventListener("click", SignIn);
