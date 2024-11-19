@@ -159,7 +159,7 @@
                             <td id="ERFirstName">Harold</td>
                             <td id="ERGrade">Grade</td>
                             <td class="operations">
-                                <a class="status_border view" href="#">
+                                <a class="status_border view" href="#enrollmentform">
                                     <p>View</p>
                                 </a>
                                 <a href="#deleteModal" class="status_border delete">
@@ -179,6 +179,7 @@
             </div>
         </main>
     </div>
+
     <div id="deleteModal" class="modal-overlay">
         <div class="modal">
             <div class="modal-header">
@@ -194,6 +195,115 @@
             </div>
         </div>
     </div>
+    <div id="enrollmentform" class="form-overlay">
+
+        <form class="enrollment-form">
+            <div class="form-header">
+                <h1>Elementary Enrollment</h1>
+                <a href="#" class="close-btn">&times;</a>
+            </div>
+            <!-- Left Column -->
+            <div>
+                <section>
+                    <h2>Basic Information</h2>
+                    <div class="form-row">
+                        <input type="text" placeholder="Student's LRN">
+                    </div>
+                    <div class="form-row">
+                        <input type="text" placeholder="Last Name">
+                        <input type="text" placeholder="First Name">
+                        <input type="text" placeholder="Middle Name">
+                    </div>
+                    <div class="form-row">
+                        <input type="text" placeholder="Sex">
+                        <input type="date" placeholder="Birthdate">
+                        <input type="text" placeholder="Religion">
+                    </div>
+                    <div class="form-row">
+                        <input type="text" placeholder="Mobile Number">
+                        <input type="email" placeholder="Email Address">
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Current Address</h2>
+                    <div class="form-row">
+                        <input type="text" placeholder="House No. / Street / Barangay">
+                        <input type="text" placeholder="Municipality/City">
+                        <input type="text" placeholder="Province">
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Other Information</h2>
+                    <div class="form-row">
+                        <input type="text" placeholder="Last School Attended">
+                        <div class="select-container">
+                            <label for="grade">Incoming Grade Level</label>
+                            <select name="grade" id="grade">
+                                <option value="Kindergarten1">Kinder 1</option>
+                                <option value="Kindergarten2">Kinder 2</option>
+                                <option value="Grade1">Grade 1</option>
+                                <option value="Grade2">Grade 2</option>
+                                <option value="Grade3">Grade 3</option>
+                                <option value="Grade4">Grade 4</option>
+                                <option value="Grade5">Grade 5</option>
+                                <option value="Grade6">Grade 6</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+
+            <!-- Right Column -->
+            <div>
+                <section>
+                    <h2>Father's Information</h2>
+                    <div class="form-row">
+                        <input type="text" placeholder="Father's Name">
+                        <input type="text" placeholder="Occupation">
+                        <input type="text" placeholder="Mobile Number">
+                        <input type="email" placeholder="Email Address">
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Mother's Information</h2>
+                    <div class="form-row">
+                        <input type="text" placeholder="Mother's Name">
+                        <input type="text" placeholder="Occupation">
+                        <input type="text" placeholder="Mobile Number">
+                        <input type="email" placeholder="Email Address">
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Guardian's Information</h2>
+                    <div class="form-row">
+                        <input type="text" placeholder="Guardian's Name">
+                        <input type="text" placeholder="Relationship">
+                        <input type="text" placeholder="Mobile Number">
+                        <input type="email" placeholder="Email Address">
+                    </div>
+                </section>
+            </div>
+
+
+            <!-- Form Actions -->
+            <div class="form-actions">
+                <a class="cancel-btn">Close</a>
+                <div>
+                    <a class="delete-btn">Delete</a>
+                    <a class="accept-btn">Accept</a>
+                </div>
+
+
+            </div>
+        </form>
+    </div>
+
+
 
     <script type="module" src="/js/admin-enrollment-firebase.js"></script>
 </body>
