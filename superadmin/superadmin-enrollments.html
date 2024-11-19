@@ -162,7 +162,7 @@
                                 <a class="status_border view" href="#">
                                     <p>View</p>
                                 </a>
-                                <a class="status_border delete" href="#">
+                                <a href="#deleteModal" class="status_border delete">
                                     <p>Delete</p>
                                 </a>
                             </td>
@@ -178,8 +178,23 @@
                 <button class="pagination-btn">Last</button>
             </div>
         </main>
-
     </div>
+    <div id="deleteModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <span></span>
+                <a href="#" class="close-btn">&times;</a>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure to <strong>delete</strong> this request?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="cancel-btn">Cancel</a>
+                <a href="#" class="delete-btn">Delete</a>
+            </div>
+        </div>
+    </div>
+
     <script type="module" src="/js/admin-enrollment-firebase.js"></script>
 </body>
 
