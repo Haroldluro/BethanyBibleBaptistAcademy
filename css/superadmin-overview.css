@@ -318,11 +318,12 @@ thead {
     color: var(--black-font-color);
 }
 
-tbody tr:nth-child(even) {
+tbody tr:nth-child(odd) {
     background-color: var(--secondary-bg-color);
 }
 
 .hidden {
     display: none;
 }
+
 /* #endregion main */
