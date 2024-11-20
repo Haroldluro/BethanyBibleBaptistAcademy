@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Bethany Bible Baptist Academy</title>
     <link rel="icon" href="../assets/logo/BethanyLogo.png" type="image/x-icon">
-    <link rel="stylesheet" href="/css/superadmin-enrollments.css">
+    <link rel="stylesheet" href="/css/superadmin-usermanagement.css">
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,7 +33,7 @@
                         </svg>
                         Overview
                     </a></li>
-                <li><a class="selected" href="#">
+                <li><a href="superadmin-enrollments.html">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler nav-icon" width="44" height="44"
                             viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round"
                             stroke-linejoin="round">
@@ -81,7 +81,7 @@
                         </svg>
                         Edit Accounts
                     </a></li>
-                <li><a href="superadmin-usermanagement.html">
+                <li><a class="selected" href="#">
                         <svg xmlns="http://www.w3.org/2000/svg" x-bind:width="size" x-bind:height="size"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" x-bind:stroke-width="stroke"
                             stroke-linecap="round" stroke-linejoin="round" width="44" height="44" stroke-width="1.5">
@@ -127,43 +127,74 @@
         </nav>
         <main>
             <header>
-                <h1>Enrollment Requests</h1>
-                <div class="search-container">
-                    <input type="text" class="search-input" placeholder="Search Name">
-                    <button class="search-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                        </svg>
-                        Search
-                    </button>
+
+                <h1>User Management</h1>
+                <div class="header-actions">
+                    <div class="search-container">
+                        <input type="text" class="search-input" placeholder="Search Name">
+                        <button class="search-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                width="18" height="18">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                            Search
+                        </button>
+                        <div>
+                            <button class="filter-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" x-bind:width="size" x-bind:height="size"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" x-bind:stroke-width="stroke"
+                                    stroke-linecap="round" stroke-linejoin="round" width="18" height="18"
+                                    stroke-width="2">
+                                    <path
+                                        d="M4 4h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414v7l-6 2v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227z">
+                                    </path>
+                                </svg>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Ascending Name</a></li>
+                                <li><a href="#">Descending Name</a></li>
+                                <li><a href="#">Student</a></li>
+                                <li><a href="#">Teacher</a></li>
+                                <li><a href="#">Locked</a></li>
+                                <li><a href="#">Ascending Account ID</a></li>
+                                <li><a href="#">Descending Account ID</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
                 </div>
+
+
+
             </header>
 
             <section class="table">
                 <table>
                     <thead>
                         <tr>
-                            <th>Request ID</th>
-                            <th>Last Name</th>
-                            <th>First Name</th>
-                            <th>Grade Level</th>
-                            <th>Actions</th>
+                            <th>Account ID</th>
+                            <th>Name</th>
+                            <th>User Role</th>
+                            <th class="columnend">Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="tableER">
-                        <tr class="hidden" id="templateER">
-                            <td id="ERID">2023-001</td>
-                            <td id="ERLastName">Luro</td>
-                            <td id="ERFirstName">Harold</td>
-                            <td id="ERGrade">Grade</td>
+                    <tbody id="tableUM">
+                        <tr id="templateUM"> <!-- class="hidden" -->
+                            <td id="UMID">2023-001</td>
+                            <td id="UMName">Luro, Harold Jay</td>
+                            <td id="UMUserRole">
+                                <p class="hidden locked status_border">Locked</p>
+                                <p class="hidden student status_border">Student</p>
+                                <p class="hidden teacher status_border">Teacher</p>
+                            </td>
                             <td class="operations">
-                                <a class="status_border view" href="#enrollmentform">
-                                    <p>View</p>
+                                <a href="#changePassModal" class="status_border view">
+                                    <p>Change Pass</p>
                                 </a>
                                 <a href="#deleteModal" class="status_border delete">
-                                    <p>Delete</p>
+                                    <p>Remove User</p>
                                 </a>
                             </td>
                         </tr>
@@ -187,7 +218,7 @@
                 <a href="#" class="close-btn">&times;</a>
             </div>
             <div class="modal-body">
-                <p>Are you sure to <strong>delete</strong> this request?</p>
+                <p>Are you sure to <strong>remove</strong> this user?</p>
             </div>
             <div class="modal-footer">
                 <a href="#" class="cancel-btn">Cancel</a>
@@ -195,110 +226,27 @@
             </div>
         </div>
     </div>
-    <div id="enrollmentform" class="form-overlay">
-
-        <form class="enrollment-form">
-            <div class="form-header">
-                <h1>Elementary Enrollment</h1>
+    <div id="changePassModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <span></span>
                 <a href="#" class="close-btn">&times;</a>
             </div>
-            <!-- Left Column -->
-            <div>
-                <section>
-                    <h2>Basic Information</h2>
-                    <div class="form-row">
-                        <input type="text" placeholder="Student's LRN">
-                    </div>
-                    <div class="form-row">
-                        <input type="text" placeholder="Last Name">
-                        <input type="text" placeholder="First Name">
-                        <input type="text" placeholder="Middle Name">
-                    </div>
-                    <div class="form-row">
-                        <input type="text" placeholder="Sex">
-                        <input type="date" placeholder="Birthdate">
-                        <input type="text" placeholder="Religion">
-                    </div>
-                    <div class="form-row">
-                        <input type="text" placeholder="Mobile Number">
-                        <input type="email" placeholder="Email Address">
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Current Address</h2>
-                    <div class="form-row">
-                        <input type="text" placeholder="House No. / Street / Barangay">
-                        <input type="text" placeholder="Municipality/City">
-                        <input type="text" placeholder="Province">
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Other Information</h2>
-                    <div class="form-row">
-                        <input type="text" placeholder="Last School Attended">
-                        <div class="select-container">
-                            <label for="grade">Incoming Grade Level</label>
-                            <select name="grade" id="grade">
-                                <option value="Kindergarten1">Kinder 1</option>
-                                <option value="Kindergarten2">Kinder 2</option>
-                                <option value="Grade1">Grade 1</option>
-                                <option value="Grade2">Grade 2</option>
-                                <option value="Grade3">Grade 3</option>
-                                <option value="Grade4">Grade 4</option>
-                                <option value="Grade5">Grade 5</option>
-                                <option value="Grade6">Grade 6</option>
-                            </select>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-
-            <!-- Right Column -->
-            <div>
-                <section>
-                    <h2>Father's Information</h2>
-                    <div class="form-row">
-                        <input type="text" placeholder="Father's Name">
-                        <input type="text" placeholder="Occupation">
-                        <input type="text" placeholder="Mobile Number">
-                        <input type="email" placeholder="Email Address">
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Mother's Information</h2>
-                    <div class="form-row">
-                        <input type="text" placeholder="Mother's Name">
-                        <input type="text" placeholder="Occupation">
-                        <input type="text" placeholder="Mobile Number">
-                        <input type="email" placeholder="Email Address">
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Guardian's Information</h2>
-                    <div class="form-row">
-                        <input type="text" placeholder="Guardian's Name">
-                        <input type="text" placeholder="Relationship">
-                        <input type="text" placeholder="Mobile Number">
-                        <input type="email" placeholder="Email Address">
-                    </div>
-                </section>
-            </div>
-
-            <!-- Form Actions -->
-            <div class="form-actions">
-                <a class="cancel-btn">Close</a>
-                <div>
-                    <a class="delete-btn">Delete</a>
-                    <a class="accept-btn">Accept</a>
+            <div class="modal-body">
+                <div class="changePass">
+                    <p>Change <strong>Password</strong> for this user</p>
+                    <input type="text" placeholder="New Password">
                 </div>
+
             </div>
-        </form>
+            <div class="modal-footer">
+                <a href="#" class="cancel-btn">Cancel</a>
+                <a href="#" class="confirm-btn">Confirm</a>
+            </div>
+        </div>
     </div>
+
+
 
 
 
