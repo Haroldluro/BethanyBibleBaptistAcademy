@@ -48,6 +48,10 @@
     --red-button: #c51d3a;
     --green-hover-button: #179733;
     --red-hover-button: #971329;
+
+    --student-color: #ed9939;
+    --teacher-color: #5721d6;
+
 }
 
 * {
@@ -180,11 +184,17 @@ header {
     margin-bottom: 20px;
 }
 
+.header-actions {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
 /* Search Container */
 .search-container {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 5px;
     background-color: var(--white-font-color);
     padding: 5px;
     border-radius: 10px;
@@ -220,6 +230,7 @@ header {
     transition: all 0.3s ease-in-out;
 }
 
+
 .search-btn:hover {
     background-color: #2d4eb5;
 }
@@ -232,6 +243,69 @@ header {
 .search-btn:hover svg {
     stroke: #f3f3f3;
 }
+
+.filter-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 15px;
+    background-color: var(--primary-color);
+    color: var(--white-font-color);
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+/* General styling for the dropdown container */
+.dropdown-menu {
+    position: absolute;
+    top: 50px;
+    right: 45px;
+    margin-top: 10px;
+    padding: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    display: none;
+    /* Hidden by default */
+    z-index: 1000;
+    /* Ensure it's above other elements */
+    width: 200px;
+    /* Adjust as needed */
+}
+
+/* Dropdown menu item styling */
+.dropdown-menu li {
+    display: block;
+}
+
+.dropdown-menu li a {
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s, color 0.3s;
+}
+
+.dropdown-menu li a:hover {
+    background-color: var(--primary-color);
+    color: var(--button-bg-color);
+}
+
+/* Show dropdown when button or container is hovered */
+.filter-btn:focus+.dropdown-menu,
+.dropdown-menu:focus {
+    display: block;
+}
+
+
+
 
 /* Search Container */
 
@@ -268,7 +342,7 @@ thead {
     border-radius: 10px 10px 0 0;
 }
 
-tbody tr:nth-child(odd) {
+tbody tr:nth-child(even) {
     background-color: var(--secondary-bg-color);
 }
 
@@ -278,11 +352,30 @@ tbody tr:nth-child(odd) {
 
 /* operation buttons */
 .status_border {
-    max-width: 100px;
+    max-width: 150px;
     border-radius: 8px;
-    padding: 5px 11px;
+    padding: 8px 11px;
     font-weight: bold;
     text-align: center;
+}
+
+.student {
+    background-color: var(--student-color);
+    color: var(--black-font-color);
+}
+
+.locked {
+    background-color: var(--red-button);
+    color: var(--white-font-color);
+}
+
+.teacher {
+    background-color: var(--teacher-color);
+    color: var(--white-font-color);
+}
+
+.columnend {
+    text-align: end;
 }
 
 .view {
@@ -308,7 +401,8 @@ tbody tr:nth-child(odd) {
 .operations {
     display: flex;
     flex-direction: row;
-    gap: 5px;
+    justify-content: end;
+    gap: 10px;
 }
 
 .operations a {
@@ -471,6 +565,38 @@ tbody tr:nth-child(odd) {
     background: #b71c1c;
 }
 
+.confirm-btn {
+
+    background: var(--green-button);
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.confirm-btn:hover {
+    background: var(--green-hover-button);
+}
+
+.changePass {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+}
+
+.changePass input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
 /* Fade-in animation */
 @keyframes fadeIn {
     from {
@@ -482,148 +608,6 @@ tbody tr:nth-child(odd) {
         opacity: 1;
         transform: scale(1);
     }
-}
-
-/* #region enrollmentform */
-/* #region enrollmentform */
-.form-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    visibility: hidden;
-    opacity: 0;
-    transition: all 0.3s ease-in-out;
-}
-
-.form-overlay:target {
-    visibility: visible;
-    opacity: 1;
-}
-
-/* Enrollment Form Container */
-form.enrollment-form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    max-width: 1500px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    /* Two columns */
-    gap: 20px;
-    /* Space between columns */
-}
-
-/* Heading */
-form h1 {
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-    color: #000;
-    grid-column: span 2;
-    /* Make the heading span across both columns */
-}
-
-.form-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    grid-column: span 2;
-
-}
-
-.form-header .close-btn {
-    text-decoration: none;
-    background: none;
-    border: none;
-    font-size: 35px;
-    color: #000000;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-}
-
-
-.form-header .close-btn:hover {
-    color: var(--red-button)
-}
-
-/* Section Header */
-form section h2 {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-    color: #333;
-}
-
-/* Form Rows */
-form .form-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 15px;
-}
-
-/* Input Fields */
-form .form-row input {
-    flex: 1;
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-/* Focus on Input Fields */
-form .form-row input:focus {
-    outline: none;
-    border-color: #427beb;
-    box-shadow: 0 0 5px rgba(66, 123, 235, 0.5);
-}
-
-/* Action Buttons */
-form .form-actions {
-    display: flex;
-    justify-content: space-between;
-    grid-column: span 2;
-    /* Make the action buttons span across both columns */
-}
-
-form .form-actions div {
-    display: flex;
-    gap: 10px;
-}
-
-form .form-actions button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-form .form-actions .accept-btn {
-    background-color: var(--green-button);
-    color: var(--white-font-color);
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 8px 15px;
-    transition: all 0.3s ease-in-out;
-}
-
-
-form .form-actions .accept-btn:hover {
-    background-color: #4cae4c;
-
 }
 
 /* Select Container */
