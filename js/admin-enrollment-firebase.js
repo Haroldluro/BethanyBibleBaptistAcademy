@@ -40,6 +40,8 @@ querySnapshot.forEach((doc) => {
 
   console.log();
 
+
+  
   cloneNode.querySelector("#ERID").innerHTML = doc.data()["EnrollmentID"];
   cloneNode.querySelector("#ERLastName").innerHTML = doc.data()["LastName"];
   cloneNode.querySelector("#ERFirstName").innerHTML = doc.data()["FirstName"];
