@@ -174,7 +174,7 @@ form .form-row input:focus {
 form .form-actions {
     display: flex;
     justify-content: space-between;
-    
+
 }
 
 form .form-actions button {
@@ -227,5 +227,3 @@ select:focus {
     border-color: #427beb;
     box-shadow: 0 0 5px rgba(66, 123, 235, 0.5);
 }
-
-
