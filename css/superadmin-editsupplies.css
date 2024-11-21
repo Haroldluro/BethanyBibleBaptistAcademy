@@ -235,90 +235,6 @@ header {
 
 /* Search Container */
 
-/* #region table */
-.table {
-    background-color: var(--white-font-color);
-    border-radius: 10px;
-    box-shadow: 0 2px 5px var(--shadow-color);
-    flex: 1;
-}
-
-.table h3 {
-    margin-bottom: 10px;
-    color: var(--black-font-color);
-}
-
-table {
-    border-radius: 10px 10px 0px 0px;
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    overflow: hidden;
-}
-
-table th,
-table td {
-    text-align: left;
-    padding: 20px 20px 20px 20px;
-}
-
-thead {
-    background-color: var(--primary-color);
-    color: var(--white-font-color);
-    border-radius: 10px 10px 0 0;
-}
-
-tbody tr:nth-child(odd) {
-    background-color: var(--secondary-bg-color);
-}
-
-.hidden {
-    display: none;
-}
-
-/* operation buttons */
-.status_border {
-    max-width: 100px;
-    border-radius: 8px;
-    padding: 5px 11px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.view {
-    color: var(--white-font-color);
-    background-color: var(--green-button);
-    transition: all 0.3s ease-in-out;
-}
-
-.view:hover {
-    background-color: var(--green-hover-button);
-}
-
-.delete {
-    color: var(--white-font-color);
-    background-color: var(--red-button);
-    transition: all 0.3s ease-in-out;
-}
-
-.delete:hover {
-    background-color: var(--red-hover-button);
-}
-
-.operations {
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
-}
-
-.operations a {
-    text-decoration: none;
-}
-
-/* operation buttons */
-
-/* #endregion table */
-
 
 /* #region pagination */
 .pagination {
@@ -360,14 +276,63 @@ tbody tr:nth-child(odd) {
 
 /* #endregion pagination */
 
-/* Modal Overlay */
 
-/* Modal Overlay (hidden by default) */
-.modal a {
-    text-decoration: none;
-}
 
-.modal-overlay {
+.add-item-button {
+    background-color: #28a745; /* Green color */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-item-button:hover {
+    background-color: #218838; /* Darker green for hover effect */
+  }
+  
+  .add-item-button:active {
+    background-color: #1e7e34; /* Even darker green for active state */
+  }
+
+.items-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .item-card {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    width: 200px;
+  }
+  
+  .item-card img {
+    max-width: 100%;
+    height: 150px;
+    object-fit: cover;
+  }
+  
+  .item-card .status {
+    margin-top: 10px;
+    font-size: 12px;
+  }
+  
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* This centers the modal */
+    width: 80%; /* You can adjust the width */
+    max-width: 500px; /* You can set a max width */
+    height: auto; /* Adjust the height as needed */
+    padding: 20px; /* Add padding for spacing inside the modal */
+    z-index: 1000;
+  }
+  .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -389,276 +354,89 @@ tbody tr:nth-child(odd) {
     opacity: 1;
 }
 
-/* Modal Box */
-.modal {
-    background: #fff;
-    border-radius: 8px;
-    width: 400px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    animation: fadeIn 0.3s ease-in-out;
-}
-
-/* Modal Header */
-.modal-header {
+  .modal:focus {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #3a62dc;
-    color: #fff;
-    padding: 10px 15px;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-}
 
-.modal-header .close-btn {
-    text-decoration: none;
-    background: none;
-    border: none;
-    font-size: 20px;
-    color: #fff;
-    cursor: pointer;
-}
-
-/* Modal Body */
-.modal-body {
-    padding: 20px;
-    text-align: center;
-    font-size: 16px;
+  }
+  
+  .modal-content {
+    background: #f9f9f9;
+    padding: 25px;
+    border-radius: 10px;
+    width: 450px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    font-family: 'Arial', sans-serif;
     color: #333;
-}
-
-/* Modal Footer */
-.modal-footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    padding: 10px 15px;
-    border-top: 1px solid #f0f0f0;
-}
-
-/* Cancel Button */
-.cancel-btn {
-
-    background: none;
-    border: none;
-    color: #555;
-    font-size: 14px;
-    cursor: pointer;
-    padding: 8px 15px;
-    transition: all 0.3s ease-in-out;
-}
-
-.cancel-btn:hover {
-    background: #f0f0f0;
-    border-radius: 5px;
-}
-
-/* Delete Button */
-.delete-btn {
-
-    background: #d32f2f;
-    border: none;
-    color: #fff;
-    font-size: 14px;
-    font-weight: bold;
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-}
-
-.delete-btn:hover {
-    background: #b71c1c;
-}
-
-/* Fade-in animation */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-/* #region enrollmentform */
-/* #region enrollmentform */
-.form-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    visibility: hidden;
-    opacity: 0;
-    transition: all 0.3s ease-in-out;
-}
-
-.form-overlay:target {
-    visibility: visible;
-    opacity: 1;
-}
-
-/* Enrollment Form Container */
-form.enrollment-form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    max-width: 1500px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    /* Two columns */
-    gap: 20px;
-    /* Space between columns */
-}
-
-/* Heading */
-form h1 {
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-    color: #000;
-    grid-column: span 2;
-    /* Make the heading span across both columns */
-}
-
-.form-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    grid-column: span 2;
-
-}
-
-.form-header .close-btn {
-    text-decoration: none;
-    background: none;
-    border: none;
-    font-size: 35px;
-    color: #000000;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-}
-
-
-.form-header .close-btn:hover {
-    color: var(--red-button)
-}
-
-/* Section Header */
-form section h2 {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-    color: #333;
-}
-
-/* Form Rows */
-form .form-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+  }
+  
+  .modal-content h2 {
+    font-size: 24px;
     margin-bottom: 15px;
-}
-
-/* Input Fields */
-form .form-row input {
-    flex: 1;
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-/* Focus on Input Fields */
-form .form-row input:focus {
-    outline: none;
-    border-color: #427beb;
-    box-shadow: 0 0 5px rgba(66, 123, 235, 0.5);
-}
-
-/* Action Buttons */
-form .form-actions {
-    display: flex;
-    justify-content: space-between;
-    grid-column: span 2;
-    /* Make the action buttons span across both columns */
-}
-
-form .form-actions div {
-    display: flex;
-    gap: 10px;
-}
-
-form .form-actions button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-form .form-actions .accept-btn {
-    background-color: var(--green-button);
-    color: var(--white-font-color);
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 8px 15px;
-    transition: all 0.3s ease-in-out;
-}
-
-
-form .form-actions .accept-btn:hover {
-    background-color: #4cae4c;
-
-}
-
-/* Select Container */
-.select-container {
+    color: #000000; /* Add accent color */
+    text-align: center;
+  }
+  
+  .modal-content form {
     display: flex;
     flex-direction: column;
-}
-
-.select-container label {
+    gap: 20px;
+  }
+  
+  .modal-content label {
+    font-weight: bold;
+    font-size: 14px;
     margin-bottom: 5px;
-    font-size: 1rem;
-    color: #333;
-}
-
-select {
+  }
+  
+  .modal-content input,
+  .modal-content select {
+    width: 100%;
     padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-select:focus {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
     outline: none;
-    border-color: #427beb;
-    box-shadow: 0 0 5px rgba(66, 123, 235, 0.5);
-}
-
-/* Media Query for Smaller Screens */
-@media (max-width: 768px) {
-    form.enrollment-form {
-        grid-template-columns: 1fr;
-        /* Stack columns on smaller screens */
-    }
-}
-
+    transition: border-color 0.3s ease;
+  }
+  
+  .modal-content input:focus,
+  .modal-content select:focus {
+    border-color: #000000;
+  }
+  
+  .modal-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  
+  .modal-button {
+    flex: 1;
+    padding: 10px 15px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .modal-button.cancel {
+    background: #dc3545;
+    color: white;
+  }
+  
+  .modal-button.cancel:hover {
+    background: #c82333;
+  }
+  
+  .modal-button.add {
+    background: #28a745;
+    color: white;
+  }
+  
+  .modal-button.add:hover {
+    background: #218838;
+  }
 
 
 /* #endregion enrollmentform */
