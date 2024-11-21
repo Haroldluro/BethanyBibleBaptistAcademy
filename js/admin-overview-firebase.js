@@ -29,21 +29,34 @@ onAuthStateChanged(auth, (user) => {
 });
 
 const db = getFirestore(app);
-const querySnapshot = await getDocs(collection(db, "students"));
 const studentRef = collection(db, "students");
-const snapshot = await getCountFromServer(studentRef);
+const studentSnapshot = await getCountFromServer(studentRef);
+document.getElementById("totalStudent").innerHTML = studentSnapshot.data().count
 
-document.getElementById("totalStudent").innerHTML = snapshot.data().count
-querySnapshot.forEach((doc) => {
-  const tablePWA = document.getElementById("tablePWA");
-  const tablePWATemplate = document.getElementById("templatePWA");
-  const cloneNode = tablePWATemplate.cloneNode(true);
+const teacherRef = collection(db, "teachers");
+const teacherSnapshot = await getCountFromServer(teacherRef);
+document.getElementById("totalTeachers").innerHTML = teacherSnapshot.data().count
 
-  console.log();
+const enrollmentRef = collection(db, "enrollmentRequest");
+const enrollmentSnapshot = await getCountFromServer(enrollmentRef);
+document.getElementById("enrollmentRequest").innerHTML = enrollmentSnapshot.data().count
 
-  cloneNode.querySelector("#PWAName").innerHTML = doc.data()["LastName"] + ", " + doc.data()["FirstName"];
-  cloneNode.querySelector("#PWAGrade").innerHTML = "Grade " + doc.data()["GradeLevel"]
+// const itemRef = collection(db, "itemRequest");
+// const itemSnapshot = await getCountFromServer(itemRef);
+// document.getElementById("itemRequest").innerHTML = itemSnapshot.data().count
 
-  cloneNode.classList.remove("hidden");
-  tablePWA.appendChild(cloneNode);
+getDocs(studentRef).then((querySnapshot) => {
+  querySnapshot.forEach((doc) => {
+    const tablePWA = document.getElementById("tablePWA");
+    const tablePWATemplate = document.getElementById("templatePWA");
+    const cloneNode = tablePWATemplate.cloneNode(true);
+
+    console.log();
+
+    cloneNode.querySelector("#PWAName").innerHTML = doc.data()["LastName"] + ", " + doc.data()["FirstName"];
+    cloneNode.querySelector("#PWAGrade").innerHTML = "Grade " + doc.data()["GradeLevel"]
+
+    cloneNode.classList.remove("hidden");
+    tablePWA.appendChild(cloneNode);
+  });
 });
