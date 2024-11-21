@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getFirestore, collection, doc, setDoc, addDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import { getFirestore, collection, doc, setDoc, addDoc , serverTimestamp} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDQrgbw4TlLtLbex-BiEk58nA4l_zoDAmo",
@@ -14,11 +14,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-
-
-
-const submitbtn = document.getElementById('submitBtn');
-
 // Enrollment Form Elements
 const LRNInp = document.getElementById('LRNInp');
 const lNameInp = document.getElementById('lNameInp');
@@ -31,7 +26,6 @@ const mobNumInp = document.getElementById('mobNumInp');
 const emailInp = document.getElementById('emailInp');
 const houseNumInp = document.getElementById('houseNumInp');
 const cityInp = document.getElementById('cityInp');
-// Missing id corrected for province input:
 const provinceInp = document.getElementById('provinceInp');
 
 const fathNameInp = document.getElementById('fathNameInp');
@@ -46,7 +40,6 @@ const mothEmailInp = document.getElementById('mothEmailInp');
 
 const guarNameInp = document.getElementById('guarNameInp');
 const guarRelatsionshipInp = document.getElementById('guarRelatsionshipInp');
-// Corrected id for guardian's mobile and email inputs:
 const guarMobNumInp = document.getElementById('guarMobNumInp');
 const guarEmailInp = document.getElementById('guarEmailInp');
 
@@ -56,8 +49,6 @@ const grade = document.getElementById('grade');
 // Form Action Buttons
 const clearBtn = document.getElementById('clearBtn');
 const submitBtn = document.getElementById('submitBtn');
-
-const enrollmentCollection = collection(db, "enrollmentDetails");
 
 submitBtn.addEventListener("click", async (event) => {
     event.preventDefault(); // Prevent form submission
@@ -99,10 +90,14 @@ submitBtn.addEventListener("click", async (event) => {
         },
         lastSchool: lastSchoolInp.value,
         gradeLevel: grade.value,
+        status: "Pending",
+        enrollmentDate: serverTimestamp(),
     };
 
       // Add data to Firestore
-    const docRef = await addDoc(enrollmentCollection, enrollmentData);
+
+    const docRef = doc(db, "enrollmentsDetails", LRNInp.value);
+    await setDoc(docRef, enrollmentData);
     console.log("Document written with ID: ", docRef.id);
     alert("Enrollment data saved successfully!");
     } catch (e) {
