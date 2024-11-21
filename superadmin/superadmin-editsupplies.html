@@ -127,7 +127,7 @@
         </nav>
         <main>
             <header>
-                <h1>Enrollment Requests</h1>
+                <h1>Edit Supplies</h1>
                 <div class="search-container">
                     <input type="text" class="search-input" placeholder="Search Name">
                     <button class="search-btn">
@@ -138,171 +138,62 @@
                         </svg>
                         Search
                     </button>
+                    <button onclick="window.location.href = '#additem' " class="add-item-button">Add Item</button>
                 </div>
+
             </header>
 
-            <section class="table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Request ID</th>
-                            <th>Last Name</th>
-                            <th>First Name</th>
-                            <th>Grade Level</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableER">
-                        <tr class="hidden" id="templateER">
-                            <td id="ERID">2023-001</td>
-                            <td id="ERLastName">Luro</td>
-                            <td id="ERFirstName">Harold</td>
-                            <td id="ERGrade">Grade</td>
-                            <td class="operations">
-                                <a class="status_border view" href="#enrollmentform">
-                                    <p>View</p>
-                                </a>
-                                <a href="#deleteModal" class="status_border delete">
-                                    <p>Delete</p>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
+            <div id="items-container">
+                <!-- Items will be dynamically inserted here -->
+            </div>
+
             <div class="pagination">
                 <button class="pagination-btn">First</button>
                 <button class="pagination-btn">&lt;</button>
                 <span class="pagination-number">1</span>
+                <span class="pagination-number">2</span>
                 <button class="pagination-btn">&gt;</button>
                 <button class="pagination-btn">Last</button>
             </div>
         </main>
     </div>
 
-    <div id="deleteModal" class="modal-overlay">
-        <div class="modal">
-            <div class="modal-header">
-                <span></span>
-                <a href="#" class="close-btn">&times;</a>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure to <strong>delete</strong> this request?</p>
-            </div>
-            <div class="modal-footer">
-                <a href="#" class="cancel-btn">Cancel</a>
-                <a href="#" class="delete-btn">Delete</a>
+    <div id='additem' class="modal-overlay">
+        <div id="add-item-modal" class="modal">
+            <div class="modal-content">
+                <h2>Add New Item</h2>
+                <form id="add-item-form">
+                    <label for="item-name">Item Name:</label>
+                    <input type="text" id="item-name" placeholder="Enter item name" required>
+
+                    <label for="item-quantity">Quantity:</label>
+                    <input type="number" id="item-quantity" placeholder="Enter quantity" required>
+
+                    <label for="item-price">Price:</label>
+                    <input type="number" id="item-price" placeholder="Enter price" required>
+
+                    <label for="item-image">Image URL:</label>
+                    <input type="text" id="item-image" placeholder="Enter image URL" required>
+
+                    <label for="item-status">Status:</label>
+                    <select id="item-status" required>
+                        <option value="in-stock">In Stock</option>
+                        <option value="out-of-stock">Out of Stock</option>
+                    </select>
+
+                    <div class="modal-actions">
+                        <button type="button" onclick="window.location.href = '#' " id="cancel-button"
+                            class="modal-button cancel">Cancel</button>
+                        <button type="submit" class="modal-button add">Add Item</button>
+                    </div>
+                </form>
             </div>
         </div>
-    </div>
-    <div id="enrollmentform" class="form-overlay">
-
-        <form class="enrollment-form">
-            <div class="form-header">
-                <h1>Elementary Enrollment</h1>
-                <a href="#" class="close-btn">&times;</a>
-            </div>
-            <!-- Left Column -->
-            <div>
-                <section>
-                    <h2>Basic Information</h2>
-                    <div class="form-row">
-                        <input type="text" placeholder="Student's LRN">
-                    </div>
-                    <div class="form-row">
-                        <input type="text" placeholder="Last Name">
-                        <input type="text" placeholder="First Name">
-                        <input type="text" placeholder="Middle Name">
-                    </div>
-                    <div class="form-row">
-                        <input type="text" placeholder="Sex">
-                        <input type="date" placeholder="Birthdate">
-                        <input type="text" placeholder="Religion">
-                    </div>
-                    <div class="form-row">
-                        <input type="text" placeholder="Mobile Number">
-                        <input type="email" placeholder="Email Address">
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Current Address</h2>
-                    <div class="form-row">
-                        <input type="text" placeholder="House No. / Street / Barangay">
-                        <input type="text" placeholder="Municipality/City">
-                        <input type="text" placeholder="Province">
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Other Information</h2>
-                    <div class="form-row">
-                        <input type="text" placeholder="Last School Attended">
-                        <div class="select-container">
-                            <label for="grade">Incoming Grade Level</label>
-                            <select name="grade" id="grade">
-                                <option value="Kindergarten1">Kinder 1</option>
-                                <option value="Kindergarten2">Kinder 2</option>
-                                <option value="Grade1">Grade 1</option>
-                                <option value="Grade2">Grade 2</option>
-                                <option value="Grade3">Grade 3</option>
-                                <option value="Grade4">Grade 4</option>
-                                <option value="Grade5">Grade 5</option>
-                                <option value="Grade6">Grade 6</option>
-                            </select>
-                        </div>
-                    </div>
-                </section>
-            </div>
 
 
-            <!-- Right Column -->
-            <div>
-                <section>
-                    <h2>Father's Information</h2>
-                    <div class="form-row">
-                        <input type="text" placeholder="Father's Name">
-                        <input type="text" placeholder="Occupation">
-                        <input type="text" placeholder="Mobile Number">
-                        <input type="email" placeholder="Email Address">
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Mother's Information</h2>
-                    <div class="form-row">
-                        <input type="text" placeholder="Mother's Name">
-                        <input type="text" placeholder="Occupation">
-                        <input type="text" placeholder="Mobile Number">
-                        <input type="email" placeholder="Email Address">
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Guardian's Information</h2>
-                    <div class="form-row">
-                        <input type="text" placeholder="Guardian's Name">
-                        <input type="text" placeholder="Relationship">
-                        <input type="text" placeholder="Mobile Number">
-                        <input type="email" placeholder="Email Address">
-                    </div>
-                </section>
-            </div>
-
-            <!-- Form Actions -->
-            <div class="form-actions">
-                <a class="cancel-btn">Close</a>
-                <div>
-                    <a class="delete-btn">Delete</a>
-                    <a class="accept-btn">Accept</a>
-                </div>
-            </div>
-        </form>
     </div>
 
-
-
-    <script type="module" src="/js/admin-enrollment-firebase.js"></script>
+    <script type="module" src="/js/admin-editsupplies-firebase.js"></script>
 </body>
 
 </html>

@@ -127,40 +127,40 @@
         </nav>
         <main>
             <header>
-                <h1>Enrollment Requests</h1>
-                <div class="search-container">
-                    <input type="text" class="search-input" placeholder="Search Name">
-                    <button class="search-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                        </svg>
-                        Search
-                    </button>
+                <h1>Create & Edit Announcements</h1>
+                <div class="header-actions">
+                    <div class="search-container">
+                        <input type="text" class="search-input" placeholder="Search Name">
+                        <button class="search-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                width="18" height="18">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                            Search
+                        </button>
+                    </div>
+                    <button class="add-btn" onclick="window.location.href='#createannouncementform'">Create
+                        Post</button>
                 </div>
             </header>
-
             <section class="table">
                 <table>
                     <thead>
                         <tr>
-                            <th>Request ID</th>
-                            <th>Last Name</th>
-                            <th>First Name</th>
-                            <th>Grade Level</th>
-                            <th>Actions</th>
+                            <th>Created On</th>
+                            <th>Post Title</th>
+                            <th class="columnend">Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="tableER">
-                        <tr class="hidden" id="templateER">
-                            <td id="ERID">2023-001</td>
-                            <td id="ERLastName">Luro</td>
-                            <td id="ERFirstName">Harold</td>
-                            <td id="ERGrade">Grade</td>
+                    <tbody id="tableAN">
+                        <tr class="hidden" id="templateAN">
+                            <td id="ANCreatedOn">09/11/2024</td>
+                            <td id="ANTitle">No Class Advisory</td>
                             <td class="operations">
-                                <a class="status_border view" href="#enrollmentform">
-                                    <p>View</p>
+                                <a class="status_border view" href="#editannouncementform">
+                                    <p>Edit Post</p>
                                 </a>
                                 <a href="#deleteModal" class="status_border delete">
                                     <p>Delete</p>
@@ -187,7 +187,7 @@
                 <a href="#" class="close-btn">&times;</a>
             </div>
             <div class="modal-body">
-                <p>Are you sure to <strong>delete</strong> this request?</p>
+                <p>Are you sure to <strong>delete</strong> this post?</p>
             </div>
             <div class="modal-footer">
                 <a href="#" class="cancel-btn">Cancel</a>
@@ -195,99 +195,54 @@
             </div>
         </div>
     </div>
-    <div id="enrollmentform" class="form-overlay">
+    <div id="editannouncementform" class="form-overlay">
 
-        <form class="enrollment-form">
+        <form class="announcement-form">
             <div class="form-header">
-                <h1>Elementary Enrollment</h1>
+                <h1>Edit Post</h1>
                 <a href="#" class="close-btn">&times;</a>
             </div>
-            <!-- Left Column -->
-            <div>
-                <section>
-                    <h2>Basic Information</h2>
-                    <div class="form-row">
-                        <input type="text" placeholder="Student's LRN">
-                    </div>
-                    <div class="form-row">
-                        <input type="text" placeholder="Last Name">
-                        <input type="text" placeholder="First Name">
-                        <input type="text" placeholder="Middle Name">
-                    </div>
-                    <div class="form-row">
-                        <input type="text" placeholder="Sex">
-                        <input type="date" placeholder="Birthdate">
-                        <input type="text" placeholder="Religion">
-                    </div>
-                    <div class="form-row">
-                        <input type="text" placeholder="Mobile Number">
-                        <input type="email" placeholder="Email Address">
-                    </div>
-                </section>
+            <section>
+                <div class="form-row">
+                    <h2>Post Title</h2>
+                    <input type="text" placeholder="">
+                </div>
+                <div class="form-row">
+                    <h2>Post Details</h2>
+                    <textarea class="postDetails" placeholder=""></textarea>
+                </div>
 
-                <section>
-                    <h2>Current Address</h2>
-                    <div class="form-row">
-                        <input type="text" placeholder="House No. / Street / Barangay">
-                        <input type="text" placeholder="Municipality/City">
-                        <input type="text" placeholder="Province">
-                    </div>
-                </section>
+            </section>
 
-                <section>
-                    <h2>Other Information</h2>
-                    <div class="form-row">
-                        <input type="text" placeholder="Last School Attended">
-                        <div class="select-container">
-                            <label for="grade">Incoming Grade Level</label>
-                            <select name="grade" id="grade">
-                                <option value="Kindergarten1">Kinder 1</option>
-                                <option value="Kindergarten2">Kinder 2</option>
-                                <option value="Grade1">Grade 1</option>
-                                <option value="Grade2">Grade 2</option>
-                                <option value="Grade3">Grade 3</option>
-                                <option value="Grade4">Grade 4</option>
-                                <option value="Grade5">Grade 5</option>
-                                <option value="Grade6">Grade 6</option>
-                            </select>
-                        </div>
-                    </div>
-                </section>
+            <!-- Form Actions -->
+            <div class="form-actions">
+                <a class="cancel-btn">Close</a>
+                <div>
+                    <a class="delete-btn">Delete</a>
+                    <a class="accept-btn">Accept</a>
+                </div>
             </div>
+        </form>
+    </div>
 
+    <div id="createannouncementform" class="form-overlay">
 
-            <!-- Right Column -->
-            <div>
-                <section>
-                    <h2>Father's Information</h2>
-                    <div class="form-row">
-                        <input type="text" placeholder="Father's Name">
-                        <input type="text" placeholder="Occupation">
-                        <input type="text" placeholder="Mobile Number">
-                        <input type="email" placeholder="Email Address">
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Mother's Information</h2>
-                    <div class="form-row">
-                        <input type="text" placeholder="Mother's Name">
-                        <input type="text" placeholder="Occupation">
-                        <input type="text" placeholder="Mobile Number">
-                        <input type="email" placeholder="Email Address">
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Guardian's Information</h2>
-                    <div class="form-row">
-                        <input type="text" placeholder="Guardian's Name">
-                        <input type="text" placeholder="Relationship">
-                        <input type="text" placeholder="Mobile Number">
-                        <input type="email" placeholder="Email Address">
-                    </div>
-                </section>
+        <form class="announcement-form">
+            <div class="form-header">
+                <h1>Create Post</h1>
+                <a href="#" class="close-btn">&times;</a>
             </div>
+            <section>
+                <div class="form-row">
+                    <h2>Post Title</h2>
+                    <input type="text" placeholder="">
+                </div>
+                <div class="form-row">
+                    <h2>Post Details</h2>
+                    <textarea class="postDetails" placeholder=""></textarea>
+                </div>
+
+            </section>
 
             <!-- Form Actions -->
             <div class="form-actions">
@@ -301,8 +256,7 @@
     </div>
 
 
-
-    <script type="module" src="/js/admin-enrollment-firebase.js"></script>
+    <script type="module" src="/js/admin-announcements-firebase.js"></script>
 </body>
 
 </html>
