@@ -207,21 +207,29 @@
                 <section>
                     <h2>Basic Information</h2>
                     <div class="form-row">
-                        <input type="text" placeholder="Student's LRN">
+                        <input id ="LRNInp" type="tel" 
+                        placeholder="Student's LRN" 
+                        pattern="[0-9]{12}" 
+                        required 
+                        title="Enter a 12-digit LRN">
                     </div>
                     <div class="form-row">
-                        <input type="text" placeholder="Last Name">
-                        <input type="text" placeholder="First Name">
-                        <input type="text" placeholder="Middle Name">
+                        <input id ="lNameInp" type="text" placeholder="Last Name">
+                        <input id ="fNameInp" type="text" placeholder="First Name">
+                        <input id ="mNameInp"type="text" placeholder="Middle Name">
                     </div>
                     <div class="form-row">
-                        <input type="text" placeholder="Sex">
-                        <input type="date" placeholder="Birthdate">
-                        <input type="text" placeholder="Religion">
+                        <input id ="sexInp" type="text" placeholder="Sex">
+                        <input id ="birthDateInp" type="date" placeholder="Birthdate">
+                        <input id ="religionInp" type="text" placeholder="Religion">
                     </div>
                     <div class="form-row">
-                        <input type="text" placeholder="Mobile Number">
-                        <input type="email" placeholder="Email Address">
+                        <input id ="mobNumInp" type="tel" 
+                        placeholder="Mobile number" 
+                        pattern="[0-9]{11}" 
+                        required 
+                        title="Enter a 11-digit mobile number">
+                        <input id ="emailInp" type="email" placeholder="Email Address">
                     </div>
                 </section>
 

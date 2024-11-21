@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getFirestore, collection, doc, setDoc, addDoc , serverTimestamp} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import { getFirestore, doc, setDoc, serverTimestamp} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDQrgbw4TlLtLbex-BiEk58nA4l_zoDAmo",
@@ -50,8 +50,86 @@ const grade = document.getElementById('grade');
 const clearBtn = document.getElementById('clearBtn');
 const submitBtn = document.getElementById('submitBtn');
 
-submitBtn.addEventListener("click", async (event) => {
-    event.preventDefault(); // Prevent form submission
+submitBtn.addEventListener("click", async (event) => { // Prevent form submission
+  event.preventDefault();
+
+  const fields = [
+    { field: LRNInp, name: "LRN", validator: (value) => value.trim() !== "" },
+    { field: lNameInp, name: "Last Name", validator: (value) => value.trim() !== "" },
+    { field: fNameInp, name: "First Name", validator: (value) => value.trim() !== "" },
+    { field: mNameInp, name: "Middle Name", validator: (value) => value.trim() !== "" },
+    { field: sexInp, name: "Sex", validator: (value) => value.trim() !== "" },
+    { field: birthDateInp, name: "Birth Date", validator: (value) => value.trim() !== "" },
+    { field: religionInp, name: "Religion", validator: (value) => value.trim() !== "" },
+    {
+        field: mobNumInp,
+        name: "Mobile Number",
+        validator: (value) => /^\d{11}$/.test(value), // Must be exactly 11 digits
+    },
+    {
+        field: emailInp,
+        name: "Email",
+        validator: (value) =>
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), // Simple email format check
+    },
+    { field: houseNumInp, name: "House Number", validator: (value) => value.trim() !== "" },
+    { field: cityInp, name: "City", validator: (value) => value.trim() !== "" },
+    { field: provinceInp, name: "Province", validator: (value) => value.trim() !== "" },
+    { field: fathNameInp, name: "Father's Name", validator: (value) => value.trim() !== "" },
+    { field: fathOccInp, name: "Father's Occupation", validator: (value) => value.trim() !== "" },
+    {
+        field: fathMobNumInp,
+        name: "Father's Mobile Number",
+        validator: (value) => /^\d{11}$/.test(value), // Must be exactly 11 digits
+    },
+    {
+        field: fathEmailInp,
+        name: "Father's Email",
+        validator: (value) =>
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), // Simple email format check
+    },
+    { field: mothNameInp, name: "Mother's Name", validator: (value) => value.trim() !== "" },
+    { field: mothOccInp, name: "Mother's Occupation", validator: (value) => value.trim() !== "" },
+    {
+        field: mothMobNumInp,
+        name: "Mother's Mobile Number",
+        validator: (value) => /^\d{11}$/.test(value), // Must be exactly 11 digits
+    },
+    {
+        field: mothEmailInp,
+        name: "Mother's Email",
+        validator: (value) =>
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), // Simple email format check
+    },
+    { field: guarNameInp, name: "Guardian's Name", validator: (value) => value.trim() !== "" },
+    {
+        field: guarRelatsionshipInp,
+        name: "Guardian's Relationship",
+        validator: (value) => value.trim() !== "",
+    },
+    {
+        field: guarMobNumInp,
+        name: "Guardian's Mobile Number",
+        validator: (value) => /^\d{11}$/.test(value), // Must be exactly 11 digits
+    },
+    {
+        field: guarEmailInp,
+        name: "Guardian's Email",
+        validator: (value) =>
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), // Simple email format check
+    },
+    { field: lastSchoolInp, name: "Last School", validator: (value) => value.trim() !== "" },
+    { field: grade, name: "Grade Level", validator: (value) => value.trim() !== "" },
+];
+
+for (const { field, name, validator } of fields) {
+    if (!validator(field.value)) {
+        alert(`Invalid or missing input in the ${name} field.`);
+        field.focus();
+        return; // Stop execution if a field fails validation
+    }
+}
+
 
     try {
       // Collect data from form fields
