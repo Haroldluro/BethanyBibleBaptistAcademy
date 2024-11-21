@@ -7,7 +7,6 @@
     <title>Bethany Bible Baptist Academy</title>
     <link rel="icon" href="../assets/logo/BethanyLogo.png" type="image/x-icon">
     <link rel="stylesheet" href="/css/newenrollment.css">
-    <script src="js/script.js" defer></script>
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,73 +33,90 @@
         <!-- #endregion nav -->
     </header>
     <form class="enrollment-form">
-        <h1>Elementary Enrollment</h1>
+        <h1>Enrollment Form</h1>
 
         <section>
             <h2>Basic Information</h2>
             <div class="form-row">
-                <input type="text" placeholder="Student's LRN">
+                <input id ="LRNInp" type="text" placeholder="Student's LRN">
             </div>
             <div class="form-row">
 
-                <input type="text" placeholder="Last Name">
-                <input type="text" placeholder="First Name">
-                <input type="text" placeholder="Middle Name">
+                <input id ="lNameInp" type="text" placeholder="Last Name">
+                <input id ="fNameInp" type="text" placeholder="First Name">
+                <input id ="mNameInp"type="text" placeholder="Middle Name">
             </div>
             <div class="form-row">
-                <input type="text" placeholder="Sex">
-                <input type="date" placeholder="Birthdate">
-                <input type="text" placeholder="Religion">
+                <input id ="sexInp" type="text" placeholder="Sex">
+                <input id ="birthDateInp" type="date" placeholder="Birthdate">
+                <input id ="religionInp" type="text" placeholder="Religion">
             </div>
             <div class="form-row">
-                <input type="text" placeholder="Mobile Number">
-                <input type="email" placeholder="Email Address">
+                <input id ="mobNumInp" type="tel" 
+                placeholder="Mobile number" 
+                pattern="[0-9]{11}" 
+                required 
+                title="Enter a 10-digit mobile number without the country code">
+                <input id ="emailInp" type="email" placeholder="Email Address">
             </div>
         </section>
 
         <section>
             <h2>Current Address</h2>
             <div class="form-row">
-                <input type="text" placeholder="House No. / Street / Barangay">
-                <input type="text" placeholder="Municipality/City">
-                <input type="text" placeholder="Province">
+                <input id ="houseNumInp" type="text" placeholder="House No. / Street / Barangay">
+                <input id ="cityInp" type="text" placeholder="Municipality/City">
+                <input id="provinceInp" type="text" placeholder="Province">
             </div>
         </section>
 
         <section>
             <h2>Father's Information</h2>
             <div class="form-row">
-                <input type="text" placeholder="Father's Name">
-                <input type="text" placeholder="Occupation">
-                <input type="text" placeholder="Mobile Number">
-                <input type="email" placeholder="Email Address">
+                <input id ="fathNameInp" type="text" placeholder="Father's Name">
+                <input id ="fathOccInp" type="text" placeholder="Occupation">
+                <input id ="fathMobNumInp" type="tel" 
+                placeholder="Mobile number" 
+                pattern="[0-9]{11}" 
+                required 
+                title="Enter a 11-digit mobile number">
+                <input id ="fathEmailInp" type="email" placeholder="Email Address">
             </div>
         </section>
 
         <section>
             <h2>Mother's Information</h2>
             <div class="form-row">
-                <input type="text" placeholder="Mother's Name">
-                <input type="text" placeholder="Occupation">
-                <input type="text" placeholder="Mobile Number">
-                <input type="email" placeholder="Email Address">
+                <input id ="mothNameInp" type="text" placeholder="Mother's Name">
+                <input id ="mothOccInp" type="text" placeholder="Occupation">
+                <input id ="mothMobNumInp" type="tel" 
+                placeholder="Mobile number" 
+                pattern="[0-9]{11}" 
+                required 
+                title="Enter a 10-digit mobile number without the country code">
+                <input id ="mothEmailInp" type="email" placeholder="Email Address">
             </div>
         </section>
 
         <section>
             <h2>Guardian's Information</h2>
             <div class="form-row">
-                <input type="text" placeholder="Guardian's Name">
-                <input type="text" placeholder="Relationship">
-                <input type="text" placeholder="Mobile Number">
-                <input type="email" placeholder="Email Address">
+                <input id ="guarNameInp"type="text" placeholder="Guardian's Name">
+                <input id ="guarRelatsionshipInp"type="text" placeholder="Relationship">
+                <input id="guarMobNumInp" id="mobileNumber" 
+                type="tel" 
+                placeholder="Mobile number" 
+                pattern="[0-9]{10}" 
+                required 
+                title="Enter a 10-digit mobile number without the country code">
+                <input id="guarEmailInp" type="email"placeholder="Email Address">
             </div>
         </section>
 
         <section>
             <h2>Other Information</h2>
             <div class="form-row">
-                <input type="text" placeholder="Last School Attended">
+                <input id ="lastSchoolInp"type="text" placeholder="Last School Attended">
                 <div class="select-container">
                     <label for="grade">Incoming Grade Level</label>
                     <select name="grade" id="grade">
@@ -119,10 +135,12 @@
 
 
         <div class="form-actions">
-            <button type="reset" class="clear-btn">Clear</button>
-            <button type="submit" class="submit-btn">Enroll Now</button>
+            <button id="clearBtn" type="reset" class="clear-btn">Clear</button>
+            <button id ="submitBtn" type="submit" class="submit-btn">Enroll Now</button>
         </div>
     </form>
+
+    <script type="module" src="/js/new-enrollment-firebase.js"></script>
 </body>
 
 </html>
