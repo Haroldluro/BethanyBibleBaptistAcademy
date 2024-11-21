@@ -110,3 +110,32 @@ submitBtn.addEventListener("click", async (event) => {
     lert("Failed to save enrollment data.");
     }
 });
+
+clearBtn.addEventListener("click", () => {
+    LRNInp.value = "";
+    lNameInp.value = "";
+    fNameInp.value = "";
+    mNameInp.value = "";
+    sexInp.value = "";
+    birthDateInp.value = "";
+    religionInp.value = "";
+    mobNumInp.value = "";
+    emailInp.value = "";
+    houseNumInp.value = "";
+    cityInp.value = "";
+    provinceInp.value = "";
+    fathNameInp.value = "";
+    fathOccInp.value = "";
+    fathMobNumInp.value = "";
+    fathEmailInp.value = "";
+    mothNameInp.value = "";
+    mothOccInp.value = "";
+    mothMobNumInp.value = "";
+    mothEmailInp.value = "";
+    guarNameInp.value = "";
+    guarRelatsionshipInp.value = "";
+    guarMobNumInp.value = "";
+    guarEmailInp.value = "";
+    lastSchoolInp.value = "";
+    grade.value = "";
+  });
