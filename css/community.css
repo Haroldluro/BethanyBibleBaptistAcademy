@@ -14,6 +14,7 @@ body {
     font-style: normal;
     font-variation-settings: "slnt" 0;
 }
+
 /* #endregion Fonts */
 
 /* #region Format */
@@ -40,6 +41,7 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
+
 /* #endregion Format */
 
 /* #region Navigation */
@@ -106,10 +108,12 @@ header nav button:hover {
     color: var(--highlight-color);
     cursor: default !important;
 }
+
 /* #endregion Navigation */
 
 /* #region Community Section */
 .community {
+
     text-align: center;
     padding: 2rem;
     background-color: var(--secondary-bg-color);
@@ -123,19 +127,27 @@ header nav button:hover {
 
 .images {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Two columns of equal width */
-    grid-template-rows: repeat(2, auto); /* Two rows that adapt to content height */
-    gap: 1rem; /* Spacing between the grid items */
+    grid-template-columns: repeat(2, 1fr);
+    /* Two columns of equal width */
+    grid-template-rows: repeat(2, auto);
+    /* Two rows that adapt to content height */
+    gap: 1rem;
+    /* Spacing between the grid items */
     max-width: 900px;
-    margin: 0 auto; /* Center the grid within the container */
+
+    margin: 100px auto;
+    /* Center the grid within the container */
     justify-content: center;
     align-items: center;
 }
 
 .images img {
-    width: 100%; /* Ensures the image fills its container width */
-    height: 100%; /* Ensures the image fills its container height */
-    object-fit: cover; /* Preserves aspect ratio while filling the container */
+    width: 100%;
+    /* Ensures the image fills its container width */
+    height: 100%;
+    /* Ensures the image fills its container height */
+    object-fit: cover;
+    /* Preserves aspect ratio while filling the container */
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -143,7 +155,8 @@ header nav button:hover {
 .images div {
     height: 300px;
     width: 450px;
-    overflow: hidden; /* Ensures images do not exceed their container */
+    overflow: hidden;
+    /* Ensures images do not exceed their container */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -158,7 +171,7 @@ header nav button:hover {
     margin-left: auto;
     margin-right: auto;
     text-align: justify;
-    line-height: 20px;
+    line-height: 30px;
     max-width: 900px;
 }
 
@@ -172,9 +185,10 @@ header nav button:hover {
 .description p {
     font-size: 1rem;
     color: var(--black-font-color);
-    line-height: 1.5;
+    line-height: 30px;
     margin-bottom: 80px;
 }
+
 /* #endregion Community Section */
 
 /* #region FAQ Section */
@@ -244,6 +258,7 @@ header nav button:hover {
     max-height: 200px;
     transition: all 0.3s ease;
 }
+
 /* #endregion FAQ Section */
 
 /* #region Footer */
@@ -259,13 +274,13 @@ header nav button:hover {
     text-align: center;
 }
 
-.introsection > :nth-child(1) {
+.introsection> :nth-child(1) {
     grid-column: 1;
     grid-row: 1;
 }
 
-.introsection > :nth-child(2),
-.introsection > :nth-child(3) {
+.introsection> :nth-child(2),
+.introsection> :nth-child(3) {
     grid-column: 2;
 }
 
@@ -274,6 +289,7 @@ header nav button:hover {
     position: relative;
     z-index: inherit;
 }
+
 
 footer {
     display: flex;
@@ -290,10 +306,12 @@ footer nav {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     background-color: var(--primary-color);
-    padding: 14px 50px;
+    padding: 14px 50px 14px 50px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     gap: 50px;
+
 }
+
 
 footer nav ul {
     display: flex;
@@ -319,11 +337,15 @@ footer nav ul li a:hover {
     color: var(--primary-color);
 }
 
-footer > :nth-child(1) {
+
+footer> :nth-child(1) {
     background: var(--background-color);
     height: auto;
     padding-top: 50px;
     padding-bottom: 50px;
+
+    /* border-top-left-radius: 20px;
+    border-top-right-radius: 20px; */
 }
 
 footer nav h3 {
@@ -336,14 +358,17 @@ footer nav p {
     color: var(--footer-font-color);
 }
 
-footer nav div > :nth-child(1) {
+footer nav div> :nth-child(1) {
     display: flex;
     flex-direction: column;
+
+
 }
 
-footer nav > :nth-child(1) {
+footer nav> :nth-child(1) {
     display: flex;
     justify-content: start;
+
 }
 
 footer nav div div h2 {
@@ -357,7 +382,7 @@ footer nav div div img {
     width: 150px;
 }
 
-footer > :nth-child(2) {
+footer> :nth-child(2) {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -367,15 +392,33 @@ footer > :nth-child(2) {
     text-align: center;
     gap: 5px;
     font-size: 1rem;
+
+    /* border-top-left-radius: 20px;
+    border-top-right-radius: 20px; */
 }
 
-footer nav > :nth-child(2) {
+footer nav> :nth-child(2) {
     opacity: 0.9;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 }
 
-footer > :nth-child(2) h4 {
+footer> :nth-child(2) h4 {
     font-size: 0.9rem;
-    font-weight
+    font-weight: normal;
+    opacity: 0.7;
+
+}
+
+footer nav> :nth-child(2) div a {
+    padding-top: 20px;
+    text-decoration: none;
+    color: var(--primary-color);
+    transition: all 0.2s ease-in-out;
+    padding-bottom: 20px;
+}
+
+footer nav> :nth-child(2) div a:hover {
+    color: var(--primary-color);
+}
