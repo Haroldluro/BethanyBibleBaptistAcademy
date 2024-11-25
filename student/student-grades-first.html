@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" href="css/student-enroll.css">
+    <link rel="stylesheet" href="css/student-grades.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,7 +26,7 @@
                 </path>
             </svg>
         </a>
-        <h2>Home</h2>
+        <h2>Grades of Viewing</h2>
         <a href="">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="25" height="25">
                 <path
@@ -35,25 +35,51 @@
             </svg>
         </a>
     </div>
-    <section>
-        <div class="card-container">
-            <div class="card-header">
-                <div class="profile-info">
-                    <img src="../assets/logo/BethanyLogo.png" alt="Admin Logo" class="profile-image">
-                    <h3>Mr. Admin</h3>
-                </div>
-                <h3 class="timestamp">08/19/24 8PM</h3>
-            </div>
-            <h4 class="card-title">No Class Advisory</h4>
-            <p class="card-content">
-                Please be advised that there would be no classes today August 19, 2024 due to inclement weather.
-            </p>
+
+    <div class="grades-card">
+        <div class="general-average">
+            <p>General Average</p>
+            <h1>96.5</h1>
         </div>
-    </section>
+        <div class="quarter-scores">
+            <a href = "student-grades-first.html" class="quarter highlight"><h2>90</h2> <span>1st</span></a>
+            <a href = "student-grades-second.html" class="quarter"><h2>94</h2> <span>2nd</span></a>
+            <a href = "student-grades-third.html" class="quarter"><h2>97</h2><span>3rd</span></a>
+            <a href = "student-grades-fourth.html" class="quarter"><h2>93</h2><span>4th</span></a>
+        </div>
+    </div>
+
+    <div class="subject-grades">
+        <div class="subject-row">
+            <span>Math</span>
+            <p>95</p>
+        </div>
+        <div class="subject-row">
+            <span>English</span>
+            <p>92</p>
+        </div>
+        <div class="subject-row">
+            <span>Science</span>
+            <p>90</p>
+        </div>
+        <div class="subject-row">
+            <span>MAPEH</span>
+            <p>85</p>
+        </div>
+        <div class="subject-row">
+            <span>Filipino</span>
+            <p>83</p>
+        </div>
+        <div class="subject-row">
+            <span>TLE</span>
+            <p>87</p>
+        </div>
+    </div>
+    
 
     <div class="bottom-nav-background">
         <nav class="bottom-nav">
-            <a href="#" class="nav-item selected">
+            <a href="student-enroll.html" class="nav-item">
                 <div class="icon">
                     <!-- Enrollment SVG -->
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -91,7 +117,7 @@
                 </div>
                 <span>Home</span>
             </a>
-            <a href="student-grades-first.html" class="nav-item">
+            <a href="#" class="nav-item selected">
                 <div class="icon">
                     <!-- Grades SVG -->
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"

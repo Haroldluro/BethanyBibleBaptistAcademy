@@ -111,67 +111,58 @@ body {
     justify-content: center;
 }
 
-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 20px 0;
-
-}
-
-/* Card Styles */
-.card-container {
-    background-color: #fff;
+.grades-card {
+    text-align: center;
+    background-color: #265DCC;
+    color: #fff;
+    padding: 20px;
+    margin: 20px;
     border-radius: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-    padding: 16px;
+}
+
+.general-average {
+    font-size: 1.5rem;
+}
+
+.quarter-scores {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 20px;
+}
+
+.quarter-scores a {
+    text-decoration: none;
+}
+
+.quarter {
+    color: var(--white-font-color);
+    padding: 10px;
+    font-weight: bold;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    align-self: center;
 }
 
-/* Header Styles */
-.card-header {
+.highlight{
+    color: var(--primary-color);
+    background-color: var(--white-font-color);
+    border-radius: 20px;
+    padding: 10px 20px;
+}
+
+.subject-grades {
+    margin: 20px;
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.subject-row {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #e0e0e0;
-    padding-bottom: 8px;
-}
-
-.profile-info {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.profile-image {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: #ccc;
-    /* Placeholder background */
-}
-
-.timestamp {
-    font-size: 0.8rem;
-    color: #888;
-}
-
-/* Title and Content Styles */
-.card-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin: 0;
-    color: #333;
-}
-
-.card-content {
-    font-size: 0.95rem;
-    line-height: 1.5;
-    color: #555;
-    margin: 0;
-    text-align: justify;
+    margin: 10px 0;
+    border-bottom: 1px solid #E5EEFF;
+    padding-bottom: 20px;
 }
