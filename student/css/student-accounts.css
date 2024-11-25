@@ -111,67 +111,67 @@ body {
     justify-content: center;
 }
 
-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 20px 0;
-
-}
-
-/* Card Styles */
-.card-container {
-    background-color: #fff;
+.accountability-card {
+    background-color: #265dcc;
+    color: white;
+    text-align: center;
     border-radius: 20px;
+    margin: 20px;
+    padding: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    display: grid; 
+    grid-template-columns: 2fr 1fr;
 }
 
-/* Header Styles */
-.card-header {
+.progress-circle {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 10px;
+    border: 6px solid white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.view-button {
+    background-color: white;
+    color: #265dcc;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.view-button:hover {
+    background-color: #fff8dc;
+}
+
+.account-details {
+    margin: 20px;
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.detail-row {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #e0e0e0;
-    padding-bottom: 8px;
+    font-size: 1em;
+    margin-bottom: 10px;
+    color: var(--black-font-color);
+    padding: 20px 0;
+    border-bottom: 1px solid var(--primary-color);
 }
 
-.profile-info {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
 
-.profile-image {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: #ccc;
-    /* Placeholder background */
-}
-
-.timestamp {
-    font-size: 0.8rem;
-    color: #888;
-}
-
-/* Title and Content Styles */
-.card-title {
-    font-size: 1.2rem;
+.balance {
+    color: var(--highlight-color);
     font-weight: bold;
-    margin: 0;
-    color: #333;
-}
-
-.card-content {
-    font-size: 0.95rem;
-    line-height: 1.5;
-    color: #555;
-    margin: 0;
-    text-align: justify;
+    font-size: 1.2em;
 }
