@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getFirestore, collection, doc, setDoc, addDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import { getFirestore, doc, setDoc, serverTimestamp} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDQrgbw4TlLtLbex-BiEk58nA4l_zoDAmo",
@@ -14,11 +14,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-
-
-
-const submitbtn = document.getElementById('submitBtn');
-
 // Enrollment Form Elements
 const LRNInp = document.getElementById('LRNInp');
 const lNameInp = document.getElementById('lNameInp');
@@ -31,7 +26,6 @@ const mobNumInp = document.getElementById('mobNumInp');
 const emailInp = document.getElementById('emailInp');
 const houseNumInp = document.getElementById('houseNumInp');
 const cityInp = document.getElementById('cityInp');
-// Missing id corrected for province input:
 const provinceInp = document.getElementById('provinceInp');
 
 const fathNameInp = document.getElementById('fathNameInp');
@@ -46,7 +40,6 @@ const mothEmailInp = document.getElementById('mothEmailInp');
 
 const guarNameInp = document.getElementById('guarNameInp');
 const guarRelatsionshipInp = document.getElementById('guarRelatsionshipInp');
-// Corrected id for guardian's mobile and email inputs:
 const guarMobNumInp = document.getElementById('guarMobNumInp');
 const guarEmailInp = document.getElementById('guarEmailInp');
 
@@ -57,10 +50,86 @@ const grade = document.getElementById('grade');
 const clearBtn = document.getElementById('clearBtn');
 const submitBtn = document.getElementById('submitBtn');
 
-const enrollmentCollection = collection(db, "enrollmentDetails");
+submitBtn.addEventListener("click", async (event) => { // Prevent form submission
+    event.preventDefault();
 
-submitBtn.addEventListener("click", async (event) => {
-    event.preventDefault(); // Prevent form submission
+    const fields = [
+        { field: LRNInp, name: "LRN", validator: (value) => value.trim() !== "" },
+        { field: lNameInp, name: "Last Name", validator: (value) => value.trim() !== "" },
+        { field: fNameInp, name: "First Name", validator: (value) => value.trim() !== "" },
+        { field: mNameInp, name: "Middle Name", validator: (value) => value.trim() !== "" },
+        { field: sexInp, name: "Sex", validator: (value) => value.trim() !== "" },
+        { field: birthDateInp, name: "Birth Date", validator: (value) => value.trim() !== "" },
+        { field: religionInp, name: "Religion", validator: (value) => value.trim() !== "" },
+        {
+            field: mobNumInp,
+            name: "Mobile Number",
+            validator: (value) => /^\d{11}$/.test(value), // Must be exactly 11 digits
+        },
+        {
+            field: emailInp,
+            name: "Email",
+            validator: (value) =>
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), // Simple email format check
+        },
+        { field: houseNumInp, name: "House Number", validator: (value) => value.trim() !== "" },
+        { field: cityInp, name: "City", validator: (value) => value.trim() !== "" },
+        { field: provinceInp, name: "Province", validator: (value) => value.trim() !== "" },
+        { field: fathNameInp, name: "Father's Name", validator: (value) => value.trim() !== "" },
+        { field: fathOccInp, name: "Father's Occupation", validator: (value) => value.trim() !== "" },
+        {
+            field: fathMobNumInp,
+            name: "Father's Mobile Number",
+            validator: (value) => /^\d{11}$/.test(value), // Must be exactly 11 digits
+        },
+        {
+            field: fathEmailInp,
+            name: "Father's Email",
+            validator: (value) =>
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), // Simple email format check
+        },
+        { field: mothNameInp, name: "Mother's Name", validator: (value) => value.trim() !== "" },
+        { field: mothOccInp, name: "Mother's Occupation", validator: (value) => value.trim() !== "" },
+        {
+            field: mothMobNumInp,
+            name: "Mother's Mobile Number",
+            validator: (value) => /^\d{11}$/.test(value), // Must be exactly 11 digits
+        },
+        {
+            field: mothEmailInp,
+            name: "Mother's Email",
+            validator: (value) =>
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), // Simple email format check
+        },
+        { field: guarNameInp, name: "Guardian's Name", validator: (value) => value.trim() !== "" },
+        {
+            field: guarRelatsionshipInp,
+            name: "Guardian's Relationship",
+            validator: (value) => value.trim() !== "",
+        },
+        {
+            field: guarMobNumInp,
+            name: "Guardian's Mobile Number",
+            validator: (value) => /^\d{11}$/.test(value), // Must be exactly 11 digits
+        },
+        {
+            field: guarEmailInp,
+            name: "Guardian's Email",
+            validator: (value) =>
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), // Simple email format check
+        },
+        { field: lastSchoolInp, name: "Last School", validator: (value) => value.trim() !== "" },
+        { field: grade, name: "Grade Level", validator: (value) => value.trim() !== "" },
+];
+
+for (const { field, name, validator } of fields) {
+    if (!validator(field.value)) {
+        alert(`Invalid or missing input in the ${name} field.`);
+        field.focus();
+        return; // Stop execution if a field fails validation
+    }
+}
+
 
     try {
       // Collect data from form fields
@@ -99,10 +168,14 @@ submitBtn.addEventListener("click", async (event) => {
         },
         lastSchool: lastSchoolInp.value,
         gradeLevel: grade.value,
+        status: "Pending",
+        enrollmentDate: serverTimestamp(),
     };
 
       // Add data to Firestore
-    const docRef = await addDoc(enrollmentCollection, enrollmentData);
+
+    const docRef = doc(db, "enrollmentsDetails", LRNInp.value);
+    await setDoc(docRef, enrollmentData);
     console.log("Document written with ID: ", docRef.id);
     alert("Enrollment data saved successfully!");
     } catch (e) {
@@ -138,4 +211,4 @@ clearBtn.addEventListener("click", () => {
     guarEmailInp.value = "";
     lastSchoolInp.value = "";
     grade.value = "";
-  });
+});

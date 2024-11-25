@@ -18,34 +18,33 @@ const auth = getAuth(app);
 onAuthStateChanged(auth, (user) => {
   if (user) {
     console.log(user);
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/auth.user
+    
     const uid = user.uid;
-    // ...
   } else {
-    // User is signed out
-    // ...
+    
   }
 });
 
 const db = getFirestore(app);
-const querySnapshot = await getDocs(collection(db, "enrollmentRequest"));
-const EnrollmentRef = collection(db, "enrollmentRequest");
-const snapshot = await getCountFromServer(EnrollmentRef);
+const collectionRef = collection(db, "enrollmentsDetails");
+const querySnapshot = await getDocs(collectionRef);
 
-querySnapshot.forEach((doc) => {
-  const tableER = document.getElementById("tableER");
-  const tableERTemplate = document.getElementById("templateER");
-  const cloneNode = tableERTemplate.cloneNode(true);
+async function getEnrollmentDetails() {
+  try {
+    querySnapshot.forEach((doc) => {
+      const tableER = document.getElementById("tableER");
+      const tableERTemplate = document.getElementById("templateER");
+      const cloneNode = tableERTemplate.cloneNode(true);
 
-  console.log();
+      cloneNode.querySelector("#ERID").innerHTML = doc.data()["LRN"];
+      cloneNode.querySelector("#ERLastName").innerHTML = doc.data()["lastName"];
+      cloneNode.querySelector("#ERFirstName").innerHTML = doc.data()["firstName"];
+      cloneNode.querySelector("#ERGrade").innerHTML = "Grade " + doc.data()["gradeLevel"]
+      cloneNode.classList.remove("hidden");
+      tableER.appendChild(cloneNode);
+    });
+  } catch (e) {
+    console.error("Error adding document: ", e);
+}};
 
-
-  
-  cloneNode.querySelector("#ERID").innerHTML = doc.data()["EnrollmentID"];
-  cloneNode.querySelector("#ERLastName").innerHTML = doc.data()["LastName"];
-  cloneNode.querySelector("#ERFirstName").innerHTML = doc.data()["FirstName"];
-  cloneNode.querySelector("#ERGrade").innerHTML = "Grade " + doc.data()["GradeLevel"]
-  cloneNode.classList.remove("hidden");
-  tableER.appendChild(cloneNode);
-});
+getEnrollmentDetails();

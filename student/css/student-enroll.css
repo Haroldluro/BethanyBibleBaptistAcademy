@@ -1,0 +1,177 @@
+/* Base Styles */
+
+:root {
+    --highlight-color: #FFDE59;
+    --lighthighlight-color: #fff8dc;
+
+    --black-font-color: #1B1B1B;
+    --white-font-color: #ffffff;
+    --footer-font-color: rgb(41, 41, 41);
+
+    --primary-color: #265DCC;
+    --background-color: #9BBCFF;
+    --secondary-bg-color: #E5EEFF;
+    --gray-border-color: #7B7B7B;
+
+}
+
+.inter-regular {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: "100";
+    font-style: normal;
+    font-variation-settings:
+        "slnt" 0;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "inter";
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    max-height: 100vh;
+    background-image: url("/assets/mobile/background.png");
+
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    background-position: center;
+}
+
+.header {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    padding: 20px;
+    text-align: center;
+}
+
+.header svg {
+    color: var(--primary-color);
+}
+
+.bottom-nav-background {
+
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background-image: url("/assets/mobile/background.png");
+    background-size: cover;
+    background-position: center;
+
+    z-index: 9;
+    overflow: hidden;
+    position: fixed;
+    box-shadow: 0px -6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.bottom-nav {
+    margin: 20px 20px;
+    bottom: 0;
+    width: 90%;
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 10px 0;
+    z-index: 10;
+    overflow: hidden;
+    position: fixed;
+}
+
+
+
+.nav-item {
+
+    text-align: center;
+    color: #333;
+    text-decoration: none;
+    font-size: 0.7em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.3s ease;
+}
+
+.selected {
+    color: var(--primary-color);
+}
+
+.nav-item .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 20px 0;
+
+}
+
+/* Card Styles */
+.card-container {
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Header Styles */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 8px;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.profile-image {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #ccc;
+    /* Placeholder background */
+}
+
+.timestamp {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+/* Title and Content Styles */
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0;
+    color: #333;
+}
+
+.card-content {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #555;
+    margin: 0;
+    text-align: justify;
+}
