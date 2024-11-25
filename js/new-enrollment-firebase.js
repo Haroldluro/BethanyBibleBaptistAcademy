@@ -54,7 +54,7 @@ submitBtn.addEventListener("click", async (event) => { // Prevent form submissio
     event.preventDefault();
 
     const fields = [
-        { field: LRNInp, name: "LRN", validator: (value) => value.trim() !== "" },
+        { field: LRNInp, name: "LRN", validator: (value) => /^\d{12}$/.test(value.trim()) },
         { field: lNameInp, name: "Last Name", validator: (value) => value.trim() !== "" },
         { field: fNameInp, name: "First Name", validator: (value) => value.trim() !== "" },
         { field: mNameInp, name: "Middle Name", validator: (value) => value.trim() !== "" },
@@ -130,7 +130,6 @@ for (const { field, name, validator } of fields) {
     }
 }
 
-
     try {
       // Collect data from form fields
     const enrollmentData = {
@@ -180,7 +179,7 @@ for (const { field, name, validator } of fields) {
     alert("Enrollment data saved successfully!");
     } catch (e) {
     console.error("Error adding document: ", e);
-    lert("Failed to save enrollment data.");
+    alert("Failed to save enrollment data.");
     }
 });
 
