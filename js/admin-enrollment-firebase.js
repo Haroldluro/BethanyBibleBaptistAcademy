@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getFirestore, getDocs, collection, getCountFromServer } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+import { getFirestore, updateDoc, doc, setDoc, getDoc, getDocs, collection, serverTimestamp} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyDQrgbw4TlLtLbex-BiEk58nA4l_zoDAmo",
@@ -48,12 +48,6 @@ const db = getFirestore(app);
 const collectionRef = collection(db, "enrollmentsDetails");
 const querySnapshot = await getDocs(collectionRef);
 
-const accptBtn = document.getElementById("acceptbtn");
-const rejBtn = document.getElementById("rejectbtn");
-const viewBtn = document.querySelectorAll("#ERView")
-const deleteBtn = document.querySelectorAll("#ERDelete");
-
-
 async function displayTableDetails() {
   try {
     querySnapshot.forEach((doc) => {
@@ -65,7 +59,7 @@ async function displayTableDetails() {
       cloneNode.querySelector("#ERLastName").innerHTML = doc.data()["lastName"];
       cloneNode.querySelector("#ERFirstName").innerHTML = doc.data()["firstName"];
       cloneNode.querySelector("#ERGrade").innerHTML = doc.data()["gradeLevel"];
-      cloneNode.querySelector("#ERView").id = doc.data()["LRN"];
+      cloneNode.querySelector("#ERView").setAttribute("data-id", doc.data()["LRN"]);
       cloneNode.classList.remove("hidden");
       tableER.appendChild(cloneNode);
     });
@@ -73,16 +67,21 @@ async function displayTableDetails() {
     console.error("Error adding document: ", e);
 }};
 
+displayTableDetails();
+
+const accptBtn = document.getElementById("acceptbtn");
+const modalDeleteBtn = document.getElementById("modalDeleteBtn");
+const delbtn = document.querySelectorAll("#ERDelete");
+const rejBtn = document.getElementById("rejectbtn");
+const viewBtn = document.querySelectorAll("#ERView");
+
 viewBtn.forEach((btn) => {
   btn.addEventListener("click", async (event) => {
     try {
+      
       // Get the corresponding ERID from the clicked button's row
-      const parentRow = event.target.closest("td"); // Assuming the button is inside a table row
+      const parentRow = event.target.closest("tr"); // Assuming the button is inside a table row
       const reqIdElement = parentRow.querySelector("#ERID");
-
-      if (!reqIdElement) {
-        throw new Error("Element with ID 'ERID' not found in this row.");
-      }
 
       const reqId = reqIdElement.textContent.trim();
       console.log("Request ID:", reqId);
@@ -90,7 +89,7 @@ viewBtn.forEach((btn) => {
       // Fetch document from Firestore
       const docRef = doc(db, "enrollmentsDetails", reqId);
       const docSnap = await getDoc(docRef);
-
+      
       if (docSnap.exists()) {
         const data = docSnap.data();
         console.log("Document Data:", data);
@@ -105,23 +104,23 @@ viewBtn.forEach((btn) => {
         religionInp.value = data.religion || "";
         mobNumInp.value = data.mobileNumber || "";
         emailInp.value = data.email || "";
-        houseNumInp.value = data.houseNumber || "";
-        cityInp.value = data.city || "";
-        provinceInp.value = data.province || "";
-        fathNameInp.value = data.fatherName || "";
-        fathOccInp.value = data.fatherOccupation || "";
-        fathMobNumInp.value = data.fatherMobileNumber || "";
-        fathEmailInp.value = data.fatherEmail || "";
-        mothNameInp.value = data.motherName || "";
-        mothOccInp.value = data.motherOccupation || "";
-        mothMobNumInp.value = data.motherMobileNumber || "";
-        mothEmailInp.value = data.motherEmail || "";
-        guarNameInp.value = data.guardianName || "";
-        guarRelatsionshipInp.value = data.guardianRelationship || "";
-        guarMobNumInp.value = data.guardianMobileNumber || "";
-        guarEmailInp.value = data.guardianEmail || "";
+        houseNumInp.value = data.address.houseNumber || "";
+        cityInp.value = data.address.city || "";
+        provinceInp.value = data.address.province || "";
+        fathNameInp.value = data.father.name || "";
+        fathOccInp.value = data.father.occupation || "";
+        fathMobNumInp.value = data.father.mobileNumber || "";
+        fathEmailInp.value = data.father.email || "";
+        mothNameInp.value = data.mother.name || "";
+        mothOccInp.value = data.mother.occupation || "";
+        mothMobNumInp.value = data.mother.mobileNumber || "";
+        mothEmailInp.value = data.mother.email || "";
+        guarNameInp.value = data.guardian.name || "";
+        guarRelatsionshipInp.value = data.guardian.relationship || "";
+        guarMobNumInp.value = data.guardian.mobileNumber || "";
+        guarEmailInp.value = data.guardian.email || "";
         lastSchoolInp.value = data.lastSchool || "";
-        grade.value = data.grade || "";
+        grade.value = data.gradeLevel || "";
       } else {
         console.log("No such document!");
       }
@@ -131,7 +130,46 @@ viewBtn.forEach((btn) => {
   });
 });
 
+delbtn.forEach((btn) => {
+  btn.addEventListener("click", async (event) => {
+    try {
+    
+      const parentRow = event.target.closest("tr"); 
+      const reqIdElement = parentRow.querySelector("#ERID");
+  
+      const reqId = reqIdElement.textContent.trim();
+      console.log("Request ID:", reqId);
+  
+      // Fetch document from Firestore
+      const docRef = doc(db, "enrollmentsDetails", reqId);
+      console.log(docRef)
+      modalDeleteBtn.addEventListener("click", async (event) => {
+        updateDoc(docRef,{
+        status: "Archived"
+        })
+      });
+    } catch (e) {
+      console.error("Error fetching document:", e);
+    }
+  })
+})
 
+rejBtn.addEventListener("click", async(event) => {
+  try {
+    
+    const lrnValue = LRNInp.value;
+
+    // Fetch document from Firestore
+    const docRef = doc(db, "enrollmentsDetails", lrnValue);
+    
+    console.log(docRef)
+    updateDoc(docRef,{
+      status: "Rejected"
+    })
+  } catch (e) {
+    console.error("Error fetching document:", e);
+  }
+})
 
 accptBtn.addEventListener("click", async(event) => {
   event.preventDefault();
@@ -267,4 +305,3 @@ accptBtn.addEventListener("click", async(event) => {
 
 });
 
-displayTableDetails();
