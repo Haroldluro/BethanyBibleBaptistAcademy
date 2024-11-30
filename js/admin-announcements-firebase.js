@@ -40,12 +40,10 @@ querySnapshot.forEach((doc) => {
 
   console.log();
 
-
-
-  const time = doc.data()["CreatedOn"].toDate();
+  const time = doc.data()["createdOn"].toDate();
   const formattedTime = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(time);
   cloneNode.querySelector("#ANCreatedOn").innerHTML = formattedTime;
-  cloneNode.querySelector("#ANTitle").innerHTML = doc.data()["Title"];
+  cloneNode.querySelector("#ANTitle").innerHTML = doc.data()["title"];
   cloneNode.classList.remove("hidden");
   tableAN.appendChild(cloneNode);
 });

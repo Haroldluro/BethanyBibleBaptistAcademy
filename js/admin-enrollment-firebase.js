@@ -79,11 +79,7 @@ viewBtn.forEach((btn) => {
   btn.addEventListener("click", async (event) => {
     try {
       
-      // Get the corresponding ERID from the clicked button's row
-      const parentRow = event.target.closest("tr"); // Assuming the button is inside a table row
-      const reqIdElement = parentRow.querySelector("#ERID");
-
-      const reqId = reqIdElement.textContent.trim();
+      const reqId = btn.getAttribute("data-id");
       console.log("Request ID:", reqId);
 
       // Fetch document from Firestore
