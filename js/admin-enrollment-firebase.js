@@ -1,5 +1,17 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getFirestore, updateDoc, doc, setDoc, getDoc, getDocs, collection, serverTimestamp} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import {
+  getFirestore,
+  updateDoc,
+  doc,
+  setDoc,
+  getDoc,
+  getDocs,
+  collection,
+  serverTimestamp,
+  query,
+  where
+} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import { deleteDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
 
 const firebaseConfig = {
@@ -46,7 +58,7 @@ const grade = document.getElementById('grade');
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const collectionRef = collection(db, "enrollmentsDetails");
-const querySnapshot = await getDocs(collectionRef);
+const querySnapshot = await getDocs(query(collectionRef, where("status", "==", "Pending")));
 
 async function displayTableDetails() {
   try {
@@ -65,7 +77,8 @@ async function displayTableDetails() {
     });
   } catch (e) {
     console.error("Error adding document: ", e);
-}};
+  }
+};
 
 displayTableDetails();
 
@@ -78,14 +91,14 @@ const viewBtn = document.querySelectorAll("#ERView");
 viewBtn.forEach((btn) => {
   btn.addEventListener("click", async (event) => {
     try {
-      
+
       const reqId = btn.getAttribute("data-id");
       console.log("Request ID:", reqId);
 
       // Fetch document from Firestore
       const docRef = doc(db, "enrollmentsDetails", reqId);
       const docSnap = await getDoc(docRef);
-      
+
       if (docSnap.exists()) {
         const data = docSnap.data();
         console.log("Document Data:", data);
@@ -129,19 +142,19 @@ viewBtn.forEach((btn) => {
 delbtn.forEach((btn) => {
   btn.addEventListener("click", async (event) => {
     try {
-    
-      const parentRow = event.target.closest("tr"); 
+
+      const parentRow = event.target.closest("tr");
       const reqIdElement = parentRow.querySelector("#ERID");
-  
+
       const reqId = reqIdElement.textContent.trim();
       console.log("Request ID:", reqId);
-  
+
       // Fetch document from Firestore
       const docRef = doc(db, "enrollmentsDetails", reqId);
       console.log(docRef)
       modalDeleteBtn.addEventListener("click", async (event) => {
-        updateDoc(docRef,{
-        status: "Archived"
+        updateDoc(docRef, {
+          status: "Rejected"
         })
       });
     } catch (e) {
@@ -150,16 +163,16 @@ delbtn.forEach((btn) => {
   })
 })
 
-rejBtn.addEventListener("click", async(event) => {
+rejBtn.addEventListener("click", async (event) => {
   try {
-    
+
     const lrnValue = LRNInp.value;
 
     // Fetch document from Firestore
     const docRef = doc(db, "enrollmentsDetails", lrnValue);
-    
+
     console.log(docRef)
-    updateDoc(docRef,{
+    updateDoc(docRef, {
       status: "Rejected"
     })
   } catch (e) {
@@ -167,89 +180,89 @@ rejBtn.addEventListener("click", async(event) => {
   }
 })
 
-accptBtn.addEventListener("click", async(event) => {
+accptBtn.addEventListener("click", async (event) => {
   event.preventDefault();
 
   const fields = [
-      { field: LRNInp, name: "LRN", validator: (value) => /^\d{12}$/.test(value.trim()) },
-      { field: lNameInp, name: "Last Name", validator: (value) => value.trim() !== "" },
-      { field: fNameInp, name: "First Name", validator: (value) => value.trim() !== "" },
-      { field: mNameInp, name: "Middle Name", validator: (value) => value.trim() !== "" },
-      { field: sexInp, name: "Sex", validator: (value) => value.trim() !== "" },
-      { field: birthDateInp, name: "Birth Date", validator: (value) => value.trim() !== "" },
-      { field: religionInp, name: "Religion", validator: (value) => value.trim() !== "" },
-      {
-          field: mobNumInp,
-          name: "Mobile Number",
-          validator: (value) => /^\d{11}$/.test(value), // Must be exactly 11 digits
-      },
-      {
-          field: emailInp,
-          name: "Email",
-          validator: (value) =>
-              /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), // Simple email format check
-      },
-      { field: houseNumInp, name: "House Number", validator: (value) => value.trim() !== "" },
-      { field: cityInp, name: "City", validator: (value) => value.trim() !== "" },
-      { field: provinceInp, name: "Province", validator: (value) => value.trim() !== "" },
-      { field: fathNameInp, name: "Father's Name", validator: (value) => value.trim() !== "" },
-      { field: fathOccInp, name: "Father's Occupation", validator: (value) => value.trim() !== "" },
-      {
-          field: fathMobNumInp,
-          name: "Father's Mobile Number",
-          validator: (value) => /^\d{11}$/.test(value), // Must be exactly 11 digits
-      },
-      {
-          field: fathEmailInp,
-          name: "Father's Email",
-          validator: (value) =>
-              /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), // Simple email format check
-      },
-      { field: mothNameInp, name: "Mother's Name", validator: (value) => value.trim() !== "" },
-      { field: mothOccInp, name: "Mother's Occupation", validator: (value) => value.trim() !== "" },
-      {
-          field: mothMobNumInp,
-          name: "Mother's Mobile Number",
-          validator: (value) => /^\d{11}$/.test(value), // Must be exactly 11 digits
-      },
-      {
-          field: mothEmailInp,
-          name: "Mother's Email",
-          validator: (value) =>
-              /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), // Simple email format check
-      },
-      { field: guarNameInp, name: "Guardian's Name", validator: (value) => value.trim() !== "" },
-      {
-          field: guarRelatsionshipInp,
-          name: "Guardian's Relationship",
-          validator: (value) => value.trim() !== "",
-      },
-      {
-          field: guarMobNumInp,
-          name: "Guardian's Mobile Number",
-          validator: (value) => /^\d{11}$/.test(value), // Must be exactly 11 digits
-      },
-      {
-          field: guarEmailInp,
-          name: "Guardian's Email",
-          validator: (value) =>
-              /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), // Simple email format check
-      },
-      { field: lastSchoolInp, name: "Last School", validator: (value) => value.trim() !== "" },
-      { field: grade, name: "Grade Level", validator: (value) => value.trim() !== "" },
-];
+    { field: LRNInp, name: "LRN", validator: (value) => /^\d{12}$/.test(value.trim()) },
+    { field: lNameInp, name: "Last Name", validator: (value) => value.trim() !== "" },
+    { field: fNameInp, name: "First Name", validator: (value) => value.trim() !== "" },
+    { field: mNameInp, name: "Middle Name", validator: (value) => value.trim() !== "" },
+    { field: sexInp, name: "Sex", validator: (value) => value.trim() !== "" },
+    { field: birthDateInp, name: "Birth Date", validator: (value) => value.trim() !== "" },
+    { field: religionInp, name: "Religion", validator: (value) => value.trim() !== "" },
+    {
+      field: mobNumInp,
+      name: "Mobile Number",
+      validator: (value) => /^\d{11}$/.test(value), // Must be exactly 11 digits
+    },
+    {
+      field: emailInp,
+      name: "Email",
+      validator: (value) =>
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), // Simple email format check
+    },
+    { field: houseNumInp, name: "House Number", validator: (value) => value.trim() !== "" },
+    { field: cityInp, name: "City", validator: (value) => value.trim() !== "" },
+    { field: provinceInp, name: "Province", validator: (value) => value.trim() !== "" },
+    { field: fathNameInp, name: "Father's Name", validator: (value) => value.trim() !== "" },
+    { field: fathOccInp, name: "Father's Occupation", validator: (value) => value.trim() !== "" },
+    {
+      field: fathMobNumInp,
+      name: "Father's Mobile Number",
+      validator: (value) => /^\d{11}$/.test(value), // Must be exactly 11 digits
+    },
+    {
+      field: fathEmailInp,
+      name: "Father's Email",
+      validator: (value) =>
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), // Simple email format check
+    },
+    { field: mothNameInp, name: "Mother's Name", validator: (value) => value.trim() !== "" },
+    { field: mothOccInp, name: "Mother's Occupation", validator: (value) => value.trim() !== "" },
+    {
+      field: mothMobNumInp,
+      name: "Mother's Mobile Number",
+      validator: (value) => /^\d{11}$/.test(value), // Must be exactly 11 digits
+    },
+    {
+      field: mothEmailInp,
+      name: "Mother's Email",
+      validator: (value) =>
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), // Simple email format check
+    },
+    { field: guarNameInp, name: "Guardian's Name", validator: (value) => value.trim() !== "" },
+    {
+      field: guarRelatsionshipInp,
+      name: "Guardian's Relationship",
+      validator: (value) => value.trim() !== "",
+    },
+    {
+      field: guarMobNumInp,
+      name: "Guardian's Mobile Number",
+      validator: (value) => /^\d{11}$/.test(value), // Must be exactly 11 digits
+    },
+    {
+      field: guarEmailInp,
+      name: "Guardian's Email",
+      validator: (value) =>
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), // Simple email format check
+    },
+    { field: lastSchoolInp, name: "Last School", validator: (value) => value.trim() !== "" },
+    { field: grade, name: "Grade Level", validator: (value) => value.trim() !== "" },
+  ];
 
   for (const { field, name, validator } of fields) {
     if (!validator(field.value)) {
-        alert(`Invalid or missing input in the ${name} field.`);
-        field.focus();
-        return; // Stop execution if a field fails validation
+      alert(`Invalid or missing input in the ${name} field.`);
+      field.focus();
+      return; // Stop execution if a field fails validation
     }
   }
 
   try {
     // Collect data from form fields
-  const enrollmentData = {
+    const enrollmentData = {
       LRN: LRNInp.value,
       lastName: lNameInp.value,
       firstName: fNameInp.value,
@@ -260,44 +273,101 @@ accptBtn.addEventListener("click", async(event) => {
       mobileNumber: mobNumInp.value,
       email: emailInp.value,
       address: {
-      houseNumber: houseNumInp.value,
-      city: cityInp.value,
-      province: provinceInp.value,
+        houseNumber: houseNumInp.value,
+        city: cityInp.value,
+        province: provinceInp.value,
       },
       father: {
-      name: fathNameInp.value,
-      occupation: fathOccInp.value,
-      mobileNumber: fathMobNumInp.value,
-      email: fathEmailInp.value,
+        name: fathNameInp.value,
+        occupation: fathOccInp.value,
+        mobileNumber: fathMobNumInp.value,
+        email: fathEmailInp.value,
       },
       mother: {
-      name: mothNameInp.value,
-      occupation: mothOccInp.value,
-      mobileNumber: mothMobNumInp.value,
-      email: mothEmailInp.value,
+        name: mothNameInp.value,
+        occupation: mothOccInp.value,
+        mobileNumber: mothMobNumInp.value,
+        email: mothEmailInp.value,
       },
       guardian: {
-      name: guarNameInp.value,
-      relationship: guarRelatsionshipInp.value,
-      mobileNumber: guarMobNumInp.value,
-      email: guarEmailInp.value,
+        name: guarNameInp.value,
+        relationship: guarRelatsionshipInp.value,
+        mobileNumber: guarMobNumInp.value,
+        email: guarEmailInp.value,
       },
       lastSchool: lastSchoolInp.value,
       gradeLevel: grade.value,
       status: "Accepted",
       enrollmentDate: serverTimestamp(),
-  };
+    };
 
     // Add data to Firestore
 
-  const docRef = doc(db, "enrollmentsDetails", LRNInp.value);
-  await setDoc(docRef, enrollmentData);
-  console.log("Document written with ID: ", docRef.id);
-  alert("Enrollment data saved successfully!");
+    const docRef = doc(db, "enrollmentsDetails", LRNInp.value);
+    await setDoc(docRef, enrollmentData);
+    console.log("Document written with ID: ", docRef.id);
+    alert("Enrollment data saved successfully!");
   } catch (e) {
-  console.error("Error adding document: ", e);
-  alert("Failed to save enrollment data.");
+    console.error("Error adding document: ", e);
+    alert("Failed to save enrollment data.");
   }
 
 });
+
+//try lang to harold hehe
+
+
+
+// Event listener for modalDeleteBtn
+modalDeleteBtn.addEventListener("click", async (event) => {
+  try {
+    // Retrieve the ID of the row/document to be deleted
+    const parentRow = document.querySelector(".highlighted-row"); // Assuming you add a specific class when a row is selected
+    if (!parentRow) {
+      console.error("No row selected for deletion.");
+      return;
+    }
+    const reqIdElement = parentRow.querySelector("#ERID");
+
+    if (!reqIdElement) {
+      console.error("Request ID not found in the selected row.");
+      return;
+    }
+
+    const reqId = reqIdElement.textContent.trim();
+    console.log("Request ID to delete:", reqId);
+
+    // Reference to the Firestore document
+    const docRef = doc(db, "enrollmentsDetails", reqId);
+
+    // Archive the document
+    await updateDoc(docRef, {
+      status: "Rejected",
+    });
+
+    // Optionally remove the row from the table
+    parentRow.remove();
+    console.log(`Document with ID ${reqId} successfully archived.`);
+  } catch (e) {
+    console.error("Error archiving document:", e);
+  }
+});
+
+// Optional: Highlight the row when the delete button is clicked
+delbtn.forEach((btn) => {
+  btn.addEventListener("click", (event) => {
+    // Clear previous highlights
+    document.querySelectorAll(".highlighted-row").forEach((row) => {
+      row.classList.remove("highlighted-row");
+    });
+
+    // Highlight the current row
+    const parentRow = event.target.closest("tr");
+    if (parentRow) {
+      parentRow.classList.add("highlighted-row");
+      
+    }
+  });
+});
+
 
