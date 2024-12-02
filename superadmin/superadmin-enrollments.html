@@ -129,8 +129,8 @@
             <header>
                 <h1>Enrollment Requests</h1>
                 <div class="search-container">
-                    <input type="text" class="search-input" placeholder="Search Name">
-                    <button class="search-btn">
+                    <input id="searchinput" type="text" class="search-input" placeholder="Search Name">
+                    <button id="searchbtn" class="search-btn">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
                             <circle cx="11" cy="11" r="8"></circle>
@@ -159,11 +159,11 @@
                             <td id="ERFirstName">Harold</td>
                             <td id="ERGrade">Grade</td>
                             <td class="operations">
-                                <a class="status_border view" href="#enrollmentform">
+                                <a class="status_border view" id="ERView" href="#enrollmentform">
                                     <p>View</p>
                                 </a>
-                                <a href="#deleteModal" class="status_border delete">
-                                    <p>Delete</p>
+                                <a href="#deleteModal" id="ERDelete" class="status_border delete">
+                                    <p>Reject</p>
                                 </a>
                             </td>
                         </tr>
@@ -187,11 +187,11 @@
                 <a href="#" class="close-btn">&times;</a>
             </div>
             <div class="modal-body">
-                <p>Are you sure to <strong>delete</strong> this request?</p>
+                <p>Are you sure to <strong>reject</strong> this request?</p>
             </div>
             <div class="modal-footer">
                 <a href="#" class="cancel-btn">Cancel</a>
-                <a href="#" class="delete-btn">Delete</a>
+                <a id="modalDeleteBtn" href="#" class="delete-btn">Reject</a>
             </div>
         </div>
     </div>
@@ -199,7 +199,7 @@
 
         <form class="enrollment-form">
             <div class="form-header">
-                <h1>Elementary Enrollment</h1>
+                <h1>Enrollment Form</h1>
                 <a href="#" class="close-btn">&times;</a>
             </div>
             <!-- Left Column -->
@@ -207,45 +207,39 @@
                 <section>
                     <h2>Basic Information</h2>
                     <div class="form-row">
-                        <input id ="LRNInp" type="tel" 
-                        placeholder="Student's LRN" 
-                        pattern="[0-9]{12}" 
-                        required 
-                        title="Enter a 12-digit LRN">
+                        <input id="LRNInp" type="text" placeholder="Student's LRN" readonly>
                     </div>
                     <div class="form-row">
-                        <input id ="lNameInp" type="text" placeholder="Last Name">
-                        <input id ="fNameInp" type="text" placeholder="First Name">
-                        <input id ="mNameInp"type="text" placeholder="Middle Name">
+
+                        <input id="lNameInp" type="text" placeholder="Last Name">
+                        <input id="fNameInp" type="text" placeholder="First Name">
+                        <input id="mNameInp" type="text" placeholder="Middle Name">
                     </div>
                     <div class="form-row">
-                        <input id ="sexInp" type="text" placeholder="Sex">
-                        <input id ="birthDateInp" type="date" placeholder="Birthdate">
-                        <input id ="religionInp" type="text" placeholder="Religion">
+                        <input id="sexInp" type="text" placeholder="Sex">
+                        <input id="birthDateInp" type="date" placeholder="Birthdate">
+                        <input id="religionInp" type="text" placeholder="Religion">
                     </div>
                     <div class="form-row">
-                        <input id ="mobNumInp" type="tel" 
-                        placeholder="Mobile number" 
-                        pattern="[0-9]{11}" 
-                        required 
-                        title="Enter a 11-digit mobile number">
-                        <input id ="emailInp" type="email" placeholder="Email Address">
+                        <input id="mobNumInp" type="tel" placeholder="Mobile number" pattern="[0-9]{11}" required
+                            title="Enter a 11-digit mobile number">
+                        <input id="emailInp" type="email" placeholder="Email Address">
                     </div>
                 </section>
 
                 <section>
                     <h2>Current Address</h2>
                     <div class="form-row">
-                        <input type="text" placeholder="House No. / Street / Barangay">
-                        <input type="text" placeholder="Municipality/City">
-                        <input type="text" placeholder="Province">
+                        <input id="houseNumInp" type="text" placeholder="House No. / Street / Barangay">
+                        <input id="cityInp" type="text" placeholder="Municipality/City">
+                        <input id="provinceInp" type="text" placeholder="Province">
                     </div>
                 </section>
 
                 <section>
                     <h2>Other Information</h2>
                     <div class="form-row">
-                        <input type="text" placeholder="Last School Attended">
+                        <input id="lastSchoolInp" type="text" placeholder="Last School Attended">
                         <div class="select-container">
                             <label for="grade">Incoming Grade Level</label>
                             <select name="grade" id="grade">
@@ -269,30 +263,33 @@
                 <section>
                     <h2>Father's Information</h2>
                     <div class="form-row">
-                        <input type="text" placeholder="Father's Name">
-                        <input type="text" placeholder="Occupation">
-                        <input type="text" placeholder="Mobile Number">
-                        <input type="email" placeholder="Email Address">
+                        <input id="fathNameInp" type="text" placeholder="Father's Name">
+                        <input id="fathOccInp" type="text" placeholder="Occupation">
+                        <input id="fathMobNumInp" type="tel" placeholder="Mobile number" pattern="[0-9]{11}" required
+                            title="Enter a 11-digit mobile number">
+                        <input id="fathEmailInp" type="email" placeholder="Email Address">
                     </div>
                 </section>
 
                 <section>
                     <h2>Mother's Information</h2>
                     <div class="form-row">
-                        <input type="text" placeholder="Mother's Name">
-                        <input type="text" placeholder="Occupation">
-                        <input type="text" placeholder="Mobile Number">
-                        <input type="email" placeholder="Email Address">
+                        <input id="mothNameInp" type="text" placeholder="Mother's Name">
+                        <input id="mothOccInp" type="text" placeholder="Occupation">
+                        <input id="mothMobNumInp" type="tel" placeholder="Mobile number" pattern="[0-9]{11}" required
+                            title="Enter a 11-digit mobile number">
+                        <input id="mothEmailInp" type="email" placeholder="Email Address">
                     </div>
                 </section>
 
                 <section>
                     <h2>Guardian's Information</h2>
                     <div class="form-row">
-                        <input type="text" placeholder="Guardian's Name">
-                        <input type="text" placeholder="Relationship">
-                        <input type="text" placeholder="Mobile Number">
-                        <input type="email" placeholder="Email Address">
+                        <input id="guarNameInp" type="text" placeholder="Guardian's Name">
+                        <input id="guarRelatsionshipInp" type="text" placeholder="Relationship">
+                        <input id="guarMobNumInp" type="tel" placeholder="Mobile number" pattern="[0-9]{11}" required
+                            title="Enter a 11-digit mobile number">
+                        <input id="guarEmailInp" type="email" placeholder="Email Address">
                     </div>
                 </section>
             </div>
@@ -301,8 +298,8 @@
             <div class="form-actions">
                 <a class="cancel-btn">Close</a>
                 <div>
-                    <a class="delete-btn">Delete</a>
-                    <a class="accept-btn">Accept</a>
+                    <a href="#" id='rejectbtn' class="delete-btn">Reject</a>
+                    <a href="#" id='acceptbtn' class="accept-btn">Accept</a>
                 </div>
             </div>
         </form>

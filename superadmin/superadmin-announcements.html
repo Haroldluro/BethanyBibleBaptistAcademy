@@ -149,6 +149,7 @@
                 <table>
                     <thead>
                         <tr>
+                            <th>Announcement ID</th>
                             <th>Created On</th>
                             <th>Post Title</th>
                             <th class="columnend">Actions</th>
@@ -156,17 +157,18 @@
                     </thead>
                     <tbody id="tableAN">
                         <tr class="hidden" id="templateAN">
-                            <td id="ANCreatedOn">09/11/2024</td>
-                            <td id="ANTitle">No Class Advisory</td>
+                            <td id="ANID">2023-001</td>
+                            <td id="ANCreatedOn"></td>
+                            <td id="ANTitle"></td>
                             <td class="operations">
-                                <a class="status_border view" href="#editannouncementform">
-                                    <p>Edit Post</p>
-                                </a>
-                                <a href="#deleteModal" class="status_border delete">
+                                <a class="status_border view" id="ANview" href="#editannouncement">Edit Post</a>
+                                <!-- Changed ID to class -->
+                                <a href="#deleteModal" id="ANDelete" class="status_border delete">
                                     <p>Delete</p>
                                 </a>
                             </td>
                         </tr>
+
                     </tbody>
                 </table>
             </section>
@@ -191,12 +193,11 @@
             </div>
             <div class="modal-footer">
                 <a href="#" class="cancel-btn">Cancel</a>
-                <a href="#" class="delete-btn">Delete</a>
+                <a id="modalDeleteBtn" href="#" class="delete-btn">Delete</a>
             </div>
         </div>
     </div>
-    <div id="editannouncementform" class="form-overlay">
-
+    <div id="editannouncement" class="form-overlay">
         <form class="announcement-form">
             <div class="form-header">
                 <h1>Edit Post</h1>
@@ -205,21 +206,20 @@
             <section>
                 <div class="form-row">
                     <h2>Post Title</h2>
-                    <input type="text" placeholder="">
+                    <input id="title" type="text" placeholder="">
                 </div>
                 <div class="form-row">
                     <h2>Post Details</h2>
-                    <textarea class="postDetails" placeholder=""></textarea>
+                    <textarea id="details" class="postDetails" placeholder=""></textarea>
                 </div>
-
             </section>
 
             <!-- Form Actions -->
             <div class="form-actions">
                 <a class="cancel-btn">Close</a>
                 <div>
-                    <a class="delete-btn">Delete</a>
-                    <a class="accept-btn">Accept</a>
+                    <a id="deletebtn" class="delete-btn">Delete</a>
+                    <a id="acceptbtn" class="accept-btn">Accept</a>
                 </div>
             </div>
         </form>
@@ -248,8 +248,8 @@
             <div class="form-actions">
                 <a class="cancel-btn">Close</a>
                 <div>
-                    <a class="delete-btn">Delete</a>
-                    <a class="accept-btn">Accept</a>
+                    <a id="deletebtn" class="delete-btn">Delete</a>
+                    <a id="acceptbtn" class="accept-btn">Accept</a>
                 </div>
             </div>
         </form>
