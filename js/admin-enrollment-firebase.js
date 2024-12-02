@@ -72,6 +72,7 @@ async function displayTableDetails() {
       cloneNode.querySelector("#ERFirstName").innerHTML = doc.data()["firstName"];
       cloneNode.querySelector("#ERGrade").innerHTML = doc.data()["gradeLevel"];
       cloneNode.querySelector("#ERView").setAttribute("data-id", doc.data()["LRN"]);
+      cloneNode.querySelector("#ERDelete").setAttribute("data-id", doc.data()["LRN"]);
       cloneNode.classList.remove("hidden");
       tableER.appendChild(cloneNode);
     });
@@ -149,9 +150,6 @@ searchBtn.addEventListener("click", async (event) => {
   }
 });
 
-
-
-
 const accptBtn = document.getElementById("acceptbtn");
 const modalDeleteBtn = document.getElementById("modalDeleteBtn");
 const delbtn = document.querySelectorAll("#ERDelete");
@@ -213,8 +211,7 @@ delbtn.forEach((btn) => {
   btn.addEventListener("click", async (event) => {
     try {
 
-      const parentRow = event.target.closest("tr");
-      const reqIdElement = parentRow.querySelector("#ERID");
+      const reqIdElement = btn.getAttribute("data-id");
 
       const reqId = reqIdElement.textContent.trim();
       console.log("Request ID:", reqId);
