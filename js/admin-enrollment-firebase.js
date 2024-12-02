@@ -82,6 +82,76 @@ async function displayTableDetails() {
 
 displayTableDetails();
 
+const searchBtn = document.getElementById("searchbtn");
+const searchInput = document.getElementById("searchinput");
+
+searchBtn.addEventListener("click", async (event) => {
+  event.preventDefault();
+
+  const searchTerm = searchInput.value.trim();
+  if (!searchTerm) {
+    alert("Please enter a name to search.");
+    return;
+  }
+
+  try {
+    const collectionRef = collection(db, "enrollmentsDetails");
+
+    const lastNameQuery = query(collectionRef, where("lastName", "==", searchTerm), where("status", "==", "Pending"));
+    const firstNameQuery = query(collectionRef, where("firstName", "==", searchTerm), where("status", "==", "Pending"));
+
+    const [lastNameSnapshot, firstNameSnapshot] = await Promise.all([
+      getDocs(lastNameQuery),
+      getDocs(firstNameQuery),
+    ]);
+
+    const results = new Map();
+    lastNameSnapshot.forEach((doc) => results.set(doc.id, doc.data()));
+    firstNameSnapshot.forEach((doc) => results.set(doc.id, doc.data()));
+
+    const tableER = document.getElementById("tableER");
+
+
+    // Clear all rows except the template
+    [...tableER.children].forEach((child) => {
+      if (child.id !== "templateER") {
+        tableER.removeChild(child);
+        console.log("removed");
+      }
+    });
+
+    if (results.size === 0) {
+      alert("No results found.");
+      return;
+    }
+
+    const tableERTemplate = document.getElementById("templateER");
+    if (!tableERTemplate) {
+      console.error("templateER element is missing in the DOM.");
+      return;
+    }
+
+    results.forEach((data) => {
+      const cloneNode = tableERTemplate.cloneNode(true);
+
+      cloneNode.querySelector("#ERID").innerHTML = data["LRN"];
+      cloneNode.querySelector("#ERLastName").innerHTML = data["lastName"];
+      cloneNode.querySelector("#ERFirstName").innerHTML = data["firstName"];
+      cloneNode.querySelector("#ERGrade").innerHTML = data["gradeLevel"];
+      cloneNode.querySelector("#ERView").setAttribute("data-id", data["LRN"]);
+      cloneNode.classList.remove("hidden");
+
+      tableER.appendChild(cloneNode);
+    });
+  } catch (error) {
+    console.error("Error fetching documents:", error);
+    alert("Failed to perform the search.");
+  }
+});
+
+
+
+
 const accptBtn = document.getElementById("acceptbtn");
 const modalDeleteBtn = document.getElementById("modalDeleteBtn");
 const delbtn = document.querySelectorAll("#ERDelete");
@@ -365,9 +435,10 @@ delbtn.forEach((btn) => {
     const parentRow = event.target.closest("tr");
     if (parentRow) {
       parentRow.classList.add("highlighted-row");
-      
+
     }
   });
 });
+
 
 
