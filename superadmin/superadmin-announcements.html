@@ -149,7 +149,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Announcement ID</th>
+
                             <th>Created On</th>
                             <th>Post Title</th>
                             <th class="columnend">Actions</th>
@@ -157,7 +157,7 @@
                     </thead>
                     <tbody id="tableAN">
                         <tr class="hidden" id="templateAN">
-                            <td id="ANID">2023-001</td>
+
                             <td id="ANCreatedOn"></td>
                             <td id="ANTitle"></td>
                             <td class="operations">
@@ -235,11 +235,11 @@
             <section>
                 <div class="form-row">
                     <h2>Post Title</h2>
-                    <input type="text" placeholder="">
+                    <input id="createtitle" type="text" placeholder="">
                 </div>
                 <div class="form-row">
                     <h2>Post Details</h2>
-                    <textarea class="postDetails" placeholder=""></textarea>
+                    <textarea id="createdetails" class="postDetails" placeholder=""></textarea>
                 </div>
 
             </section>
@@ -248,10 +248,9 @@
             <div class="form-actions">
                 <a class="cancel-btn">Close</a>
                 <div>
-                    <a id="deletebtn" class="delete-btn">Delete</a>
-                    <a id="acceptbtn" class="accept-btn">Accept</a>
+                    <a id="createbtn" class="accept-btn">Create</a>
                 </div>
-            </div>
+            </div>  
         </form>
     </div>
 
