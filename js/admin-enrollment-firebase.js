@@ -11,7 +11,7 @@ import {
   query,
   where
 } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
-import { deleteDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
 
 
 const firebaseConfig = {
@@ -54,27 +54,29 @@ const guarEmailInp = document.getElementById('guarEmailInp');
 
 const lastSchoolInp = document.getElementById('lastSchoolInp');
 const grade = document.getElementById('grade');
+const tableTemplate = document.querySelector('[student-template]');
+const tableER = document.getElementById("tableER");
+let student = [];
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const collectionRef = collection(db, "enrollmentsDetails");
 const querySnapshot = await getDocs(query(collectionRef, where("status", "==", "Pending")));
+let studentDetails = [];
 
 async function displayTableDetails() {
   try {
-    querySnapshot.forEach((doc) => {
-      const tableER = document.getElementById("tableER");
-      const tableERTemplate = document.getElementById("templateER");
-      const cloneNode = tableERTemplate.cloneNode(true);
-
-      cloneNode.querySelector("#ERID").innerHTML = doc.data()["LRN"];
-      cloneNode.querySelector("#ERLastName").innerHTML = doc.data()["lastName"];
-      cloneNode.querySelector("#ERFirstName").innerHTML = doc.data()["firstName"];
-      cloneNode.querySelector("#ERGrade").innerHTML = doc.data()["gradeLevel"];
-      cloneNode.querySelector("#ERView").setAttribute("data-id", doc.data()["LRN"]);
-      cloneNode.querySelector("#ERDelete").setAttribute("data-id", doc.data()["LRN"]);
-      cloneNode.classList.remove("hidden");
-      tableER.appendChild(cloneNode);
+    studentDetails = querySnapshot.docs.map((doc) => {
+      const student = tableTemplate.content.cloneNode(true).children[0];
+      student.querySelector("#ERID").innerHTML = doc.data()["LRN"];
+      student.querySelector("#ERLastName").innerHTML = doc.data()["lastName"];
+      student.querySelector("#ERFirstName").innerHTML = doc.data()["firstName"];
+      student.querySelector("#ERGrade").innerHTML = doc.data()["gradeLevel"];
+      student.querySelector("#ERView").setAttribute("data-id", doc.data()["LRN"]);
+      student.querySelector("#ERDelete").setAttribute("data-id", doc.data()["LRN"]);
+      student.classList.remove("hidden");
+      tableER.append(student);
+      return {LRN: doc.data()["LRN"] || "", lastName: doc.data()["lastName"] || "", firstName: doc.data()["firstName"] || "", gradeLevel: doc.data()["gradeLevel"] || "", element: student };
     });
   } catch (e) {
     console.error("Error adding document: ", e);
@@ -86,68 +88,13 @@ displayTableDetails();
 const searchBtn = document.getElementById("searchbtn");
 const searchInput = document.getElementById("searchinput");
 
-searchBtn.addEventListener("click", async (event) => {
-  event.preventDefault();
-
-  const searchTerm = searchInput.value.trim();
-  if (!searchTerm) {
-    alert("Please enter a name to search.");
-    return;
-  }
-
-  try {
-    const collectionRef = collection(db, "enrollmentsDetails");
-
-    const lastNameQuery = query(collectionRef, where("lastName", "==", searchTerm), where("status", "==", "Pending"));
-    const firstNameQuery = query(collectionRef, where("firstName", "==", searchTerm), where("status", "==", "Pending"));
-
-    const [lastNameSnapshot, firstNameSnapshot] = await Promise.all([
-      getDocs(lastNameQuery),
-      getDocs(firstNameQuery),
-    ]);
-
-    const results = new Map();
-    lastNameSnapshot.forEach((doc) => results.set(doc.id, doc.data()));
-    firstNameSnapshot.forEach((doc) => results.set(doc.id, doc.data()));
-
-    const tableER = document.getElementById("tableER");
-
-
-    // Clear all rows except the template
-    [...tableER.children].forEach((child) => {
-      if (child.id !== "templateER") {
-        tableER.removeChild(child);
-        console.log("removed");
-      }
-    });
-
-    if (results.size === 0) {
-      alert("No results found.");
-      return;
-    }
-
-    const tableERTemplate = document.getElementById("templateER");
-    if (!tableERTemplate) {
-      console.error("templateER element is missing in the DOM.");
-      return;
-    }
-
-    results.forEach((data) => {
-      const cloneNode = tableERTemplate.cloneNode(true);
-
-      cloneNode.querySelector("#ERID").innerHTML = data["LRN"];
-      cloneNode.querySelector("#ERLastName").innerHTML = data["lastName"];
-      cloneNode.querySelector("#ERFirstName").innerHTML = data["firstName"];
-      cloneNode.querySelector("#ERGrade").innerHTML = data["gradeLevel"];
-      cloneNode.querySelector("#ERView").setAttribute("data-id", data["LRN"]);
-      cloneNode.classList.remove("hidden");
-
-      tableER.appendChild(cloneNode);
-    });
-  } catch (error) {
-    console.error("Error fetching documents:", error);
-    alert("Failed to perform the search.");
-  }
+searchInput.addEventListener("input", async (event) => {
+  const searchTerm = event.target.value.toLowerCase();
+  console.log(studentDetails);
+  studentDetails.forEach((student) => {
+    const isMatch = student.LRN.includes(searchTerm) || student.lastName.toLowerCase().includes(searchTerm) || student.firstName.toLowerCase().includes(searchTerm);
+    student.element.classList.toggle("hidden", !isMatch);
+  })
 });
 
 const accptBtn = document.getElementById("acceptbtn");

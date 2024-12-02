@@ -3,12 +3,10 @@ import {
   getFirestore,
   updateDoc,
   doc,
-  setDoc,
   addDoc,
   getDoc,
   getDocs,
   collection,
-  serverTimestamp,
   query,
   where
 } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
@@ -55,8 +53,8 @@ async function displayTableAnnouncements() {
       cloneNode.querySelector("#ANTitle").innerHTML = doc.data()["title"];
 
       // Set announcementID as a data attribute in the anchor tag
-      cloneNode.querySelector("#ANview").setAttribute("data-announcementID", doc.data()["announcementID"]);
-      cloneNode.querySelector("#ANDelete").setAttribute("data-announcementID", doc.data()["announcementID"]);
+      cloneNode.querySelector("#ANview").setAttribute("data-announcementID", doc.id);
+      cloneNode.querySelector("#ANDelete").setAttribute("data-announcementID", doc.id);
       cloneNode.classList.remove("hidden");
       tableAN.appendChild(cloneNode);
     });
@@ -153,55 +151,28 @@ accptBtn.addEventListener("click", async (event) => {
 
 
 const modalDeleteBtn = document.getElementById("modalDeleteBtn");
-
-modalDeleteBtn.addEventListener("click", async (event) => {
-  try {
-    // Retrieve the ID of the row/document to be deleted
-    const parentRow = document.querySelector(".highlighted-row"); // Assuming you add a specific class when a row is selected
-    if (!parentRow) {
-      console.error("No row selected for deletion.");
-      return;
-    }
-
-    // Get the announcementID from the row element (this will match the document's ID in Firestore)
-    const reqId = parentRow.querySelector("#ANview").getAttribute("data-announcementID");
-
-    console.log("Request ID to delete:", reqId);
-
-    // Reference to the Firestore document using the document ID (announcementID)
-    const docRef = doc(db, "announcements", reqId);
-
-    // Archive the document (you can also delete the document if necessary)
-    await updateDoc(docRef, {
-      status: "Archived",
-    });
-
-    // Optionally remove the row from the table
-    parentRow.remove();
-    console.log(`Document with ID ${reqId} successfully archived.`);
-  } catch (e) {
-    console.error("Error archiving document:", e);
-  }
-});
-
-
-
-
 const delbtn = document.querySelectorAll("#ANDelete");
 delbtn.forEach((btn) => {
-  btn.addEventListener("click", (event) => {
-    // Clear previous highlights
-    document.querySelectorAll(".highlighted-row").forEach((row) => {
-      row.classList.remove("highlighted-row");
+  btn.addEventListener("click", async(event) => {
 
+    const reqIdElement = btn.getAttribute("data-announcementID");
+    console.log("Request ID:", reqIdElement);
+
+    // Fetch document from Firestore
+    const docRef = doc(db, "announcements", reqIdElement);
+
+
+    modalDeleteBtn.addEventListener("click", async (event) => {
+      try {
+        await updateDoc(docRef, {
+          status: "Archived",
+        });
+    
+      } catch (e) {
+        console.error("Error archiving document:", e);
+      }
     });
-
-    // Highlight the current row
-    const parentRow = event.target.closest("tr");
-    if (parentRow) {
-      parentRow.classList.add("highlighted-row");
-
-    }
+    
   });
 });
 
