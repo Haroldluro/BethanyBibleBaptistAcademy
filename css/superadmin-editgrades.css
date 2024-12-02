@@ -599,7 +599,7 @@ select:focus {
     background: white;
     padding: 20px;
     border-radius: 8px;
-    width: 650px; /* Increased width for extra column */
+    width: 750px; /* Increased width for extra column */
     text-align: center;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     position: relative;
