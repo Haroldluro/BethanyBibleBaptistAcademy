@@ -4,6 +4,7 @@ import {
   updateDoc,
   doc,
   setDoc,
+  addDoc,
   getDoc,
   getDocs,
   collection,
@@ -39,25 +40,31 @@ const db = getFirestore(app);
 const collectionRef = collection(db, "announcements");
 const querySnapshot = await getDocs(query(collectionRef, where("status", "==", "Active")));
 
-querySnapshot.forEach((doc) => {
-  const tableAN = document.getElementById("tableAN");
-  const tableANTemplate = document.getElementById("templateAN");
-  const cloneNode = tableANTemplate.cloneNode(true);
+async function displayTableAnnouncements() {
+  try {
+    querySnapshot.forEach((doc) => {
+      const tableAN = document.getElementById("tableAN");
+      const tableANTemplate = document.getElementById("templateAN");
+      const cloneNode = tableANTemplate.cloneNode(true);
 
-  // Format the timestamp for display
-  const time = doc.data()["createdOn"].toDate();
-  const formattedTime = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(time);
-  cloneNode.querySelector("#ANID").innerHTML = doc.data()["announcementID"];
-  cloneNode.querySelector("#ANCreatedOn").innerHTML = formattedTime;
-  cloneNode.querySelector("#ANTitle").innerHTML = doc.data()["title"];
+      // Format the timestamp for display
+      const time = doc.data()["createdOn"].toDate();
+      const formattedTime = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(time);
 
-  // Set announcementID as a data attribute in the anchor tag
-  cloneNode.querySelector("#ANview").setAttribute("data-announcementID", doc.data()["announcementID"]);
+      cloneNode.querySelector("#ANCreatedOn").innerHTML = formattedTime;
+      cloneNode.querySelector("#ANTitle").innerHTML = doc.data()["title"];
 
-  cloneNode.classList.remove("hidden");
-  tableAN.appendChild(cloneNode);
-});
-
+      // Set announcementID as a data attribute in the anchor tag
+      cloneNode.querySelector("#ANview").setAttribute("data-announcementID", doc.data()["announcementID"]);
+      cloneNode.querySelector("#ANDelete").setAttribute("data-announcementID", doc.data()["announcementID"]);
+      cloneNode.classList.remove("hidden");
+      tableAN.appendChild(cloneNode);
+    });
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
+displayTableAnnouncements();
 const createdOn = document.getElementById("createdOn");
 const updatedOn = document.getElementById("updatedOn");
 const title = document.getElementById("title");
@@ -103,6 +110,7 @@ accptBtn.addEventListener("click", async (event) => {
   const fields = [
     { field: title, name: "Title", validator: (value) => value.trim() !== "" },
     { field: details, name: "Details", validator: (value) => value.trim() !== "" },
+
   ];
 
   // Validate the fields
@@ -119,6 +127,9 @@ accptBtn.addEventListener("click", async (event) => {
     const announcementData = {
       title: title.value,
       details: details.value,
+      status: "Active",
+      updatedOn: "",
+
     };
 
     if (!currentAnnouncementID) {
@@ -141,9 +152,8 @@ accptBtn.addEventListener("click", async (event) => {
 });
 
 
-
-
 const modalDeleteBtn = document.getElementById("modalDeleteBtn");
+
 modalDeleteBtn.addEventListener("click", async (event) => {
   try {
     // Retrieve the ID of the row/document to be deleted
@@ -152,21 +162,16 @@ modalDeleteBtn.addEventListener("click", async (event) => {
       console.error("No row selected for deletion.");
       return;
     }
-    const reqIdElement = parentRow.querySelector("#ANID");
 
+    // Get the announcementID from the row element (this will match the document's ID in Firestore)
+    const reqId = parentRow.querySelector("#ANview").getAttribute("data-announcementID");
 
-    if (!reqIdElement) {
-      console.error("Request ID not found in the selected row.");
-      return;
-    }
-
-    const reqId = reqIdElement.textContent.trim();
     console.log("Request ID to delete:", reqId);
 
-    // Reference to the Firestore document
+    // Reference to the Firestore document using the document ID (announcementID)
     const docRef = doc(db, "announcements", reqId);
 
-    // Archive the document
+    // Archive the document (you can also delete the document if necessary)
     await updateDoc(docRef, {
       status: "Archived",
     });
@@ -178,6 +183,8 @@ modalDeleteBtn.addEventListener("click", async (event) => {
     console.error("Error archiving document:", e);
   }
 });
+
+
 
 
 const delbtn = document.querySelectorAll("#ANDelete");
@@ -197,3 +204,54 @@ delbtn.forEach((btn) => {
     }
   });
 });
+
+const createbtn = document.getElementById("createbtn");
+const createtitle = document.getElementById("createtitle");
+const createdetails = document.getElementById("createdetails");
+
+createbtn.addEventListener("click", async (event) => {
+  event.preventDefault();
+
+  // Validation for the input fields
+  const fields = [
+    { field: createtitle, name: "CreateTitle", validator: (value) => value.trim() !== "" },
+    { field: createdetails, name: "CreateDetails", validator: (value) => value.trim() !== "" },
+  ];
+
+  for (const { field, name, validator } of fields) {
+    if (!validator(field.value)) {
+      alert(`Invalid or missing input in the ${name} field.`);
+      field.focus();
+      return; // Stop execution if a field fails validation
+    }
+  }
+
+  try {
+    // Collect data from form fields, including default values for status and updatedOn
+    const announcementData = {
+      title: createtitle.value.trim(),
+      details: createdetails.value.trim(),
+      createdOn: new Date(), // Store the current date as a timestamp
+      status: "Active", // Default value for the status field
+      updatedOn: "", // Empty string for the updatedOn field
+    };
+
+    // Reference to the "announcements" collection
+    const collectionRef = collection(db, "announcements");
+
+    // Create a new document with auto-generated ID
+    const docRef = await addDoc(collectionRef, announcementData);
+
+    console.log("Document created with ID: ", docRef.id);
+    alert("Announcement created successfully!");
+
+    // Optionally clear the form fields after submission
+    createtitle.value = "";
+    createdetails.value = "";
+  } catch (e) {
+    console.error("Error creating document: ", e);
+    alert("Failed to create announcement.");
+  }
+});
+
+
