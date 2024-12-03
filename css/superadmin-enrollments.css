@@ -236,11 +236,19 @@ header {
 /* Search Container */
 
 /* #region table */
+.tablescroll {
+    display: block;
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
 .table {
     background-color: var(--white-font-color);
     border-radius: 10px;
     box-shadow: 0 2px 5px var(--shadow-color);
     flex: 1;
+
 }
 
 .table h3 {
@@ -259,7 +267,7 @@ table {
 table th,
 table td {
     text-align: left;
-    padding: 20px 20px 20px 20px;
+    padding: 20px 20px;
 }
 
 thead {
@@ -321,42 +329,7 @@ tbody tr:nth-child(odd) {
 
 
 /* #region pagination */
-.pagination {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    justify-content: center;
-}
 
-.pagination-btn {
-    background-color: var(--primary-color);
-    color: var(--white-font-color);
-    border: none;
-    border-radius: 10px;
-    padding: 10px 15px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    transition: all 0.3s ease-in-out;
-}
-
-.pagination-btn:hover {
-    background-color: #1E4AB0;
-}
-
-.pagination-number {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background-color: var(--white-font-color);
-    color: var(--black-font-color);
-    border-radius: 10px;
-    font-size: 16px;
-    font-weight: bold;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-}
 
 /* #endregion pagination */
 

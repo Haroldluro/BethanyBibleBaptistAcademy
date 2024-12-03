@@ -289,7 +289,6 @@ table td {
 thead {
     background-color: var(--primary-color);
     color: var(--white-font-color);
-    border-radius: 10px 10px 0 0;
 }
 
 tbody tr:nth-child(odd) {

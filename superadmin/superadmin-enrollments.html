@@ -152,33 +152,29 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="tableER">
-                        <template student-template>
-                            <tr class="hidden" id="templateER">
-                                <td id="ERID"></td>
-                                <td id="ERLastName"></td>
-                                <td id="ERFirstName"></td>
-                                <td id="ERGrade"></td>
-                                <td class="operations">
-                                    <a class="status_border view" id="ERView" href="#enrollmentform">
-                                        <p>View</p>
-                                    </a>
-                                    <a href="#deleteModal" id="ERDelete" class="status_border delete">
-                                        <p>Reject</p>
-                                    </a>
-                                </td>
-                            </tr>
-                        </template>
-                    </tbody>
+                    <div>
+                        <tbody id="tableER">
+                            <template student-template>
+                                <tr class="hidden" id="templateER">
+                                    <td id="ERID"></td>
+                                    <td id="ERLastName"></td>
+                                    <td id="ERFirstName"></td>
+                                    <td id="ERGrade"></td>
+                                    <td class="operations">
+                                        <a class="status_border view" id="ERView" href="#enrollmentform">
+                                            <p>View</p>
+                                        </a>
+                                        <a href="#deleteModal" id="ERDelete" class="status_border delete">
+                                            <p>Reject</p>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </div>
                 </table>
             </section>
-            <div class="pagination">
-                <button class="pagination-btn">First</button>
-                <button class="pagination-btn">&lt;</button>
-                <span class="pagination-number">1</span>
-                <button class="pagination-btn">&gt;</button>
-                <button class="pagination-btn">Last</button>
-            </div>
+
         </main>
     </div>
 
