@@ -227,4 +227,14 @@ createbtn.addEventListener("click", async (event) => {
   }
 });
 
+const searchInput = document.getElementById("searchinput");
+
+searchInput.addEventListener("input", async (event) => {
+  const searchTerm = event.target.value.toLowerCase();
+  console.log(announcement);
+  announcement.forEach((ann) => {
+    const isMatch = ann.title.toLowerCase().includes(searchTerm);
+    ann.element.classList.toggle("hidden", !isMatch);
+  })
+});
 
