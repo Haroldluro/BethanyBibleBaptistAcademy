@@ -38,25 +38,27 @@ const db = getFirestore(app);
 const collectionRef = collection(db, "announcements");
 const querySnapshot = await getDocs(query(collectionRef, where("status", "==", "Active")));
 
+const tableAN = document.getElementById("tableAN");
+const tableTemplate = document.querySelector("[announcement-template]");
+let announcement = [];
+
 async function displayTableAnnouncements() {
   try {
-    querySnapshot.forEach((doc) => {
-      const tableAN = document.getElementById("tableAN");
-      const tableANTemplate = document.getElementById("templateAN");
-      const cloneNode = tableANTemplate.cloneNode(true);
-
+    announcement = querySnapshot.docs.map((doc) => {
+      const anCloneNode = tableTemplate.content.cloneNode(true).children[0];
       // Format the timestamp for display
       const time = doc.data()["createdOn"].toDate();
       const formattedTime = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(time);
 
-      cloneNode.querySelector("#ANCreatedOn").innerHTML = formattedTime;
-      cloneNode.querySelector("#ANTitle").innerHTML = doc.data()["title"];
+      anCloneNode.querySelector("#ANCreatedOn").innerHTML = formattedTime;
+      anCloneNode.querySelector("#ANTitle").innerHTML = doc.data()["title"];
 
       // Set announcementID as a data attribute in the anchor tag
-      cloneNode.querySelector("#ANview").setAttribute("data-announcementID", doc.id);
-      cloneNode.querySelector("#ANDelete").setAttribute("data-announcementID", doc.id);
-      cloneNode.classList.remove("hidden");
-      tableAN.appendChild(cloneNode);
+      anCloneNode.querySelector("#ANview").setAttribute("data-announcementID", doc.id);
+      anCloneNode.querySelector("#ANDelete").setAttribute("data-announcementID", doc.id);
+      anCloneNode.classList.remove("hidden");
+      tableAN.appendChild(anCloneNode);
+      return {title: doc.data()["title"] || "", time: formattedTime || "", element: anCloneNode };
     });
   } catch (e) {
     console.error("Error adding document: ", e);
