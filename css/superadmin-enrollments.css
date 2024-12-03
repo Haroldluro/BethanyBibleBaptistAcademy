@@ -165,7 +165,7 @@ nav button:hover {
 main {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
     margin-left: 35px;
     margin-right: 20px;
     width: 100%;
@@ -237,10 +237,31 @@ header {
 
 /* #region table */
 .tablescroll {
-    display: block;
-    max-height: 400px;
+    display: flex;
+    flex-direction: column;
+    max-height: 86vh;
     overflow-y: auto;
     overflow-x: hidden;
+}
+
+.table-header {
+
+    position: sticky;
+    top: 0;
+}
+
+.header-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tablerow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .table {
@@ -264,10 +285,16 @@ table {
     overflow: hidden;
 }
 
-table th,
 table td {
+    min-width: 150px;
     text-align: left;
-    padding: 20px 20px;
+    padding: 19px 20px;
+}
+
+table th {
+    min-width: 150px;
+    text-align: left;
+    padding: 19px 15px;
 }
 
 thead {
