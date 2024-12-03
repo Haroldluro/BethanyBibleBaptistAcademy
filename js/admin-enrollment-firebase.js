@@ -3,6 +3,8 @@ import {
   getFirestore,
   updateDoc,
   doc,
+  orderBy,
+  limit,
   setDoc,
   getDoc,
   getDocs,
@@ -76,7 +78,7 @@ async function displayTableDetails() {
       student.querySelector("#ERDelete").setAttribute("data-id", doc.data()["LRN"]);
       student.classList.remove("hidden");
       tableER.append(student);
-      return {LRN: doc.data()["LRN"] || "", lastName: doc.data()["lastName"] || "", firstName: doc.data()["firstName"] || "", gradeLevel: doc.data()["gradeLevel"] || "", element: student };
+      return { LRN: doc.data()["LRN"] || "", lastName: doc.data()["lastName"] || "", firstName: doc.data()["firstName"] || "", gradeLevel: doc.data()["gradeLevel"] || "", element: student };
     });
   } catch (e) {
     console.error("Error adding document: ", e);
@@ -275,6 +277,8 @@ accptBtn.addEventListener("click", async (event) => {
   }
 
   try {
+
+
     // Collect data from form fields
     const enrollmentData = {
       LRN: LRNInp.value,
@@ -314,20 +318,55 @@ accptBtn.addEventListener("click", async (event) => {
       status: "Accepted",
       enrollmentDate: serverTimestamp(),
     };
-
-    // Add data to Firestore
-
     const docRef = doc(db, "enrollmentsDetails", LRNInp.value);
     await setDoc(docRef, enrollmentData);
-    console.log("Document written with ID: ", docRef.id);
-    alert("Enrollment data saved successfully!");
+
+    try {
+      const currentYear = new Date().getFullYear();
+      const studentsRef = collection(db, "students");
+
+      // Query to find the last student of the current year
+      const querySnapshot = await getDocs(
+        query(
+          studentsRef,
+          where("studentID", ">=", `${currentYear}-0000`),
+          where("studentID", "<", `${currentYear + 1}-0000`),
+          orderBy("studentID", "desc"),
+          limit(1)
+        )
+      );
+
+      let newStudentID = `${currentYear}-0001`; // Default ID for the first student of the year
+      if (!querySnapshot.empty) {
+        const lastStudent = querySnapshot.docs[0].data();
+        const lastIDNumber = parseInt(lastStudent.studentID.split("-")[1], 10); // Extract numeric portion
+        const nextIDNumber = (lastIDNumber + 1).toString().padStart(4, "0"); // Increment and pad with leading zeros
+        newStudentID = `${currentYear}-${nextIDNumber}`;
+      }
+
+      // Reference to the gradeLevel document
+      const gradeLevelRef = doc(db, "gradeLevel", grade.value); // Assuming grade.value is "grade1", "grade2", etc.
+
+      const studentData = {
+        studentID: newStudentID, // Use the formatted ID
+        firstName: fNameInp.value,
+        lastName: lNameInp.value,
+        gradeLevel: gradeLevelRef, // Store reference to the grade level document
+        enrollmentDate: serverTimestamp(),
+      };
+
+      const studentDocRef = doc(db, "students", newStudentID); // Correct document reference
+      await setDoc(studentDocRef, studentData);
+
+      console.log("Student added successfully.");
+    } catch (error) {
+      console.error("Error adding student:", error);
+      alert("Failed to save enrollment data.");
+    }
   } catch (e) {
-    console.error("Error adding document: ", e);
-    alert("Failed to save enrollment data.");
+    console.error("Error fetching document:", e);
   }
-
 });
-
 //try lang to harold hehe
 
 

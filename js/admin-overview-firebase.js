@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getFirestore, getDocs, collection, getCountFromServer } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import { getFirestore, getDoc, getDocs, collection, getCountFromServer } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 
 const firebaseConfig = {
@@ -41,20 +41,37 @@ const enrollmentRef = collection(db, "enrollmentRequest");
 const enrollmentSnapshot = await getCountFromServer(enrollmentRef);
 document.getElementById("enrollmentRequest").innerHTML = enrollmentSnapshot.data().count
 
-// const itemRef = collection(db, "itemRequest");
-// const itemSnapshot = await getCountFromServer(itemRef);
-// document.getElementById("itemRequest").innerHTML = itemSnapshot.data().count
+const itemRef = collection(db, "itemRequest");
+const itemSnapshot = await getCountFromServer(itemRef);
+document.getElementById("itemRequest").innerHTML = itemSnapshot.data().count
+
 
 getDocs(studentRef).then((querySnapshot) => {
-  querySnapshot.forEach((doc) => {
+  querySnapshot.forEach(async (docSnapshot) => {
+    const studentData = docSnapshot.data();
     const tablePWA = document.getElementById("tablePWA");
     const tablePWATemplate = document.getElementById("templatePWA");
     const cloneNode = tablePWATemplate.cloneNode(true);
 
-    console.log();
+    // Retrieve GradeLevel reference
+    const gradeLevelRef = studentData["GradeLevel"];
+    let gradeLevelName = "Unknown"; // Default value in case fetching fails
 
-    cloneNode.querySelector("#PWAName").innerHTML = doc.data()["LastName"] + ", " + doc.data()["FirstName"];
-    cloneNode.querySelector("#PWAGrade").innerHTML = "Grade " + doc.data()["GradeLevel"]
+    if (gradeLevelRef) {
+      try {
+        const gradeLevelDoc = await getDoc(gradeLevelRef);
+        if (gradeLevelDoc.exists()) {
+          gradeLevelName = gradeLevelDoc.data().name; // Fetch the `name` field
+        }
+      } catch (error) {
+        console.error("Error fetching grade level:", error);
+      }
+    }
+
+    // Populate the template with student data
+    cloneNode.querySelector("#PWAName").innerHTML =
+      studentData["LastName"] + ", " + studentData["FirstName"];
+    cloneNode.querySelector("#PWAGrade").innerHTML = gradeLevelName;
 
     cloneNode.classList.remove("hidden");
     tablePWA.appendChild(cloneNode);
