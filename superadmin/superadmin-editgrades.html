@@ -154,47 +154,47 @@
             </header>
 
 
-            <div id="studentsContainer">
-                <section class="table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Request ID</th>
-                                <th>Last Name</th>
-                                <th>First Name</th>
-                                <th>Grade Level</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tableER">
-                            <tr class="hidden" id="templateER">
-                                <td id="ERID">2023-001</td>
-                                <td id="ERLastName">Luro</td>
-                                <td id="ERFirstName">Harold</td>
-                                <td id="ERGrade">Grade</td>
-                                <td class="operations">
-                                    <a class="status_border view" href="#popup">
-                                        <p>Edit</p>
-                                    </a>
-                                    <a href="#deleteModal" class="status_border delete">
-                                        <p>Delete</p>
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </section>
 
-                <div class="pagination">
-                    <button class="pagination-btn">First</button>
-                    <button class="pagination-btn">&lt;</button>
-                    <span class="pagination-number">1</span>
-                    <button class="pagination-btn">&gt;</button>
-                    <button class="pagination-btn">Last</button>
-                </div>
+            <section class="table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Request ID</th>
+                            <th>Last Name</th>
+                            <th>First Name</th>
+                            <th>Grade Level</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableER">
+                        <tr class="hidden" id="templateER">
+                            <td id="ERID">2023-001</td>
+                            <td id="ERLastName">Luro</td>
+                            <td id="ERFirstName">Harold</td>
+                            <td id="ERGrade">Grade</td>
+                            <td class="operations">
+                                <a class="status_border view" href="#popup">
+                                    <p>Edit</p>
+                                </a>
+                                <a href="#deleteModal" class="status_border delete">
+                                    <p>Delete</p>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <div class="pagination">
+                <button class="pagination-btn">First</button>
+                <button class="pagination-btn">&lt;</button>
+                <span class="pagination-number">1</span>
+                <button class="pagination-btn">&gt;</button>
+                <button class="pagination-btn">Last</button>
             </div>
+
         </main>
-    
+
         <div id="deleteModal" class="modal-overlay">
             <div class="modal">
                 <div class="modal-header">
@@ -210,67 +210,69 @@
                 </div>
             </div>
         </div>
-    
-            
-            <!-- Editable Popup -->
-            <div id="popup" class="popup-container">
-                <div class="popup-content">
-                    <a href="#" class="close-popup">&times;</a>
-                    <h2>Edit Grades</h2>
-                    <div class="full-name">
-                        <span><h1>Harold Luro</h1></span> <!-- Replaced input with a span for plain text -->
-                    </div>
-                    <table class="popup-table">
-                        <thead>
-                            <tr>
-                                <th>Grading Period</th>
-                                <th>1st Grading</th>
-                                <th>2nd Grading</th>
-                                <th>3rd Grading</th>
-                                <th>4th Grading</th>
-                                <th>Final Grade</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Math</td>
-                                <td><input type="text" value="90" /></td>
-                                <td><input type="text" value="92" /></td>
-                                <td><input type="text" value="88" /></td>
-                                <td><input type="text" value="85" /></td>
-                                <td><input type="text" value="89" /></td>
-                            </tr>
-                            <tr>
-                                <td>English</td>
-                                <td><input type="text" value="95" /></td>
-                                <td><input type="text" value="93" /></td>
-                                <td><input type="text" value="89" /></td>
-                                <td><input type="text" value="87" /></td>
-                                <td><input type="text" value="91" /></td>
-                            </tr>
-                            <tr>
-                                <td>Science</td>
-                                <td><input type="text" value="89" /></td>
-                                <td><input type="text" value="90" /></td>
-                                <td><input type="text" value="92" /></td>
-                                <td><input type="text" value="94" /></td>
-                                <td><input type="text" value="91" /></td>
-                            </tr>
-                            <tr>
-                                <td>Filipino</td>
-                                <td><input type="text" value="93" /></td>
-                                <td><input type="text" value="94" /></td>
-                                <td><input type="text" value="91" /></td>
-                                <td><input type="text" value="89" /></td>
-                                <td><input type="text" value="92" /></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <button class="save-button" id="save-changes">Apply</button>
+
+
+        <!-- Editable Popup -->
+        <div id="popup" class="popup-container">
+            <div class="popup-content">
+                <a href="#" class="close-popup">&times;</a>
+                <h2>Edit Grades</h2>
+                <div class="full-name">
+                    <span>
+                        <h1>Harold Luro</h1>
+                    </span> <!-- Replaced input with a span for plain text -->
                 </div>
+                <table class="popup-table">
+                    <thead>
+                        <tr>
+                            <th>Grading Period</th>
+                            <th>1st Grading</th>
+                            <th>2nd Grading</th>
+                            <th>3rd Grading</th>
+                            <th>4th Grading</th>
+                            <th>Final Grade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Math</td>
+                            <td><input type="text" value="90" /></td>
+                            <td><input type="text" value="92" /></td>
+                            <td><input type="text" value="88" /></td>
+                            <td><input type="text" value="85" /></td>
+                            <td><input type="text" value="89" /></td>
+                        </tr>
+                        <tr>
+                            <td>English</td>
+                            <td><input type="text" value="95" /></td>
+                            <td><input type="text" value="93" /></td>
+                            <td><input type="text" value="89" /></td>
+                            <td><input type="text" value="87" /></td>
+                            <td><input type="text" value="91" /></td>
+                        </tr>
+                        <tr>
+                            <td>Science</td>
+                            <td><input type="text" value="89" /></td>
+                            <td><input type="text" value="90" /></td>
+                            <td><input type="text" value="92" /></td>
+                            <td><input type="text" value="94" /></td>
+                            <td><input type="text" value="91" /></td>
+                        </tr>
+                        <tr>
+                            <td>Filipino</td>
+                            <td><input type="text" value="93" /></td>
+                            <td><input type="text" value="94" /></td>
+                            <td><input type="text" value="91" /></td>
+                            <td><input type="text" value="89" /></td>
+                            <td><input type="text" value="92" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="save-button" id="save-changes">Apply</button>
             </div>
         </div>
-        
+    </div>
+
     <script type="module" src="/js/superadmin-editgrades-firbase.js"></script>
 </body>
 
