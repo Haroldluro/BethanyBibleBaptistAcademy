@@ -1,4 +1,12 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+
+// Firebase Authentication imports
+import {
+  getAuth,
+  createUserWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+
+// Firestore imports
 import {
   getFirestore,
   updateDoc,
@@ -13,7 +21,6 @@ import {
   query,
   where
 } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
-
 
 
 const firebaseConfig = {
@@ -321,11 +328,20 @@ accptBtn.addEventListener("click", async (event) => {
     const docRef = doc(db, "enrollmentsDetails", LRNInp.value);
     await setDoc(docRef, enrollmentData);
 
+    const email = `${lNameInp.value.toLowerCase()}${fNameInp.value.toLowerCase()}@bethanybaptist.com`;
+    const auth = getAuth();
+    const password = "Student123";
+
     try {
+      // Step 1: Create Authentication Account
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user; // Firebase Auth UID
+      console.log("Account created for:", user.email);
+
+      // Step 2: Generate StudentID
       const currentYear = new Date().getFullYear();
       const studentsRef = collection(db, "students");
 
-      // Query to find the last student of the current year
       const querySnapshot = await getDocs(
         query(
           studentsRef,
@@ -344,25 +360,29 @@ accptBtn.addEventListener("click", async (event) => {
         newStudentID = `${currentYear}-${nextIDNumber}`;
       }
 
-      // Reference to the gradeLevel document
-      const gradeLevelRef = doc(db, "gradeLevel", grade.value); // Assuming grade.value is "grade1", "grade2", etc.
+      // Step 3: Save Student Data to Firestore
+      const gradeLevelRef = doc(db, "gradeLevel", grade.value); // Reference to gradeLevel document
 
       const studentData = {
-        studentID: newStudentID, // Use the formatted ID
+        studentID: newStudentID, // Use formatted ID
+        authUID: user.uid, // Store Firebase Auth UID
         firstName: fNameInp.value,
         lastName: lNameInp.value,
-        gradeLevel: gradeLevelRef, // Store reference to the grade level document
+        email: email,
+        gradeLevel: gradeLevelRef,
+        role: "student", // Assign role
         enrollmentDate: serverTimestamp(),
       };
-
-      const studentDocRef = doc(db, "students", newStudentID); // Correct document reference
+      // const studentDocRef = doc(db, "students", user.uid);
+      const studentDocRef = doc(db, "students", newStudentID); // Use auth UID as document ID
       await setDoc(studentDocRef, studentData);
 
-      console.log("Student added successfully.");
+      alert("Student accepted and account created successfully!");
     } catch (error) {
-      console.error("Error adding student:", error);
-      alert("Failed to save enrollment data.");
+      console.error("Error creating user or saving student data:", error);
+      alert("Failed to process the enrollment. Please try again.");
     }
+
   } catch (e) {
     console.error("Error fetching document:", e);
   }
