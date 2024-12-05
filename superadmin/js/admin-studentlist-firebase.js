@@ -29,64 +29,31 @@ onAuthStateChanged(auth, (user) => {
 const db = getFirestore(app);
 const collectionRef = collection(db, "students");
 const querySnapshot = await getDocs(collectionRef);
-const gradeDropdown = document.getElementById("gradeLevelDropdown");
-const studentsContainer = document.getElementById("studentsContainer");
 
-// Handle grade selection
+let studentDetails = [];
+const tableTemplate = document.querySelector('[student-template]');
+const tableST = document.getElementById("tableST");
+
 async function getStudentDetails() {
   try {
-    querySnapshot.forEach((doc) => {
-      const tableER = document.getElementById("tableST");
-      const tableERTemplate = document.getElementById("templateST");
-      const cloneNode = tableERTemplate.cloneNode(true);
-
-
-      cloneNode.querySelector("#STID").innerHTML = doc.data()["studentID"];
-      cloneNode.querySelector("#STName").innerHTML = doc.data()["lastName"] + ", " + doc.data()["firstName"];
-
-      cloneNode.querySelector("#STGrade").innerHTML = doc.data()["gradeLevel"];
-      cloneNode.classList.remove("hidden");
-      tableER.appendChild(cloneNode);
+    studentDetails = querySnapshot.docs.map((doc) => {
+      const student = tableTemplate.content.cloneNode(true).children[0];
+      student.querySelector("#STID").innerHTML = doc.data()["studentID"];
+      student.querySelector("#STName").innerHTML = doc.data()["lastName"] + ", " + doc.data()["firstName"];
+      student.querySelector("#STGrade").innerHTML = doc.data()["gradeLevel"];
+      student.classList.remove("hidden");
+      tableST.append(student);
+      return {
+        studentID: doc.data()["studentID"] || "",
+        Name: doc.data()["lastName"] + ", " + doc.data()["firstName"] || "",
+        gradeLevel: doc.data()["gradeLevel"] || "",
+        element: student
+      };
     });
   } catch (e) {
     console.error("Error adding document: ", e);
   }
-};
+}
 
 getStudentDetails();
-
-
-gradeDropdown.addEventListener("change", async () => {
-  const selectedGrade = gradeDropdown.value;
-
-  if (!selectedGrade) {
-    studentsContainer.innerHTML = "<p>Please select a grade level.</p>";
-    return;
-  }
-
-  try {
-    // Query Firestore for students of the selected grade
-    const collectionRef = collection(db, "students");
-    const gradeQuery = query(collectionRef, where("gradeLevel", "==", selectedGrade));
-    const querySnapshot = await getDocs(gradeQuery);
-
-    // Clear the container
-    studentsContainer.innerHTML = "";
-
-    if (querySnapshot.empty) {
-      studentsContainer.innerHTML = "<p>No students found for this grade.</p>";
-    } else {
-      querySnapshot.forEach((doc) => {
-        const student = doc.data(); // Correct method to access document data
-        const studentDiv = document.createElement("div");
-        studentDiv.className = "student";
-        studentDiv.innerHTML = `<p>Name: ${student.FirstName} ${student.LastName}</p><p>Grade Level: ${student.GradeLevel}</p>`;
-        studentsContainer.appendChild(studentDiv);
-      });
-    }
-  } catch (error) {
-    console.error("Error fetching students:", error);
-    studentsContainer.innerHTML = "<p>Error loading students. Please try again later.</p>";
-  }
-});
 

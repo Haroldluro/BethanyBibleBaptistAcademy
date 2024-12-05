@@ -94,6 +94,71 @@ async function displayTableDetails() {
 
 displayTableDetails();
 
+document.querySelector('.filter-btn').addEventListener('click', (e) => {
+  e.preventDefault();
+  const dropdownMenu = document.querySelector('.dropdown-menu');
+  dropdownMenu.classList.toggle('show'); // Toggle visibility of the menu
+});
+
+// Function to handle sorting and filtering
+function applyFilter(filterType) {
+  console.log("Applying filter:", filterType); // For debugging purposes
+
+  const rows = Array.from(document.querySelectorAll("#tableER .tablerow"));
+
+  if (filterType === 'ascName') {
+    rows.sort((a, b) => {
+      const nameA = a.querySelector("#ERLastName").textContent + a.querySelector("#ERFirstName").textContent;
+      const nameB = b.querySelector("#ERLastName").textContent + b.querySelector("#ERFirstName").textContent;
+      return nameA.localeCompare(nameB); // Sort ascending by name
+    });
+  } else if (filterType === 'descName') {
+    rows.sort((a, b) => {
+      const nameA = a.querySelector("#ERLastName").textContent + a.querySelector("#ERFirstName").textContent;
+      const nameB = b.querySelector("#ERLastName").textContent + b.querySelector("#ERFirstName").textContent;
+      return nameB.localeCompare(nameA); // Sort descending by name
+    });
+  } else if (filterType === 'gradeLevel') {
+    const gradeLevels = {
+      'Nursery': 0,
+      'Kinder1': 1,
+      'Kinder2': 2,
+      'Grade1': 3,
+      'Grade2': 4,
+      'Grade3': 5,
+      'Grade4': 6,
+      'Grade5': 7,
+      'Grade6': 8
+    };
+
+    rows.sort((a, b) => {
+      const gradeA = a.querySelector("#ERGrade").textContent.trim();
+      const gradeB = b.querySelector("#ERGrade").textContent.trim();
+      return gradeLevels[gradeA] - gradeLevels[gradeB];
+    });
+  }
+  // Append the sorted rows back into the table
+  const tbody = document.querySelector("#tableER");
+  rows.forEach(row => tbody.appendChild(row)); // Reorder the rows in the table
+}
+
+// Event listeners for filter options
+document.querySelectorAll('.dropdown-menu li a').forEach((filter) => {
+  filter.addEventListener('click', (e) => {
+    e.preventDefault();
+    const filterType = filter.getAttribute('data-filter');
+    applyFilter(filterType); // Call the applyFilter function
+
+    // Close the dropdown after the filter is applied
+    document.querySelector('.dropdown-menu').classList.remove('show');
+  });
+});
+
+
+
+
+
+
 const searchBtn = document.getElementById("searchbtn");
 const searchInput = document.getElementById("searchinput");
 

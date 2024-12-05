@@ -118,7 +118,7 @@
         </nav>
         <main>
             <header>
-                <h1>Edit Grades</h1>
+                <h1>Student List</h1>
                 <div class="search-container">
                     <input type="text" class="search-input" placeholder="Search Name">
                     <button class="filter-btn">
@@ -143,10 +143,7 @@
                     </ul>
                 </div>
             </header>
-
-
-
-            <section class="table">
+            <section class="table ">
                 <table class="tablescroll">
                     <thead class="table-header">
                         <tr class="header-title">
@@ -156,34 +153,30 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="tableST">
-                        <tr class="hidden tablerow" id="templateST">
-                            <td id="STID">2023-001</td>
-                            <td id="STName">Harold</td>
-                            <td id="STGrade"></td>
-                            <td class="operations">
-                                <a class="status_border accounts" href="#accounts">
-                                    <p>Accounts</p>
-                                </a>
-                                <a class="status_border grade" href="#grades">
-                                    <p>Grades</p>
-                                </a>
-                                <a href="#deleteModal" class="status_border delete">
-                                    <p>Delete</p>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
+                    <div>
+                        <tbody id="tableST">
+                            <template student-template>
+                                <tr class="hidden tablerow" id="templateST">
+                                    <td id="STID">2023-001</td>
+                                    <td id="STName">Harold</td>
+                                    <td id="STGrade"></td>
+                                    <td class="operations">
+                                        <a class="status_border accounts" href="#accounts">
+                                            <p>Accounts</p>
+                                        </a>
+                                        <a class="status_border grade" href="#grades">
+                                            <p>Grades</p>
+                                        </a>
+                                        <a href="#deleteModal" class="status_border delete">
+                                            <p>Delete</p>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </div>
                 </table>
             </section>
-
-            <div class="pagination">
-                <button class="pagination-btn">First</button>
-                <button class="pagination-btn">&lt;</button>
-                <span class="pagination-number">1</span>
-                <button class="pagination-btn">&gt;</button>
-                <button class="pagination-btn">Last</button>
-            </div>
 
         </main>
 

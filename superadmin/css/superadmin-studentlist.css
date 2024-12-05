@@ -330,16 +330,16 @@ table {
     overflow: hidden;
 }
 
-table td  {
-    min-width: 100px;
+table td {
+    min-width: 150px;
     text-align: left;
-    padding: 19px 10px;
+    padding: 19px 20px;
 }
 
 table th {
-    min-width: 240px;
+    min-width: 150px;
     text-align: left;
-    padding: 19px 30px;
+    padding: 19px 15px;
 }
 
 thead {
@@ -367,22 +367,22 @@ tbody tr:nth-child(odd) {
 
 .accounts {
     color: var(--white-font-color);
-    background-color: #015db9; 
+    background-color: #015db9;
     transition: all 0.3s ease-in-out;
 }
 
 .accounts:hover {
-    background-color: #004992; 
+    background-color: #004992;
 }
 
 .grade {
     color: var(--white-font-color);
-    background-color: #015db9; 
+    background-color: #015db9;
     transition: all 0.3s ease-in-out;
 }
 
 .grade:hover {
-    background-color: #004992; 
+    background-color: #004992;
 }
 
 

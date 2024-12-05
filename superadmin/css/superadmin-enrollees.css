@@ -234,12 +234,15 @@ header {
     display: none;
     /* Hidden by default */
     z-index: 1000;
-    /* Ensure it's above other elements */
     width: 200px;
     /* Adjust as needed */
 }
 
-/* Dropdown menu item styling */
+/* New class for showing the dropdown */
+.dropdown-menu.show {
+    display: block;
+}
+
 .dropdown-menu li {
     display: block;
 }
@@ -257,12 +260,7 @@ header {
     background-color: var(--primary-color);
     color: var(--button-bg-color);
 }
-
-/* Show dropdown when button or container is hovered */
-.filter-btn:focus+.dropdown-menu,
-.dropdown-menu:focus {
-    display: block;
-}
+    
 
 
 /* Search Container */
