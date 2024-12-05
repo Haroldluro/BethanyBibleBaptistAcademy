@@ -324,15 +324,26 @@ tbody tr:nth-child(odd) {
     text-align: center;
 }
 
-.view {
+.accounts {
     color: var(--white-font-color);
-    background-color: var(--green-button);
+    background-color: #015db9; 
     transition: all 0.3s ease-in-out;
 }
 
-.view:hover {
-    background-color: var(--green-hover-button);
+.accounts:hover {
+    background-color: #004992; 
 }
+
+.grade {
+    color: var(--white-font-color);
+    background-color: #015db9; 
+    transition: all 0.3s ease-in-out;
+}
+
+.grade:hover {
+    background-color: #004992; 
+}
+
 
 .delete {
     color: var(--white-font-color);
