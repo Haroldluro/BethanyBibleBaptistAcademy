@@ -205,7 +205,7 @@ header {
     color: #ccc;
 }
 
-.search-btn {
+.filter-btn {
     display: flex;
     align-items: center;
     gap: 5px;
@@ -220,18 +220,50 @@ header {
     transition: all 0.3s ease-in-out;
 }
 
-.search-btn:hover {
-    background-color: #2d4eb5;
+.dropdown-menu {
+    position: absolute;
+    top: 50px;
+    right: 45px;
+    margin-top: 10px;
+    padding: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    display: none;
+    /* Hidden by default */
+    z-index: 1000;
+    /* Ensure it's above other elements */
+    width: 200px;
+    /* Adjust as needed */
 }
 
-.search-btn svg {
-    stroke: var(--white-font-color);
-    transition: all 0.3s ease-in-out;
+/* Dropdown menu item styling */
+.dropdown-menu li {
+    display: block;
 }
 
-.search-btn:hover svg {
-    stroke: #f3f3f3;
+.dropdown-menu li a {
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s, color 0.3s;
 }
+
+.dropdown-menu li a:hover {
+    background-color: var(--primary-color);
+    color: var(--button-bg-color);
+}
+
+/* Show dropdown when button or container is hovered */
+.filter-btn:focus+.dropdown-menu,
+.dropdown-menu:focus {
+    display: block;
+}
+
 
 /* Search Container */
 
