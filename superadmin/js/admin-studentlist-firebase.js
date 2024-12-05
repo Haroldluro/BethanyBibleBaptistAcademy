@@ -32,6 +32,7 @@ const querySnapshot = await getDocs(collectionRef);
 const gradeDropdown = document.getElementById("gradeLevelDropdown");
 const studentsContainer = document.getElementById("studentsContainer");
 
+// Handle grade selection
 async function getStudentDetails() {
   try {
     querySnapshot.forEach((doc) => {
