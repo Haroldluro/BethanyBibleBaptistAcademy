@@ -322,15 +322,17 @@ accptBtn.addEventListener("click", async (event) => {
       },
       lastSchool: lastSchoolInp.value,
       gradeLevel: grade.value,
-      status: "Accepted",
+      status: "Approved",
       enrollmentDate: serverTimestamp(),
     };
     const docRef = doc(db, "enrollmentsDetails", LRNInp.value);
     await setDoc(docRef, enrollmentData);
 
-    const email = `${lNameInp.value.toLowerCase()}${fNameInp.value.toLowerCase()}@bethanybaptist.com`;
     const auth = getAuth();
+    const email = `${lNameInp.value.toLowerCase()}${fNameInp.value.toLowerCase()}@bethanybaptist.com`;
     const password = "Student123";
+    const lrn = LRNInp.value;
+    const role = "student";
 
     try {
       // Step 1: Create Authentication Account
@@ -338,48 +340,40 @@ accptBtn.addEventListener("click", async (event) => {
       const user = userCredential.user; // Firebase Auth UID
       console.log("Account created for:", user.email);
 
-      // Step 2: Generate StudentID
-      const currentYear = new Date().getFullYear();
-      const studentsRef = collection(db, "students");
+      // Step 2: Create entry in the `users` collection
+      const usersRef = doc(db, "users", user.uid); // Use the Firebase Auth UID as document ID
+      await setDoc(usersRef, {
+        emailAddress: user.email,
+        role: role,
+        lrn: lrn,
+        createdAt: new Date().toISOString(),
+        isActive: true, // Optional: Indicates account status
+      });
+      console.log("User entry added to 'users' collection");
 
-      const querySnapshot = await getDocs(
-        query(
-          studentsRef,
-          where("studentID", ">=", `${currentYear}-0000`),
-          where("studentID", "<", `${currentYear + 1}-0000`),
-          orderBy("studentID", "desc"),
-          limit(1)
-        )
-      );
+      // Optional: Notify user or admin
+      alert(`Account successfully created for ${fNameInp.value} ${lNameInp.value}`);
+    } catch (error) {
+      console.error("Error creating account:", error);
+      alert("Failed to create account. Please check the details and try again.");
+    }
 
-      let newStudentID = `${currentYear}-0001`; // Default ID for the first student of the year
-      if (!querySnapshot.empty) {
-        const lastStudent = querySnapshot.docs[0].data();
-        const lastIDNumber = parseInt(lastStudent.studentID.split("-")[1], 10); // Extract numeric portion
-        const nextIDNumber = (lastIDNumber + 1).toString().padStart(4, "0"); // Increment and pad with leading zeros
-        newStudentID = `${currentYear}-${nextIDNumber}`;
-      }
-
-      // Step 3: Save Student Data to Firestore
-      const gradeLevelRef = doc(db, "gradeLevel", grade.value); // Reference to gradeLevel document
-
+    try {
       const studentData = {
-        studentID: newStudentID, // Use formatted ID
-        authUID: user.uid, // Store Firebase Auth UID
-        firstName: fNameInp.value,
-        lastName: lNameInp.value,
-        email: email,
-        gradeLevel: gradeLevelRef,
-        role: "student", // Assign role
-        enrollmentDate: serverTimestamp(),
+        firstName: fNameInp.value.trim(),
+        lastName: lNameInp.value.trim(),
+        gradeLevel: grade.value,
+        enrolledOn: serverTimestamp(),
+        teacher: "",
       };
-      // const studentDocRef = doc(db, "students", user.uid);
-      const studentDocRef = doc(db, "students", newStudentID); // Use auth UID as document ID
+
+      // Use LRN as document ID for students table
+      const studentDocRef = doc(db, "students", lrnInp.value);
       await setDoc(studentDocRef, studentData);
 
       alert("Student accepted and account created successfully!");
     } catch (error) {
-      console.error("Error creating user or saving student data:", error);
+      console.error("Error creating student data:", error);
       alert("Failed to process the enrollment. Please try again.");
     }
 
