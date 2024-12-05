@@ -281,11 +281,40 @@ header {
 /* Search Container */
 
 /* #region table */
+.tablescroll {
+    display: flex;
+    flex-direction: column;
+    max-height: 86vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.table-header {
+
+    position: sticky;
+    top: 0;
+}
+
+.header-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tablerow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .table {
     background-color: var(--white-font-color);
     border-radius: 10px;
     box-shadow: 0 2px 5px var(--shadow-color);
     flex: 1;
+
 }
 
 .table h3 {
@@ -301,10 +330,16 @@ table {
     overflow: hidden;
 }
 
-table th,
-table td {
+table td  {
+    min-width: 100px;
     text-align: left;
-    padding: 20px 20px 20px 20px;
+    padding: 19px 10px;
+}
+
+table th {
+    min-width: 240px;
+    text-align: left;
+    padding: 19px 30px;
 }
 
 thead {
