@@ -19,10 +19,10 @@ const auth = getAuth(app);
 onAuthStateChanged(auth, (user) => {
   if (user) {
     console.log(user);
-    
+
     const uid = user.uid;
   } else {
-    
+
   }
 });
 
@@ -83,7 +83,8 @@ async function getStudentDetails() {
     });
   } catch (e) {
     console.error("Error adding document: ", e);
-}};
+  }
+};
 
 getStudentDetails();
 

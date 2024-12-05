@@ -40,7 +40,7 @@ async function SignIn() {
           window.location.href = "/teacher/teacher-dashboard.html";
           break;
         case "student":
-          window.location.href = "/landing/index.html";
+          window.location.href = "/student/student-home.html";
           break;
         default:
           alert("Invalid role or no role assigned.");
