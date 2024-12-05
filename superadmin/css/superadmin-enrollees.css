@@ -236,94 +236,80 @@ header {
 /* Search Container */
 
 /* #region table */
-/* #region Table */
-.table {
-    background-color: var(--white-font-color);
-    border-radius: 10px;
-    box-shadow: 0 2px 5px var(--shadow-color);
-    overflow: hidden; /* Ensures no content spills out */
-}
-
 .tablescroll {
+    display: flex;
+    flex-direction: column;
     max-height: 86vh;
     overflow-y: auto;
     overflow-x: hidden;
 }
 
 .table-header {
+
     position: sticky;
     top: 0;
-    z-index: 2; 
-    background-color: var(--primary-color);
-    color: var(--white-font-color);
 }
 
-.header-title th {
-    padding: 15px;
-    text-align: left;
-    font-weight: bold;
-    font-size: 1rem;
+.header-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tablerow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.table {
+    background-color: var(--white-font-color);
+    border-radius: 10px;
+    box-shadow: 0 2px 5px var(--shadow-color);
+    flex: 1;
+
+}
+
+.table h3 {
+    margin-bottom: 10px;
+    color: var(--black-font-color);
 }
 
 table {
+    border-radius: 10px 10px 0px 0px;
     width: 100%;
-    table-layout: fixed; 
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
 }
 
-thead th {
+table td {
+    min-width: 150px;
     text-align: left;
-    white-space: nowrap; /
+    padding: 19px 20px;
 }
 
-tbody tr {
-    background-color: var(--white-font-color);
+table th {
+    min-width: 150px;
+    text-align: left;
+    padding: 19px 15px;
+}
+
+thead {
+    background-color: var(--primary-color);
+    color: var(--white-font-color);
+    border-radius: 10px 10px 0 0;
 }
 
 tbody tr:nth-child(odd) {
     background-color: var(--secondary-bg-color);
 }
 
-
-.tablerow td {
-    padding: 15px;
-    text-align: left;
-    font-size: 0.9rem;
-    border-bottom: 1px solid var(--shadow-color);
-    word-wrap: break-word; 
+.hidden {
+    display: none;
 }
-
-
-.operations {
-    display: flex; 
-    justify-content: center; 
-    gap: 10px; 
-    align-items: center; 
-}
-
-.operations a {
-    display: block;
-    padding: 8px 12px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 0.85rem;
-    font-weight: bold;
-    color: var(--white-font-color);
-    text-align: center;
-    white-space: nowrap; /
-}
-
-/* Specific Column Widths */
-table th,
-table td {
-    width: auto; 
-}
-
-table th:nth-child(5),
-table td:nth-child(5) {
-    text-align: center;
-}
-
 
 /* operation buttons */
 .status_border {
@@ -332,16 +318,6 @@ table td:nth-child(5) {
     padding: 5px 11px;
     font-weight: bold;
     text-align: center;
-}
-
-.assign {
-    color: var(--white-font-color);
-    background-color: #015db9; 
-    transition: all 0.3s ease-in-out;
-}
-
-.assign:hover {
-    background-color: #004992; 
 }
 
 .view {
@@ -375,12 +351,14 @@ table td:nth-child(5) {
 }
 
 /* operation buttons */
+
 /* #endregion table */
 
 
+/* #region pagination */
 
 
-
+/* #endregion pagination */
 
 /* Modal Overlay */
 
@@ -612,9 +590,9 @@ form .form-row input:focus {
 /* Action Buttons */
 form .form-actions {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     grid-column: span 2;
-    gap: 10px;
+    /* Make the action buttons span across both columns */
 }
 
 form .form-actions div {
@@ -672,81 +650,6 @@ select:focus {
     border-color: #427beb;
     box-shadow: 0 0 5px rgba(66, 123, 235, 0.5);
 }
-
-/* Popup Overlay */
-.teacher-checklist-container {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 300px; 
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: left;
-    position: fixed; 
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); 
-    z-index: 1000; 
-}
-
-.teacher-checklist-container h2 {
-    margin-bottom: 20px; /* Adds space below the header */
-}
-
-
-/* Teacher List */
-.teacher-list {
-    text-align: left;
-    margin-bottom: 30px;
-}
-
-.teacher-list label {
-    display: block;
-    margin-bottom: 20px;
-    font-size: 1rem;
-    cursor: pointer;
-}
-
-.teacher-list input[type="checkbox"] {
-    margin-right: 10px;
-}
-
-/* Popup Actions */
-.popup-actions {
-    display: flex;
-    justify-content: flex-end; 
-    gap: 10px; 
-}
-/* Blue Buttons */
-.popup-actions .close-btn {
-    background-color: #1e90ff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.popup-actions .close-btn:hover {
-    background-color: #0073e6;
-}
-
-/* Blue Submit Button */
-.popup-actions .submit-btn {
-    background-color: #1e90ff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.popup-actions .submit-btn:hover {
-    background-color: #0073e6;
-}
-
 
 /* Media Query for Smaller Screens */
 @media (max-width: 768px) {

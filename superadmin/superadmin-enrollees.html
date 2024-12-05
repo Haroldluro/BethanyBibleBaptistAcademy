@@ -118,7 +118,7 @@
         </nav>
         <main>
             <header>
-                <h1>Enrollmen Requests</h1>
+                <h1>Enrollment Requests</h1>
                 <div class="search-container">
                     <input id="searchinput" type="text" class="search-input" placeholder="Search Name">
                     <button id="searchbtn" class="search-btn">
@@ -152,9 +152,6 @@
                                     <td id="ERFirstName"></td>
                                     <td id="ERGrade"></td>
                                     <td class="operations">
-                                        <a class="status_border assign" id="ERView" href="#checklist">
-                                            <p>Assign</p>
-                                        </a>
                                         <a class="status_border view" id="ERView" href="#enrollmentform">
                                             <p>View</p>
                                         </a>
@@ -290,6 +287,7 @@
 
             <!-- Form Actions -->
             <div class="form-actions">
+                <a class="cancel-btn">Close</a>
                 <div>
                     <a href="#" id='rejectbtn' class="delete-btn">Reject</a>
                     <a href="#" id='acceptbtn' class="accept-btn">Accept</a>
@@ -297,35 +295,6 @@
             </div>
         </form>
     </div>
-
-    <div class="form-overlay" id="checklist">
-        <div class="teacher-checklist-container">
-            <h2>Assign Teacher</h2>
-            <form id="assign-teacher-form">
-                <div class="teacher-list">
-                    <!-- List of teachers with checkboxes -->
-                    <label>
-                        <input type="checkbox" name="teacher" value="Teacher A">
-                        Ma'am Maritz
-                    </label>
-                    <label>
-                        <input type="checkbox" name="teacher" value="Teacher B">
-                        Sir Albay
-                    </label>
-                    <label>
-                        <input type="checkbox" name="teacher" value="Teacher C">
-                        Sir Turingan
-                    </label>
-                </div>
-                <!-- Buttons -->
-                <div class="popup-actions">
-                    <a href="#" id='rejectbtn' class="close-btn" >Cancel</a>
-                    <a href="#" id='acceptbtn' class="submit-btn">Assign</a>
-                </div>
-            </form>
-        </div>
-    </div>
-    
 
 
 
