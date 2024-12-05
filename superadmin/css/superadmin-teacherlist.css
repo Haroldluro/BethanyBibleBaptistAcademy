@@ -205,7 +205,80 @@ header {
     color: #ccc;
 }
 
-.search-btn {
+.grade-level-dropdown {
+    display: flex;
+    /* Ensures button content alignment */
+    align-items: center;
+    gap: 5px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    background-color: var(--primary-color);
+    color: var(--white-font-color);
+    cursor: pointer;
+    font-weight: bold;
+    appearance: none;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hover effects for the dropdown button */
+.grade-level-dropdown:hover {
+    background-color: var(--primary-color);
+    color: var(--white-font-color)
+}
+
+
+.grade-level-dropdown option {
+    display: block;
+    background-color: #fff;
+    border: none;
+    color: #333;
+    padding: 10px 15px;
+    font-size: 14px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    text-align: left;
+    width: 200px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hover effects for dropdown options */
+.grade-level-dropdown option:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+    cursor: pointer;
+}
+
+
+
+/* Focus state for dropdown */
+.grade-level-dropdown:focus {
+    display: block;
+    outline: none;
+}
+
+.addteacher-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 15px;
+    background-color: var(--green-button);
+    color: var(--white-font-color);
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.addteacher-btn:hover {
+    background-color: var(--green-hover-button);
+}
+
+.filter-btn {
     display: flex;
     align-items: center;
     gap: 5px;
@@ -220,18 +293,53 @@ header {
     transition: all 0.3s ease-in-out;
 }
 
-.search-btn:hover {
-    background-color: #2d4eb5;
+.dropdown-menu {
+    position: absolute;
+    top: 50px;
+    right: 45px;
+    margin-top: 10px;
+    padding: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    display: none;
+    /* Hidden by default */
+    z-index: 1000;
+    /* Ensure it's above other elements */
+    width: 200px;
+    /* Adjust as needed */
 }
 
-.search-btn svg {
-    stroke: var(--white-font-color);
-    transition: all 0.3s ease-in-out;
+/* Dropdown menu item styling */
+.dropdown-menu li {
+    display: block;
 }
 
-.search-btn:hover svg {
-    stroke: #f3f3f3;
+.dropdown-menu li a {
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s, color 0.3s;
 }
+
+.dropdown-menu li a:hover {
+    background-color: var(--primary-color);
+    color: var(--button-bg-color);
+}
+
+/* Show dropdown when button or container is hovered */
+.filter-btn:focus+.dropdown-menu,
+.dropdown-menu:focus {
+    display: block;
+}
+
+
+
+
 
 /* Search Container */
 

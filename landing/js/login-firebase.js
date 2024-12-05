@@ -56,45 +56,9 @@ async function SignIn() {
 
 document.getElementById("btnSignIn").addEventListener("click", SignIn);
 
+document.addEventListener("keyup", function (event) {
+  if (event.key === "Enter") {
+    document.getElementById("btnSignIn").click();
+  }
+});
 
-
-
-// import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
-
-// const db = getFirestore(app);
-
-// async function SignIn() {
-//   const email = document.getElementById("txtUsername").value;
-//   const password = document.getElementById("txtPassword").value;
-//   try {
-//     const userCredential = await signInWithEmailAndPassword(auth, email, password);
-//     const user = userCredential.user;
-
-//     // Fetch user role from Firestore
-//     const userDoc = await getDoc(doc(db, "users", user.uid));
-//     if (userDoc.exists()) {
-//       const role = userDoc.data().role;
-
-//       // Redirect based on role
-//       switch (role) {
-//         case "superadmin":
-//           window.location.href = "/superadmin/superadmin-overview.html";
-//           break;
-//         case "teacher":
-//           window.location.href = "/teacher/teacher-overview.html";
-//           break;
-//         case "student":
-//           window.location.href = "/student/student-home.html";
-//           break;
-//         default:
-//           alert("Invalid role or no role assigned.");
-//       }
-//     } else {
-//       alert("User role not found in database.");
-//     }
-//   } catch (error) {
-//     console.error(error.code + ": " + error.message);
-//   }
-// }
-
-// document.getElementById("btnSignIn").addEventListener("click", SignIn);
