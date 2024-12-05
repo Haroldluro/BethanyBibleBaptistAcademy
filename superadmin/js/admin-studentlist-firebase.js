@@ -32,7 +32,29 @@ const querySnapshot = await getDocs(collectionRef);
 const gradeDropdown = document.getElementById("gradeLevelDropdown");
 const studentsContainer = document.getElementById("studentsContainer");
 
-// Handle grade selection
+async function getStudentDetails() {
+  try {
+    querySnapshot.forEach((doc) => {
+      const tableER = document.getElementById("tableST");
+      const tableERTemplate = document.getElementById("templateST");
+      const cloneNode = tableERTemplate.cloneNode(true);
+
+
+      cloneNode.querySelector("#STID").innerHTML = doc.data()["studentID"];
+      cloneNode.querySelector("#STName").innerHTML = doc.data()["lastName"] + ", " + doc.data()["firstName"];
+
+      cloneNode.querySelector("#STGrade").innerHTML = doc.data()["gradeLevel"];
+      cloneNode.classList.remove("hidden");
+      tableER.appendChild(cloneNode);
+    });
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+};
+
+getStudentDetails();
+
+
 gradeDropdown.addEventListener("change", async () => {
   const selectedGrade = gradeDropdown.value;
 
@@ -66,25 +88,4 @@ gradeDropdown.addEventListener("change", async () => {
     studentsContainer.innerHTML = "<p>Error loading students. Please try again later.</p>";
   }
 });
-
-async function getStudentDetails() {
-  try {
-    querySnapshot.forEach((doc) => {
-      const tableER = document.getElementById("tableER");
-      const tableERTemplate = document.getElementById("templateER");
-      const cloneNode = tableERTemplate.cloneNode(true);
-
-      cloneNode.querySelector("#ERID").innerHTML = doc.data()["StudentNumber"];
-      cloneNode.querySelector("#ERLastName").innerHTML = doc.data()["LastName"];
-      cloneNode.querySelector("#ERFirstName").innerHTML = doc.data()["FirstName"];
-      cloneNode.querySelector("#ERGrade").innerHTML = "Grade " + doc.data()["GradeLevel"]
-      cloneNode.classList.remove("hidden");
-      tableER.appendChild(cloneNode);
-    });
-  } catch (e) {
-    console.error("Error adding document: ", e);
-  }
-};
-
-getStudentDetails();
 

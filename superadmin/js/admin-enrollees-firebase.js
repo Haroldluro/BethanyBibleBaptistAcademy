@@ -340,7 +340,9 @@ accptBtn.addEventListener("click", async (event) => {
       const user = userCredential.user; // Firebase Auth UID
       console.log("Account created for:", user.email);
 
-      // Step 2: Create entry in the `users` collection
+
+
+      // Step 4: Create entry in the `users` collection
       const usersRef = doc(db, "users", user.uid); // Use the Firebase Auth UID as document ID
       await setDoc(usersRef, {
         emailAddress: user.email,
@@ -359,7 +361,27 @@ accptBtn.addEventListener("click", async (event) => {
     }
 
     try {
+      const currentYear = new Date().getFullYear();
+      const studentRef = collection(db, "students");
+
+      // Step 3: Query to find the most recent student ID for the current year
+      const q = query(studentRef, orderBy("studentID", "desc"), limit(1));
+      const querySnapshot = await getDocs(q);
+
+      let newStudentID = `${currentYear}-0001`; // Default value if no students exist yet
+      if (!querySnapshot.empty) {
+        // Extract the last student ID
+        const lastDoc = querySnapshot.docs[0];
+        const lastStudentID = lastDoc.data().studentID;
+        const lastIDNumber = parseInt(lastStudentID.split("-")[1]);
+
+        // Increment the ID by 1
+        const newIDNumber = (lastIDNumber + 1).toString().padStart(4, "0");
+        newStudentID = `${currentYear}-${newIDNumber}`;
+      }
+
       const studentData = {
+        studentID: newStudentID,
         firstName: fNameInp.value.trim(),
         lastName: lNameInp.value.trim(),
         gradeLevel: grade.value,
@@ -368,7 +390,7 @@ accptBtn.addEventListener("click", async (event) => {
       };
 
       // Use LRN as document ID for students table
-      const studentDocRef = doc(db, "students", lrnInp.value);
+      const studentDocRef = doc(db, "students", LRNInp.value);
       await setDoc(studentDocRef, studentData);
 
       alert("Student accepted and account created successfully!");
