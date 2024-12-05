@@ -121,16 +121,16 @@
                 <h1>Edit Grades</h1>
                 <div class="search-container">
                     <select class="grade-level-dropdown" id="gradeLevelDropdown">
-                        <option value="">Grade Level</option>
-                        <option value="/gradeLevel/Grade1">Grade 1</option>
-                        <option value="/gradeLevel/Grade2">Grade 2</option>
-                        <option value="/gradeLevel/Grade3">Grade 3</option>
-                        <option value="/gradeLevel/Grade4">Grade 4</option>
-                        <option value="/gradeLevel/Grade5">Grade 5</option>
-                        <option value="/gradeLevel/Grade6">Grade 6</option>
-                        <option value="/gradeLevel/Kinder1">Kinder 1</option>
-                        <option value="/gradeLevel/Kinder2">Kinder 2</option>
-                        <option value="/gradeLevel/Nursery">Nursery</option>
+                        <option>Grade Level</option>
+                        <option>Grade 1</option>
+                        <option>Grade 2</option>
+                        <option>Grade 3</option>
+                        <option>Grade 4</option>
+                        <option>Grade 5</option>
+                        <option>Grade 6</option>
+                        <option>Kinder 1</option>
+                        <option>Kinder 2</option>
+                        <option>Nursery</option>
                     </select>
                     <input type="text" class="search-input" placeholder="Search Name">
                     <button class="search-btn">
@@ -164,8 +164,11 @@
                             <td id="ERFirstName">Harold</td>
                             <td id="ERGrade">Grade</td>
                             <td class="operations">
-                                <a class="status_border view" href="#popup">
-                                    <p>Edit</p>
+                                <a class="status_border accounts" href="#accounts">
+                                    <p>Accounts</p>
+                                </a>
+                                <a class="status_border grade" href="#grades">
+                                    <p>Grades</p>
                                 </a>
                                 <a href="#deleteModal" class="status_border delete">
                                     <p>Delete</p>
@@ -204,7 +207,7 @@
 
 
         <!-- Editable Popup -->
-        <div id="popup" class="popup-container">
+        <div id="grades" class="popup-container">
             <div class="popup-content">
                 <a href="#" class="close-popup">&times;</a>
                 <h2>Edit Grades</h2>

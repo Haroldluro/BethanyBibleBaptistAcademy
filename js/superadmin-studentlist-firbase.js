@@ -33,39 +33,6 @@ const gradeDropdown = document.getElementById("gradeLevelDropdown");
 const studentsContainer = document.getElementById("studentsContainer");
 
 // Handle grade selection
-gradeDropdown.addEventListener("change", async () => {
-  const selectedGrade = gradeDropdown.value;
-
-  if (!selectedGrade) {
-    studentsContainer.innerHTML = "<p>Please select a grade level.</p>";
-    return;
-  }
-
-  try {
-    // Query Firestore for students of the selected grade
-    const collectionRef = collection(db, "students");
-    const gradeQuery = query(collectionRef, where("gradeLevel", "==", selectedGrade));
-    const querySnapshot = await getDocs(gradeQuery);
-
-    // Clear the container
-    studentsContainer.innerHTML = "";
-
-    if (querySnapshot.empty) {
-      studentsContainer.innerHTML = "<p>No students found for this grade.</p>";
-    } else {
-      querySnapshot.forEach((doc) => {
-        const student = doc.data(); // Correct method to access document data
-        const studentDiv = document.createElement("div");
-        studentDiv.className = "student";
-        studentDiv.innerHTML = `<p>Name: ${student.FirstName} ${student.LastName}</p><p>Grade Level: ${student.GradeLevel}</p>`;
-        studentsContainer.appendChild(studentDiv);
-      });
-    }
-  } catch (error) {
-    console.error("Error fetching students:", error);
-    studentsContainer.innerHTML = "<p>Error loading students. Please try again later.</p>";
-  }
-});
 
 async function getStudentDetails() {
   try {
