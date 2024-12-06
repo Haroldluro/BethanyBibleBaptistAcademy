@@ -37,7 +37,7 @@ const teacherRef = collection(db, "teachers");
 const teacherSnapshot = await getCountFromServer(teacherRef);
 document.getElementById("totalTeachers").innerHTML = teacherSnapshot.data().count
 
-const enrollmentRef = collection(db, "enrollmentRequest");
+const enrollmentRef = collection(db, "enrollmentsDetails");
 const enrollmentSnapshot = await getCountFromServer(enrollmentRef);
 document.getElementById("enrollmentRequest").innerHTML = enrollmentSnapshot.data().count
 

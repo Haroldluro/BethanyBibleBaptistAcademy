@@ -120,9 +120,9 @@
             <header>
                 <h1>Teacher List</h1>
                 <div class="search-container">
-                    <button class="addteacher-btn">
+                    <a href="#createteacherform" class="addteacher-btn">
                         Add Teacher
-                    </button>
+                    </a>
                     <input type="text" class="search-input" placeholder="Search Name">
                     <button class="filter-btn">
                         <svg xmlns="http://www.w3.org/2000/svg" x-bind:width="size" x-bind:height="size"
@@ -142,31 +142,31 @@
                 </div>
             </header>
             <section class="table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Request ID</th>
-                            <th>Last Name</th>
-                            <th>First Name</th>
+                <table class="tablescroll">
+                    <thead class="table-header">
+                        <tr class="header-title">
+                            <th>Teacher ID</th>
+                            <th>Name</th>
                             <th>Grade Level</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="tableER">
-                        <tr class="hidden tablerow" id="templateER">
-                            <td id="ERID">2023-001</td>
-                            <td id="ERLastName">Luro</td>
-                            <td id="ERFirstName">Harold</td>
-                            <td id="ERGrade">Grade</td>
-                            <td class="operations">
-                                <a class="status_border view" href="#enrollmentform">
-                                    <p>View</p>
-                                </a>
-                                <a href="#deleteModal" class="status_border delete">
-                                    <p>Delete</p>
-                                </a>
-                            </td>
-                        </tr>
+                    <tbody id="tableTT">
+                        <template teacher-template>
+                            <tr class="hidden tablerow" id="templateTT">
+                                <td id="TTID">2023-001</td>
+                                <td id="TTName">Luro</td>
+                                <td id="TTGrade">Grade</td>
+                                <td class="operations">
+                                    <a class="status_border view" href="#enrollmentform">
+                                        <p>View</p>
+                                    </a>
+                                    <a href="#deleteModal" class="status_border delete">
+                                        <p>Delete</p>
+                                    </a>
+                                </td>
+                            </tr>
+                        </template>
                     </tbody>
                 </table>
             </section>
@@ -181,7 +181,7 @@
                 <a href="#" class="close-btn">&times;</a>
             </div>
             <div class="modal-body">
-                <p>Are you sure to <strong>delete</strong> this request?</p>
+                <p>Are you sure to <strong>delete</strong> this teacher?</p>
             </div>
             <div class="modal-footer">
                 <a href="#" class="cancel-btn">Cancel</a>
@@ -193,16 +193,13 @@
 
         <form class="enrollment-form">
             <div class="form-header">
-                <h1>Elementary Enrollment</h1>
+                <h1>Teacher Details</h1>
                 <a href="#" class="close-btn">&times;</a>
             </div>
             <!-- Left Column -->
             <div>
                 <section>
                     <h2>Basic Information</h2>
-                    <div class="form-row">
-                        <input type="text" placeholder="Student's LRN">
-                    </div>
                     <div class="form-row">
                         <input type="text" placeholder="Last Name">
                         <input type="text" placeholder="First Name">
@@ -211,7 +208,6 @@
                     <div class="form-row">
                         <input type="text" placeholder="Sex">
                         <input type="date" placeholder="Birthdate">
-                        <input type="text" placeholder="Religion">
                     </div>
                     <div class="form-row">
                         <input type="text" placeholder="Mobile Number">
@@ -220,20 +216,10 @@
                 </section>
 
                 <section>
-                    <h2>Current Address</h2>
-                    <div class="form-row">
-                        <input type="text" placeholder="House No. / Street / Barangay">
-                        <input type="text" placeholder="Municipality/City">
-                        <input type="text" placeholder="Province">
-                    </div>
-                </section>
-
-                <section>
                     <h2>Other Information</h2>
                     <div class="form-row">
-                        <input type="text" placeholder="Last School Attended">
                         <div class="select-container">
-                            <label for="grade">Incoming Grade Level</label>
+                            <label for="grade">Grade Level Handled</label>
                             <select name="grade" id="grade">
                                 <option value="Kindergarten1">Kinder 1</option>
                                 <option value="Kindergarten2">Kinder 2</option>
@@ -249,43 +235,9 @@
                 </section>
             </div>
 
-
-            <!-- Right Column -->
-            <div>
-                <section>
-                    <h2>Father's Information</h2>
-                    <div class="form-row">
-                        <input type="text" placeholder="Father's Name">
-                        <input type="text" placeholder="Occupation">
-                        <input type="text" placeholder="Mobile Number">
-                        <input type="email" placeholder="Email Address">
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Mother's Information</h2>
-                    <div class="form-row">
-                        <input type="text" placeholder="Mother's Name">
-                        <input type="text" placeholder="Occupation">
-                        <input type="text" placeholder="Mobile Number">
-                        <input type="email" placeholder="Email Address">
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Guardian's Information</h2>
-                    <div class="form-row">
-                        <input type="text" placeholder="Guardian's Name">
-                        <input type="text" placeholder="Relationship">
-                        <input type="text" placeholder="Mobile Number">
-                        <input type="email" placeholder="Email Address">
-                    </div>
-                </section>
-            </div>
-
             <!-- Form Actions -->
             <div class="form-actions">
-                <a class="cancel-btn">Close</a>
+
                 <div>
                     <a class="delete-btn">Delete</a>
                     <a class="accept-btn">Accept</a>
@@ -294,9 +246,66 @@
         </form>
     </div>
 
+    <div id="createteacherform" class="form-overlay">
+
+        <form id="teacherform" class="enrollment-form">
+            <div class="form-header">
+                <h1>Teacher Details</h1>
+                <a href="#" class="close-btn">&times;</a>
+            </div>
+            <!-- Left Column -->
+            <div>
+                <section>
+                    <h2>Basic Information</h2>
+                    <div class="form-row">
+                        <input type="text" id="lNameInp" placeholder="Last Name">
+                        <input type="text" id="fNameInp" placeholder="First Name">
+                        <input type="text" id="mNameInp" placeholder="Middle Name" required>
+                    </div>
+                    <div class="form-row">
+                        <input type="text" id="sexInp" placeholder="Sex" required>
+                        <input type="date" id="birthDateInp" placeholder="Birthdate" required>
+                    </div>
+                    <div class="form-row">
+                        <input type="text" id="mobNumInp" placeholder="Mobile Number" required>
+                        <input type="email" id="emailInp" placeholder="Email Address" required>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Other Information</h2>
+                    <div class="form-row">
+                        <div class="select-container">
+                            <label for="grade">Grade Level Handled</label>
+                            <select name="grade" id="gradetohandle" required>
+                                <option value="Kindergarten1">Kinder 1</option>
+                                <option value="Kindergarten2">Kinder 2</option>
+                                <option value="Grade1">Grade 1</option>
+                                <option value="Grade2">Grade 2</option>
+                                <option value="Grade3">Grade 3</option>
+                                <option value="Grade4">Grade 4</option>
+                                <option value="Grade5">Grade 5</option>
+                                <option value="Grade6">Grade 6</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="form-actions">
+                <div>
+                    <a href="#" class="delete-btn">Cancel</a>
+                    <a id="create-teacher-btn" class="accept-btn">Create</a>
+                </div>
+            </div>
+        </form>
+
+    </div>
 
 
-    <script type="module" src="/superadmin/js/admin-enrollees-firebase.js"></script>
+
+    <script type="module" src="/superadmin/js/admin-teacherlist-firebase.js"></script>
 </body>
 
 </html>

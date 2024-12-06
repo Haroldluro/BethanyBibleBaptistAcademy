@@ -263,7 +263,8 @@ header {
     display: flex;
     align-items: center;
     gap: 5px;
-    padding: 10px 15px;
+    padding: 0px 15px;
+    text-decoration: none;
     background-color: var(--green-button);
     color: var(--white-font-color);
     border: none;
@@ -344,11 +345,40 @@ header {
 /* Search Container */
 
 /* #region table */
+.tablescroll {
+    display: flex;
+    flex-direction: column;
+    max-height: 86vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.table-header {
+
+    position: sticky;
+    top: 0;
+}
+
+.header-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tablerow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .table {
     background-color: var(--white-font-color);
     border-radius: 10px;
     box-shadow: 0 2px 5px var(--shadow-color);
     flex: 1;
+
 }
 
 .table h3 {
@@ -364,10 +394,16 @@ table {
     overflow: hidden;
 }
 
-table th,
 table td {
+    min-width: 150px;
     text-align: left;
-    padding: 20px 20px 20px 20px;
+    padding: 19px 20px;
+}
+
+table th {
+    min-width: 150px;
+    text-align: left;
+    padding: 19px 15px;
 }
 
 thead {
@@ -563,7 +599,7 @@ tbody tr:nth-child(odd) {
 
 /* Delete Button */
 .delete-btn {
-
+    text-decoration: none;
     background: #d32f2f;
     border: none;
     color: #fff;
@@ -618,13 +654,12 @@ form.enrollment-form {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    max-width: 1500px;
+    max-width: 1400px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 20px;
+    margin-top: 100px;
     margin-bottom: 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+
     /* Two columns */
     gap: 20px;
     /* Space between columns */
@@ -698,7 +733,7 @@ form .form-row input:focus {
 /* Action Buttons */
 form .form-actions {
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     grid-column: span 2;
     /* Make the action buttons span across both columns */
 }
