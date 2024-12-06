@@ -544,10 +544,10 @@ accptBtn.addEventListener("click", async (event) => {
 
               // Step 4: Create an empty map for each subject's grades (first, second, third, fourth)
               subjectsMap.set(subjectName, {
-                first: "",
-                second: "",
-                third: "",
-                fourth: ""
+                first: "0",
+                second: "0",
+                third: "0",
+                fourth: "0"
               });
             }
           }
