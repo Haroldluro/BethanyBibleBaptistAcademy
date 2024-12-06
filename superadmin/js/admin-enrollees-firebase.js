@@ -515,6 +515,7 @@ accptBtn.addEventListener("click", async (event) => {
         gradeLevel: grade.value,
         enrolledOn: serverTimestamp(),
         teacher: "",
+        isActive: "true",
       };
 
       // Use LRN as document ID for students table
