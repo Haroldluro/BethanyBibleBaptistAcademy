@@ -162,14 +162,77 @@ document.querySelectorAll('.dropdown-menu li a').forEach((filter) => {
 const searchBtn = document.getElementById("searchbtn");
 const searchInput = document.getElementById("searchinput");
 
-searchInput.addEventListener("input", async (event) => {
+// searchInput.addEventListener("input", async (event) => {
+//   const searchTerm = event.target.value.toLowerCase();
+//   console.log(studentDetails);
+//   studentDetails.forEach((student) => {
+//     const isMatch = student.LRN.includes(searchTerm) || student.lastName.toLowerCase().includes(searchTerm) || student.firstName.toLowerCase().includes(searchTerm);
+//     student.element.classList.toggle("hidden", !isMatch);
+//   })
+// });
+
+let debounceTimeout;
+
+searchInput.addEventListener("input", (event) => {
+  clearTimeout(debounceTimeout); // Clear the previous timeout
   const searchTerm = event.target.value.toLowerCase();
-  console.log(studentDetails);
-  studentDetails.forEach((student) => {
-    const isMatch = student.LRN.includes(searchTerm) || student.lastName.toLowerCase().includes(searchTerm) || student.firstName.toLowerCase().includes(searchTerm);
-    student.element.classList.toggle("hidden", !isMatch);
-  })
+
+  debounceTimeout = setTimeout(async () => {
+    try {
+      // Clear the existing table rows
+      tableER.innerHTML = ""; // Clear all rows before appending new ones
+
+      if (searchTerm.trim() === "") {
+        // If the search term is empty, reload all students
+        await displayTableDetails();
+        return;
+      }
+
+      // Query Firestore for students whose LRN, lastName, or firstName matches the search term
+      const matchingStudents = [];
+      const querySnapshot = await getDocs(collectionRef);
+
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const lrn = data["LRN"] || "";
+        const lastName = data["lastName"] || "";
+        const firstName = data["firstName"] || "";
+        const status = data["status"] || ""; // Fetch the status field
+
+        // Check if the search term matches any of the student details and if the status is "Pending"
+        if (
+          (lrn.toLowerCase().includes(searchTerm) ||
+            lastName.toLowerCase().includes(searchTerm) ||
+            firstName.toLowerCase().includes(searchTerm)) &&
+          status === "Pending"
+        ) {
+          matchingStudents.push(doc);
+        }
+      });
+
+      // Add only the matching students to the table
+      matchingStudents.forEach((doc) => {
+        const student = tableTemplate.content.cloneNode(true).children[0];
+        student.querySelector("#ERID").innerHTML = doc.data()["LRN"];
+        student.querySelector("#ERLastName").innerHTML = doc.data()["lastName"];
+        student.querySelector("#ERFirstName").innerHTML = doc.data()["firstName"];
+        student.querySelector("#ERGrade").innerHTML = doc.data()["gradeLevel"];
+        student.querySelector("#ERView").setAttribute("data-id", doc.data()["LRN"]);
+        student.querySelector("#ERDelete").setAttribute("data-id", doc.data()["LRN"]);
+        student.classList.remove("hidden");
+        tableER.append(student);
+      });
+    } catch (e) {
+      console.error("Error searching Firebase:", e);
+    }
+  }, 200); // Delay of 300ms before executing the search
 });
+
+
+
+
+
+
 
 const accptBtn = document.getElementById("acceptbtn");
 const modalDeleteBtn = document.getElementById("modalDeleteBtn");
@@ -463,6 +526,7 @@ accptBtn.addEventListener("click", async (event) => {
       console.error("Error creating student data:", error);
       alert("Failed to process the enrollment. Please try again.");
     }
+
 
   } catch (e) {
     console.error("Error fetching document:", e);
