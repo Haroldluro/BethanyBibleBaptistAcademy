@@ -521,11 +521,104 @@ accptBtn.addEventListener("click", async (event) => {
       const studentDocRef = doc(db, "students", LRNInp.value);
       await setDoc(studentDocRef, studentData);
 
+      // After creating student data, add an entry to the "grades" collection
+      try {
+        const gradesData = {};
+
+        // Step 1: Query grade level to get the subjects for the student based on their gradeLevel
+        const gradeLevelRef = doc(db, "gradeLevel", grade.value);
+        console.log(grade.value);// Get the grade level document (e.g., Grade1, Grade2, etc.)
+        const gradeLevelDoc = await getDoc(gradeLevelRef);
+
+        if (gradeLevelDoc.exists()) {
+          // Step 2: Get the subjects array from the grade level document
+          const subjectsArray = gradeLevelDoc.data().subjects;
+          console.log(subjectsArray);
+
+          // Step 3: Convert the array of subject references into a map of subjects
+          const subjectsMap = new Map();
+          for (const subjectRef of subjectsArray) {
+            const subjectDoc = await getDoc(subjectRef); // Get the subject document
+            if (subjectDoc.exists()) {
+              const subjectName = subjectDoc.data().name;
+
+              // Step 4: Create an empty map for each subject's grades (first, second, third, fourth)
+              subjectsMap.set(subjectName, {
+                first: "",
+                second: "",
+                third: "",
+                fourth: ""
+              });
+            }
+          }
+
+          // Step 5: Add the subjectsMap to the gradesData object
+          gradesData.Grades = Object.fromEntries(subjectsMap);
+
+          // Step 6: Create the grades entry in the "grades" collection with newStudentID as the document ID
+          const gradesDocRef = doc(db, "grades", newStudentID); // Use newStudentID as document ID
+          await setDoc(gradesDocRef, gradesData);
+          console.log("Grades entry added to the 'grades' collection");
+
+          alert("Student accepted, account created, and grades data initialized!");
+        } else {
+          alert("Grade level data not found. Please check the grade level.");
+        }
+      } catch (e) {
+        console.error("Error adding grades table: ", e);
+        alert("Failed to process grades. Please try again.");
+      }
+
+
+
+
+      // const gradesDocRef = doc(db, "grades", newStudentID);
+
+      // // Query the grade level document to get the subjects array
+      // const gradeLevelRef = doc(db, "gradeLevel", grade.value);
+      // const gradeLevelDoc = await getDoc(gradeLevelRef);
+
+      // if (gradeLevelDoc.exists()) {
+      //   const subjectsRefs = gradeLevelDoc.data().subjects; // Array of document references
+
+
+      //   // Fetch details of each subject
+      //   const subjectsData = [];
+      //   for (const subjectRef of subjectsRefs) {
+      //     const subjectDoc = await getDoc(subjectRef); // Resolve the reference
+      //     if (subjectDoc.exists()) {
+      //       subjectsData.push({
+      //         subjectName: subjectDoc.data().name, // Name of the subject
+      //         grades: null, // Placeholder for future grades
+      //       });
+      //     }
+      //   }
+
+      //   // Save the grades document with subjects
+      //   const gradesData = {
+      //     studentID: newStudentID,
+      //     gradeLevel: grade.value,
+      //     subjects: subjectsData, // Array of subjects with placeholders for grades
+      //     createdAt: serverTimestamp(),
+      //   };
+
+      //   await setDoc(gradesDocRef, gradesData);
+      //   console.log("Grades document created successfully!");
+      // } else {
+      //   console.error("Grade level document not found!");
+      //   alert("Failed to fetch subjects for the grade level.");
+      // }
+
+
+
+
+
       alert("Student accepted and account created successfully!");
     } catch (error) {
       console.error("Error creating student data:", error);
       alert("Failed to process the enrollment. Please try again.");
     }
+
 
 
   } catch (e) {
