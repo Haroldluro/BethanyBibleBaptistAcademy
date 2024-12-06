@@ -157,17 +157,17 @@
                         <tbody id="tableST">
                             <template student-template>
                                 <tr class="hidden tablerow" id="templateST">
-                                    <td id="STID">2023-001</td>
-                                    <td id="STName">Harold</td>
+                                    <td id="STID"></td>
+                                    <td id="STName"></td>
                                     <td id="STGrade"></td>
                                     <td class="operations">
-                                        <a class="status_border accounts" href="#accounts">
+                                        <a class="status_border accounts" id='accountsbtn' href="#accounts">
                                             <p>Accounts</p>
                                         </a>
-                                        <a class="status_border grade" href="#grades">
+                                        <a class="status_border grade" id='gradesbtn' href="#grades">
                                             <p>Grades</p>
                                         </a>
-                                        <a href="#deleteModal" class="status_border delete hidden">
+                                        <a href="#deleteModal" id="deletebtn" class="status_border delete hidden">
                                             <p>Delete</p>
                                         </a>
                                     </td>
@@ -204,7 +204,6 @@
                 <h2>Edit Grades</h2>
                 <div class="form-header">
                     <h1>Create Post</h1>
-                    <a href="#" class="close-btn">&times;</a>
                 </div>
                 <table class="popup-table">
                     <thead>
@@ -217,40 +216,42 @@
                             <th>Final Grade</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Math</td>
-                            <td><input type="text" value="90" /></td>
-                            <td><input type="text" value="92" /></td>
-                            <td><input type="text" value="88" /></td>
-                            <td><input type="text" value="85" /></td>
-                            <td><input type="text" value="89" /></td>
-                        </tr>
-                        <tr>
-                            <td>English</td>
-                            <td><input type="text" value="95" /></td>
-                            <td><input type="text" value="93" /></td>
-                            <td><input type="text" value="89" /></td>
-                            <td><input type="text" value="87" /></td>
-                            <td><input type="text" value="91" /></td>
-                        </tr>
-                        <tr>
-                            <td>Science</td>
-                            <td><input type="text" value="89" /></td>
-                            <td><input type="text" value="90" /></td>
-                            <td><input type="text" value="92" /></td>
-                            <td><input type="text" value="94" /></td>
-                            <td><input type="text" value="91" /></td>
-                        </tr>
-                        <tr>
-                            <td>Filipino</td>
-                            <td><input type="text" value="93" /></td>
-                            <td><input type="text" value="94" /></td>
-                            <td><input type="text" value="91" /></td>
-                            <td><input type="text" value="89" /></td>
-                            <td><input type="text" value="92" /></td>
-                        </tr>
-                    </tbody>
+                    <template>
+                        <tbody>
+                            <tr>
+                                <td>Math</td>
+                                <td><input type="text" value="90" /></td>
+                                <td><input type="text" value="92" /></td>
+                                <td><input type="text" value="88" /></td>
+                                <td><input type="text" value="85" /></td>
+                                <td><input type="text" value="89" /></td>
+                            </tr>
+                            <tr>
+                                <td>English</td>
+                                <td><input type="text" value="95" /></td>
+                                <td><input type="text" value="93" /></td>
+                                <td><input type="text" value="89" /></td>
+                                <td><input type="text" value="87" /></td>
+                                <td><input type="text" value="91" /></td>
+                            </tr>
+                            <tr>
+                                <td>Science</td>
+                                <td><input type="text" value="89" /></td>
+                                <td><input type="text" value="90" /></td>
+                                <td><input type="text" value="92" /></td>
+                                <td><input type="text" value="94" /></td>
+                                <td><input type="text" value="91" /></td>
+                            </tr>
+                            <tr>
+                                <td>Filipino</td>
+                                <td><input type="text" value="93" /></td>
+                                <td><input type="text" value="94" /></td>
+                                <td><input type="text" value="91" /></td>
+                                <td><input type="text" value="89" /></td>
+                                <td><input type="text" value="92" /></td>
+                            </tr>
+                        </tbody>
+                    </template>
                 </table>
                 <button class="save-button" id="save-changes">Apply</button>
             </div>

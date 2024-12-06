@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getFirestore, getDocs, collection, getCountFromServer } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import { getFirestore, getDoc, getDocs, doc,collection, getCountFromServer } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 import { query, where } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
@@ -27,8 +27,10 @@ onAuthStateChanged(auth, (user) => {
 });
 
 const db = getFirestore(app);
-const collectionRef = collection(db, "students");
-const querySnapshot = await getDocs(collectionRef);
+const studentCollectionRef = collection(db, "students");
+const studentSnapshot = await getDocs(studentCollectionRef);
+const gradeCollectionRef = collection(db, "grades");
+const gradeSnapshot = await getDocs(gradeCollectionRef);
 
 let studentDetails = [];
 const tableTemplate = document.querySelector('[student-template]');
@@ -36,11 +38,14 @@ const tableST = document.getElementById("tableST");
 
 async function getStudentDetails() {
   try {
-    studentDetails = querySnapshot.docs.map((doc) => {
+    studentDetails = studentSnapshot.docs.map((doc) => {
       const student = tableTemplate.content.cloneNode(true).children[0];
       student.querySelector("#STID").innerHTML = doc.data()["studentID"];
       student.querySelector("#STName").innerHTML = doc.data()["lastName"] + ", " + doc.data()["firstName"];
       student.querySelector("#STGrade").innerHTML = doc.data()["gradeLevel"];
+      student.querySelector('#gradesbtn').setAttribute("data-id", doc.data()["studentID"]);
+      student.querySelector('#deletebtn').setAttribute("data-id", doc.data()["studentID"]);
+      student.querySelector('#accountsbtn').setAttribute("data-id", doc.data()["studentID"]);
       student.classList.remove("hidden");
       tableST.append(student);
       return {
@@ -57,3 +62,21 @@ async function getStudentDetails() {
 
 getStudentDetails();
 
+const gradebtn = document.querySelectorAll("#gradesbtn");
+
+gradebtn.forEach((btn) => {
+  btn.addEventListener("click", async (event) => {
+    try {
+      const reqId = btn.getAttribute("data-id");
+      console.log("Request ID:", reqId);
+
+      const docRef = doc(db, "grades", reqId);
+      const docSnap = await getDoc(docRef);
+      
+      
+
+    }catch (e) {
+      console.error("Error fetching document:", e);
+    }
+  })
+});
