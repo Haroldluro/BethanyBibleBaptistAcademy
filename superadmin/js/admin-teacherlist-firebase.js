@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getFirestore, doc, setDoc, addDoc, getDocs, collection, getCountFromServer } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc, addDoc, getDocs, collection, getCountFromServer } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 import { query, where } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
@@ -46,6 +46,9 @@ async function getTeacherDetails() {
       teacher.querySelector("#TTID").innerHTML = doc.data()["teacherID"];
       teacher.querySelector("#TTName").innerHTML = doc.data()["lastName"] + ", " + doc.data()["firstName"];
       teacher.querySelector("#TTGrade").innerHTML = doc.data()["gradeLevelHandled"];
+      teacher.querySelector("#TTView").setAttribute("data-id", doc.data()["teacherID"]);
+      // teacher.querySelector("#TTDelete").setAttribute("data-id", doc.data()["teacherID"]);
+      // teacher.querySelector("#TTAccept").setAttribute("data-id", doc.data()["teacherID"]);
       teacher.classList.remove("hidden");
       tableTT.append(teacher);
       return {
@@ -141,6 +144,44 @@ document.getElementById("create-teacher-btn").addEventListener("click", async (e
     console.error("Error creating teacher:", error);
     alert("An error occurred while creating the teacher.");
   }
+});
+
+const viewBtn = document.querySelectorAll("#TTView");
+
+viewBtn.forEach((btn) => {
+  console.log("Clicked");
+  btn.addEventListener("click", async (event) => {
+    try {
+      const reqId = btn.getAttribute("data-id");
+      console.log("Request ID:", reqId);
+
+      // Fetch document from Firestore
+      const docRef = doc(db, "teacher", reqId);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        console.log("Document Data:", data);
+
+        // Populate input fields
+        lNameInpe.value = data.lastName || "";
+        fNameInpe.value = data.firstName || "";
+        mNameInpe.value = data.middleName || "";
+        sexInpe.value = data.sex || "";
+        birthDateInpe.value = data.birthDate || "";
+        mobNumInpe.value = data.mobileNumber || "";
+        emailInpe.value = data.email || "";
+        gradetohandlee.value = data.gradeLevelHandled || "";
+      } else {
+        console.log("No such document!");
+      }
+    } catch (e) {
+      console.error("Error fetching document:", e);
+    }
+  });
+
+
+
 });
 
 

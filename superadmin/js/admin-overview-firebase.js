@@ -33,7 +33,7 @@ const studentRef = collection(db, "students");
 const studentSnapshot = await getCountFromServer(studentRef);
 document.getElementById("totalStudent").innerHTML = studentSnapshot.data().count
 
-const teacherRef = collection(db, "teachers");
+const teacherRef = collection(db, "teacher");
 const teacherSnapshot = await getCountFromServer(teacherRef);
 document.getElementById("totalTeachers").innerHTML = teacherSnapshot.data().count
 

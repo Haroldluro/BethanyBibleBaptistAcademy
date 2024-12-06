@@ -158,10 +158,10 @@
                                 <td id="TTName">Luro</td>
                                 <td id="TTGrade">Grade</td>
                                 <td class="operations">
-                                    <a class="status_border view" href="#enrollmentform">
-                                        <p>View</p>
+                                    <a class="status_border view" id="TTView" href="#enrollmentform">
+                                        <p>Edit</p>
                                     </a>
-                                    <a href="#deleteModal" class="status_border delete">
+                                    <a href="#deleteModal" class="status_border delete hidden">
                                         <p>Delete</p>
                                     </a>
                                 </td>
@@ -185,7 +185,7 @@
             </div>
             <div class="modal-footer">
                 <a href="#" class="cancel-btn">Cancel</a>
-                <a href="#" class="delete-btn">Delete</a>
+                <a id="deletebtn" class="delete-btn">Delete</a>
             </div>
         </div>
     </div>
@@ -201,17 +201,17 @@
                 <section>
                     <h2>Basic Information</h2>
                     <div class="form-row">
-                        <input type="text" placeholder="Last Name">
-                        <input type="text" placeholder="First Name">
-                        <input type="text" placeholder="Middle Name">
+                        <input type="text" id="lNameInpe" placeholder="Last Name">
+                        <input type="text" id="fNameInpe" placeholder="First Name">
+                        <input type="text" id="mNameInpe" placeholder="Middle Name" required>
                     </div>
                     <div class="form-row">
-                        <input type="text" placeholder="Sex">
-                        <input type="date" placeholder="Birthdate">
+                        <input type="text" id="sexInpe" placeholder="Sex" required>
+                        <input type="date" id="birthDateInpe" placeholder="Birthdate" required>
                     </div>
                     <div class="form-row">
-                        <input type="text" placeholder="Mobile Number">
-                        <input type="email" placeholder="Email Address">
+                        <input type="text" id="mobNumInpe" placeholder="Mobile Number" required>
+                        <input type="email" id="emailInpe" placeholder="Email Address" required>
                     </div>
                 </section>
 
@@ -220,7 +220,7 @@
                     <div class="form-row">
                         <div class="select-container">
                             <label for="grade">Grade Level Handled</label>
-                            <select name="grade" id="grade">
+                            <select name="grade" id="gradetohandlee">
                                 <option value="Kindergarten1">Kinder 1</option>
                                 <option value="Kindergarten2">Kinder 2</option>
                                 <option value="Grade1">Grade 1</option>
@@ -239,8 +239,8 @@
             <div class="form-actions">
 
                 <div>
-                    <a class="delete-btn">Delete</a>
-                    <a class="accept-btn">Accept</a>
+                    <a href="#" class="delete-btn">Cancel</a>
+                    <a id="acceptbtn" class="accept-btn">Update</a>
                 </div>
             </div>
         </form>
