@@ -63,6 +63,9 @@ async function getStudentDetails() {
 getStudentDetails();
 
 const gradebtn = document.querySelectorAll("#gradesbtn");
+const gradeTableTemplate = document.querySelector('[grade-template-table]');
+
+
 
 gradebtn.forEach((btn) => {
   btn.addEventListener("click", async (event) => {
@@ -72,8 +75,30 @@ gradebtn.forEach((btn) => {
 
       const docRef = doc(db, "grades", reqId);
       const docSnap = await getDoc(docRef);
+      const tableGT = document.getElementById("tableGR");
       
-      
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        const grade = gradeTableTemplate.content.cloneNode(true).children[0];
+        console.log(grade);
+        const grades = docSnap.data().Grades;
+
+        // Iterate through all keys in the Grades map
+        for (const [subject, innerMap] of Object.entries(grades)) {
+          grade.querySelector("#subject").innerHTML = subject;
+          tableGT.append(grade);
+          // Access fields within each inner map
+          for (const [key, value] of Object.entries(innerMap)) {
+            let i = 1;
+            grade.querySelector(`#grade${i}`).value = value;
+            i++;
+            tableGT.append(grade);
+          }
+        }
+
+      }else{
+        console.log("No such document!");
+      }
 
     }catch (e) {
       console.error("Error fetching document:", e);

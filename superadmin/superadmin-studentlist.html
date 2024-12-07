@@ -216,15 +216,16 @@
                             <th>Final Grade</th>
                         </tr>
                     </thead>
-                    <template>
-                        <tbody>
+                    
+                    <tbody id="tableGR">
+                        <template grade-template-table>
                             <tr>
-                                <td>Math</td>
-                                <td><input type="text" value="90" /></td>
-                                <td><input type="text" value="92" /></td>
-                                <td><input type="text" value="88" /></td>
-                                <td><input type="text" value="85" /></td>
-                                <td><input type="text" value="89" /></td>
+                                <td id="subject">Math</td>
+                                <td ><input id="grade1" type="text" value="90" /></td>
+                                <td id="grade2"><input type="text" value="92" /></td>
+                                <td id="grade3"><input type="text" value="88" /></td>
+                                <td id="grade4"><input type="text" value="85" /></td>
+                                <td id="final"><input type="text" value="89" /></td>
                             </tr>
                             <tr>
                                 <td>English</td>
@@ -250,8 +251,8 @@
                                 <td><input type="text" value="89" /></td>
                                 <td><input type="text" value="92" /></td>
                             </tr>
-                        </tbody>
-                    </template>
+                        </template>
+                    </tbody>
                 </table>
                 <button class="save-button" id="save-changes">Apply</button>
             </div>
