@@ -412,8 +412,6 @@ accptBtn.addEventListener("click", async (event) => {
   }
 
   try {
-
-
     // Collect data from form fields
     const enrollmentData = {
       LRN: LRNInp.value,
