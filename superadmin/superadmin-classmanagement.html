@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Bethany Bible Baptist Academy</title>
     <link rel="icon" href="../assets/logo/BethanyLogo.png" type="image/x-icon">
-    <link rel="stylesheet" href="/superadmin/css/superadmin-studentlist.css">
+    <link rel="stylesheet" href="/superadmin/css/superadmin-classmanagement.css">
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -126,7 +126,7 @@
         </nav>
         <main>
             <header>
-                <h1>Student List</h1>
+                <h1>Class Management</h1>
                 <div class="search-container">
                     <input type="text" class="search-input" placeholder="Search Name">
                     <button class="filter-btn">
@@ -155,25 +155,20 @@
                 <table class="tablescroll">
                     <thead class="table-header">
                         <tr class="header-title">
-                            <th>Request ID</th>
-                            <th>Name</th>
+                            <th>Handled By</th>
                             <th>Grade Level</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <div>
-                        <tbody id="tableST">
-                            <template student-template>
-                                <tr class="hidden tablerow" id="templateST">
-                                    <td id="STID"></td>
-                                    <td id="STName"></td>
-                                    <td id="STGrade"></td>
+                        <tbody id="tableCM">
+                            <template class-template>
+                                <tr class="hidden tablerow" id="templateCM">
+                                    <td id="CMTeacher">Santillan, Jiro</td>
+                                    <td id="CMGrade">Grade6</td>
                                     <td class="operations">
-                                        <a class="status_border accounts" id='accountsbtn' href="#accounts">
-                                            <p>Accounts</p>
-                                        </a>
-                                        <a class="status_border grade" id='gradesbtn' href="#grades">
-                                            <p>Grades</p>
+                                        <a class="status_border view" id='gradesbtn' href="#editsubjects">
+                                            <p>View</p>
                                         </a>
                                         <a href="#deleteModal" id="deletebtn" class="status_border delete hidden">
                                             <p>Delete</p>
@@ -188,25 +183,8 @@
 
         </main>
 
-        <div id="deleteModal" class="modal-overlay">
-            <div class="modal">
-                <div class="modal-header">
-                    <span></span>
-                    <a href="#" class="close-btn">&times;</a>
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure to <strong>delete</strong> this request?</p>
-                </div>
-                <div class="modal-footer">
-                    <a href="#" class="cancel-btn">Cancel</a>
-                    <a href="#" class="delete-btn">Delete</a>
-                </div>
-            </div>
-        </div>
-
-
         <!-- Editable Popup -->
-        <div id="grades" class="popup-container">
+        <div id="editsubjects" class="popup-container">
             <div class="popup-content">
                 <a href="#" class="close-popup">&times;</a>
                 <h2>Edit Grades</h2>
