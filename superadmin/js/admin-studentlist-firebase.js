@@ -80,7 +80,7 @@ async function displayGradeDetails(id) {
     grade.querySelector("#first").value = innerMap.first;
     grade.querySelector("#second").value = innerMap.second;
     grade.querySelector("#third").value = innerMap.third;
-    grade.querySelector("#forth").value = innerMap.fourth;
+    grade.querySelector("#fourth").value = innerMap.fourth;
     const str1 = innerMap.first;
     const str2 = innerMap.second;
     const str3 = innerMap.third;
@@ -98,21 +98,31 @@ async function displayGradeDetails(id) {
 async function gradesEdit(id) {
   const docRef = doc(db, "grades", id);
   const docSnap = await getDoc(docRef);
+  const tableGT = document.getElementById("tableGR"); 
+  let outterMap = new Map();
+  let innerMap = new Map();
 
-  const grades = docSnap.data().Grades;
-  for (let row of tbody.rows) {
+  // Assuming tableGT is the HTML table element
+  for (let row of tableGT.rows) {
     const subjectName = row.cells[0].textContent;
-    for (const [subject, innerMap] of Object.entries(grades)){
-      const first = grade.querySelector("#first").value;
-      const second = grade.querySelector("#second").value;
-      const third = grade.querySelector("#third").value;
-      const fourth = grade.querySelector("#forth").value;
-  
-    }
+    const first = row.cells[1].querySelector("#first").value;
+    const second = row.cells[2].querySelector("#second").value;
+    const third = row.cells[3].querySelector("#third").value;
+    const fourth = row.cells[4].querySelector("#fourth").value;
+    console.log(subjectName, first, second, third, fourth);
+    const marks = {
+      first,
+      second,
+      third,
+      fourth
+    };
+    innerMap.set(subjectName, marks);
   }
-  
-  await updateDoc();
+  outterMap.set('Grades', Object.fromEntries(innerMap));
+  const gradesObject = Object.fromEntries(outterMap);
+  await updateDoc(docRef, gradesObject);
 }
+
 
 gradeBtn.forEach((btn) => {
   btn.addEventListener("click", async (event) => {
