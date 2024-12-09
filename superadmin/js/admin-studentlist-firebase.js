@@ -124,7 +124,7 @@ gradeBtn.forEach((btn) => {
         gradesEdit(reqId);
       })
 
-    }catch (e) {
+    } catch (e) {
       console.error("Error fetching document:", e);
     }
   })
