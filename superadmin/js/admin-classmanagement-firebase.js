@@ -25,105 +25,126 @@ onAuthStateChanged(auth, (user) => {
 });
 
 const db = getFirestore(app);
-const studentCollectionRef = collection(db, "gradeLevel");
-const studentSnapshot = await getDocs(studentCollectionRef);
+const gradeLevelCollectionRef = collection(db, "gradeLevel");
+const gradeLevelSnapshot = await getDocs(gradeLevelCollectionRef);
 const gradeCollectionRef = collection(db, "grades");
 const gradeSnapshot = await getDocs(gradeCollectionRef);
 
-let studentDetails = [];
-const tableTemplate = document.querySelector('[student-template]');
-const tableST = document.getElementById("tableST");
+let gradeLevelDetails = [];
+const tableTemplate = document.querySelector('[gradeLevel-template]');
+const tableST = document.getElementById("tableGL");
 
-async function getStudentDetails() {
+async function getGradeLevelDetails() {
   try {
-    studentDetails = studentSnapshot.docs.map((doc) => {
-      const student = tableTemplate.content.cloneNode(true).children[0];
-      student.querySelector("#STID").innerHTML = doc.data()["name"];
-      student.querySelector("#STName").innerHTML = doc.data().sections.length;
+    gradeLevelDetails = gradeLevelSnapshot.docs.map((doc) => {
+      const gradeLevel = tableTemplate.content.cloneNode(true).children[0];
+      gradeLevel.querySelector("#GLID").innerHTML = doc.data()["name"];
+      gradeLevel.querySelector("#GLName").innerHTML = doc.data().sections.length;
 
       console.log();
-      student.querySelector('#editbtn').setAttribute("data-id", doc.data()["studentID"]);
-      student.classList.remove("hidden");
-      tableST.append(student);
-      return {
-        studentID: doc.data()["studentID"] || "",
-        Name: doc.data()["lastName"] + ", " + doc.data()["firstName"] || "",
-        gradeLevel: doc.data()["gradeLevel"] || "",
-        element: student
-      };
+      gradeLevel.querySelector('#editbtn').setAttribute("data-id", doc.id);
+      gradeLevel.classList.remove("hidden");
+      tableST.append(gradeLevel);
     });
   } catch (e) {
     console.error("Error adding document: ", e);
   }
 }
 
-getStudentDetails();
+getGradeLevelDetails();
 
-// const gradeBtn = document.querySelectorAll("#gradesbtn");
-// const gradeTableTemplate = document.querySelector('[grade-template-table]');
-// const applyBtn = document.querySelector("#save-changes");
+const gradeBtn = document.querySelectorAll("#editbtn");
+const addSection = document.getElementById("add-section");
+const gradeTableTemplate = document.querySelector('[grade-template-table]');
+const applyBtn = document.querySelector("#save-changes");
+const closeBtn = document.querySelector("#close-popup");
 
-// async function displayGradeDetails(id) {
-//   const docRef = doc(db, "grades", id);
-//   const docSnap = await getDoc(docRef);
-//   const tableGT = document.getElementById("tableGR");
+async function displayGradeDetails(id) {
+  const docRef = doc(db, "gradeLevel", id);
+  const docSnap = await getDoc(docRef);
+  const tableGT = document.getElementById("tableGR");
   
-//   const grades = docSnap.data().Grades;
-//   tableGT.innerHTML = "";
+  const grades = docSnap.data().sections;
+  tableGT.innerHTML = "";
   
-//   // Iterate through all keys in the Grades map
-//   for (const [subject, innerMap] of Object.entries(grades)) {
-//     const grade = gradeTableTemplate.content.cloneNode(true).children[0];
-//     grade.querySelector("#subject").innerHTML = subject;
-//     grade.querySelector("#first").value = innerMap.first;
-//     grade.querySelector("#second").value = innerMap.second;
-//     grade.querySelector("#third").value = innerMap.third;
-//     grade.querySelector("#forth").value = innerMap.fourth;
-//     const str1 = innerMap.first;
-//     const str2 = innerMap.second;
-//     const str3 = innerMap.third;
-//     const str4 = innerMap.fourth;
-//     const num1 = +str1;
-//     const num2 = +str2;
-//     const num3 = +str3;
-//     const num4 = +str4;
-//     const finalGrade = (num1 + num2 + num3 + num4) / 4;
-//     grade.querySelector("#final").value = finalGrade;
-//     tableGT.append(grade);
-//   }
-// }
+  document.getElementById("grade-level").innerHTML = docSnap.data().name
+  // Iterate through all keys in the Grades map
+  for (const i of grades) {
+    const grade = gradeTableTemplate.content.cloneNode(true).children[0];
+    grade.querySelector("#section-name").value = i.sectionName;
+    grade.querySelector("#teacher").value = i.teacher;
 
-// async function gradesEdit(id) {
-//   const docRef = doc(db, "grades", id);
-//   const docSnap = await getDoc(docRef);
+    const deleteBtn = grade.querySelector("#delete-btn");
+    deleteBtn.addEventListener("click", function(){
+      deleteBtn.parentNode.closest("tr").remove();
+    })
 
-//   const grades = docSnap.data().Grades;
-//   for (let row of tbody.rows) {
-//     const subjectName = row.cells[0].textContent;
-//     for (const [subject, innerMap] of Object.entries(grades)){
-//       const first = grade.querySelector("#first").value;
-//       const second = grade.querySelector("#second").value;
-//       const third = grade.querySelector("#third").value;
-//       const fourth = grade.querySelector("#forth").value;
+    tableGT.append(grade);
+  }
   
-//     }
-//   }
+}
+
+async function gradesEdit(id) {
+  console.log(id);
+  const docRef = doc(db, "gradeLevel", id);
+
+  var sectionsArr = [];
+  const tbody = document.getElementById("tableGR")
+  for (let row of tbody.rows) {
+    var sectionName = row.querySelector("#section-name").value;
+    var teacher = row.querySelector("#teacher").value;
+    
+    if(sectionName == '' && teacher == '') continue;
+    const section = {
+      sectionName: sectionName,
+      teacher: teacher
+    }
+    
+    sectionsArr.push(section);
+  }
   
-//   await updateDoc();
-// }
+  await updateDoc(docRef, {
+    sections: sectionsArr
+  });
 
-// gradeBtn.forEach((btn) => {
-//   btn.addEventListener("click", async (event) => {
-//     try {
-//       const reqId = btn.getAttribute("data-id");
-//       console.log("Request ID:", reqId);
-//       displayGradeDetails(reqId);
-//       applyBtn.addEventListener("click", async (event) => {
-//         gradesEdit(reqId);
-//       })
+  location.href = "#"
+  location.reload();
+}
 
-//     } catch (e) {
-//       console.error("Error fetching document:", e);
-//     }
-//   })
-// });
+function addRow() {
+  const tableGT = document.getElementById("tableGR");
+  const grade = gradeTableTemplate.content.cloneNode(true).children[0];
+    grade.querySelector("#section-name").value = "";
+    grade.querySelector("#teacher").value = "";
+
+    const deleteBtn = grade.querySelector("#delete-btn");
+    deleteBtn.addEventListener("click", function(){
+      deleteBtn.parentNode.closest("tr").remove();
+    })
+
+    tableGT.append(grade);
+}
+
+gradeBtn.forEach((btn) => {
+  btn.addEventListener("click", async (event) => {
+    try {
+      const reqId = btn.getAttribute("data-id");
+      console.log("Request ID:", reqId);
+      displayGradeDetails(reqId);
+      applyBtn.addEventListener("click", async (event) => {
+        gradesEdit(reqId);
+      })
+
+      closeBtn.addEventListener("click", function(){
+        location.href = "#";
+        location.reload();
+      })
+
+      addSection.addEventListener("click", addRow)
+
+    } catch (e) {
+      console.error("Error fetching document:", e);
+    }
+  })
+});
+

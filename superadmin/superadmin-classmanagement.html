@@ -161,11 +161,11 @@
                         </tr>
                     </thead>
                     <div>
-                        <tbody id="tableST">
-                            <template student-template>
-                                <tr class="hidden tablerow" id="templateST">
-                                    <td id="STID"></td>
-                                    <td id="STName"></td>
+                        <tbody id="tableGL">
+                            <template gradeLevel-template>
+                                <tr class="hidden tablerow" id="templateGL">
+                                    <td id="GLID"></td>
+                                    <td id="GLName"></td>
                                     <td class="operations">
                                         <a class="status_border grade" id='editbtn' href="#edit">
                                             <p>Edit</p>
@@ -200,36 +200,32 @@
         <!-- Editable Popup -->
         <div id="edit" class="popup-container">
             <div class="popup-content">
-                <a href="#" class="close-popup">&times;</a>
-                <h2>Edit Grades</h2>
+                <a href="#" class="close-popup" id="close-popup">&times;</a>
+                <h2>Edit Sections</h2>
                 <div class="form-header">
-                    <h1>Create Post</h1>
+                    <h1 id="grade-level">Create Post</h1>
                 </div>
+                <button class="save-button" id="add-section" style="float: left; margin-bottom: 10px;">Add Section</button>
                 <table class="popup-table">
                     <thead>
                         <tr>
-                            <th>Grading Period</th>
-                            <th>1st Grading</th>
-                            <th>2nd Grading</th>
-                            <th>3rd Grading</th>
-                            <th>4th Grading</th>
-                            <th>Final Grade</th>
+                            <th>Remove</th>
+                            <th>Section Name</th>
+                            <th>Teacher</th>
                         </tr>
                     </thead>
 
                     <tbody id="tableGR">
                         <template grade-template-table>
                             <tr>
-                                <td id="subject">Math</td>
-                                <td><input id="first" type="text" value="90" /></td>
-                                <td><input id="second" type="text" value="92" /></td>
-                                <td><input id="third" type="text" value="88" /></td>
-                                <td><input id="forth" type="text" value="85" /></td>
-                                <td><input id="final" type="text" value="89" /></td>
+                                <td><button class="delete-btn" id="delete-btn">X</button></td>
+                                <td><input id="section-name" type="text" value="90" /></td>
+                                <td><input id="teacher" type="text" value="92" /></td>
                             </tr>
                         </template>
                     </tbody>
                 </table>
+                
                 <button class="save-button" id="save-changes">Apply</button>
             </div>
         </div>
