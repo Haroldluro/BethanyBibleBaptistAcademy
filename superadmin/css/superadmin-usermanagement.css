@@ -310,11 +310,40 @@ header {
 /* Search Container */
 
 /* #region table */
+.tablescroll {
+    display: flex;
+    flex-direction: column;
+    max-height: 86vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.table-header {
+
+    position: sticky;
+    top: 0;
+}
+
+.header-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tablerow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .table {
     background-color: var(--white-font-color);
     border-radius: 10px;
     box-shadow: 0 2px 5px var(--shadow-color);
     flex: 1;
+
 }
 
 .table h3 {
@@ -330,10 +359,16 @@ table {
     overflow: hidden;
 }
 
-table th,
 table td {
+    min-width: 150px;
     text-align: left;
-    padding: 20px 20px 20px 20px;
+    padding: 19px 20px;
+}
+
+table th {
+    min-width: 150px;
+    text-align: left;
+    padding: 19px 15px;
 }
 
 thead {
@@ -342,7 +377,7 @@ thead {
     border-radius: 10px 10px 0 0;
 }
 
-tbody tr:nth-child(even) {
+tbody tr:nth-child(odd) {
     background-color: var(--secondary-bg-color);
 }
 

@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getFirestore, getDoc, getDocs, doc,collection, getCountFromServer } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import { getFirestore, getDoc, getDocs, doc, collection, getCountFromServer } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 import { query, where } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
@@ -76,7 +76,7 @@ gradebtn.forEach((btn) => {
       const docRef = doc(db, "grades", reqId);
       const docSnap = await getDoc(docRef);
       const tableGT = document.getElementById("tableGR");
-      
+
       if (docSnap.exists()) {
         const data = docSnap.data();
         const grade = gradeTableTemplate.content.cloneNode(true).children[0];
@@ -96,11 +96,11 @@ gradebtn.forEach((btn) => {
           }
         }
 
-      }else{
+      } else {
         console.log("No such document!");
       }
 
-    }catch (e) {
+    } catch (e) {
       console.error("Error fetching document:", e);
     }
   })
