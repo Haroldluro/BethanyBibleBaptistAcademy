@@ -1,7 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getFirestore, getDoc, getDocs, collection, getCountFromServer } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import { getFirestore, getDoc, getDocs, collection, query, where, getCountFromServer } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
-
 const firebaseConfig = {
   apiKey: "AIzaSyDQrgbw4TlLtLbex-BiEk58nA4l_zoDAmo",
   authDomain: "bbba-96d01.firebaseapp.com",
@@ -38,7 +37,8 @@ const teacherSnapshot = await getCountFromServer(teacherRef);
 document.getElementById("totalTeachers").innerHTML = teacherSnapshot.data().count
 
 const enrollmentRef = collection(db, "enrollmentsDetails");
-const enrollmentSnapshot = await getCountFromServer(enrollmentRef);
+const enrollmentQuery = query(enrollmentRef, where("status", "==", "Pending"));
+const enrollmentSnapshot = await getCountFromServer(enrollmentQuery);
 document.getElementById("enrollmentRequest").innerHTML = enrollmentSnapshot.data().count
 
 const itemRef = collection(db, "itemRequest");

@@ -37,11 +37,11 @@ async function SignIn() {
           window.location.href = "/superadmin/superadmin-overview.html";
           break;
         case "teacher":
-          window.location.href = "/teacher/teacher-dashboard.html";
+          window.location.href = "/teacher/teacher-studentlist.html";
           break;
         case "student":
           window.location.href = "/student/student-home.html";
-          break;  
+          break;
         default:
           alert("Invalid role or no role assigned.");
       }

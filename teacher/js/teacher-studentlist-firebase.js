@@ -16,38 +16,71 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    console.log(user);
 
-    const uid = user.uid;
-  } else {
-
-  }
-});
 
 const db = getFirestore(app);
 const studentCollectionRef = collection(db, "students");
-const studentSnapshot = await getDocs(studentCollectionRef);
-const gradeCollectionRef = collection(db, "grades");
-const gradeSnapshot = await getDocs(gradeCollectionRef);
+
 
 let studentDetails = [];
 const tableTemplate = document.querySelector('[student-template]');
 const tableST = document.getElementById("tableST");
 
-async function getStudentDetails() {
+
+async function getTeacherDetails(uid) {
+  let sectionHandled = "";
+
   try {
-    studentDetails = studentSnapshot.docs.map((doc) => {
+
+    const teacherDocRef = doc(db, "users", uid);
+    const teacherDocSnap = await getDoc(teacherDocRef);
+
+    if (!teacherDocSnap.exists()) {
+      throw new Error("Teacher document not found.");
+    }
+
+    const { teacherID, emailAddress, role, isActive } = teacherDocSnap.data();
+
+
+    const teacherDetailsDocRef = doc(db, "teacher", teacherID);
+    const teacherDetailsDocSnap = await getDoc(teacherDetailsDocRef);
+
+    if (!teacherDetailsDocSnap.exists()) {
+      throw new Error("Additional teacher details not found.");
+    }
+
+    const { firstName, lastName, gradeLevelHandled } = teacherDetailsDocSnap.data();
+    sectionHandled = teacherDetailsDocSnap.data().sectionHandled; // Set sectionHandled
+
+    // Step 3: Display the teacher's details
+    const teacherName = `${lastName}, ${firstName}`;
+    document.querySelector("#gradelevel").textContent = gradeLevelHandled;
+    document.querySelector("#section").textContent = sectionHandled;
+
+    console.log("Teacher details displayed successfully.");
+  } catch (error) {
+    console.error("Error fetching teacher details:", error);
+    alert("Failed to load teacher details.");
+  }
+
+  try {
+    // Query students where section matches sectionHandled
+    if (!sectionHandled) {
+      throw new Error("Section handled is not defined.");
+    }
+
+    const q = query(studentCollectionRef, where("section", "==", sectionHandled));
+    const studentQuerySnapshot = await getDocs(q);
+
+    studentDetails = studentQuerySnapshot.docs.map((doc) => {
       const student = tableTemplate.content.cloneNode(true).children[0];
       student.querySelector("#STID").innerHTML = doc.data()["studentID"];
-      student.querySelector("#STName").innerHTML = doc.data()["lastName"] + ", " + doc.data()["firstName"];
-      student.querySelector("#STGrade").innerHTML = doc.data()["gradeLevel"];
-      student.querySelector('#gradesbtn').setAttribute("data-id", doc.data()["studentID"]);
-      student.querySelector('#deletebtn').setAttribute("data-id", doc.data()["studentID"]);
-      student.querySelector('#accountsbtn').setAttribute("data-id", doc.data()["studentID"]);
+      student.querySelector("#STFName").innerHTML = doc.data()["firstName"];
+      student.querySelector("#STLName").innerHTML = doc.data()["lastName"];
+      student.querySelector("#gradesbtn").setAttribute("data-id", doc.data()["studentID"]);
       student.classList.remove("hidden");
       tableST.append(student);
+
       return {
         studentID: doc.data()["studentID"] || "",
         Name: doc.data()["lastName"] + ", " + doc.data()["firstName"] || "",
@@ -55,17 +88,22 @@ async function getStudentDetails() {
         element: student
       };
     });
-  } catch (e) {
-    console.error("Error adding document: ", e);
+    console.log("Student details fetched successfully.");
+  } catch (error) {
+    console.error("Error fetching students:", error);
+    alert("Failed to load student details.");
   }
 }
 
-getStudentDetails();
 
-const gradeBtn = document.querySelectorAll("#gradesbtn");
+
+
+
 const gradeTableTemplate = document.querySelector('[grade-template-table]');
 const applyBtn = document.querySelector("#save-changes");
+
 async function displayGradeDetails(id) {
+
   const docRef = doc(db, "grades", id);
   const docSnap = await getDoc(docRef);
   const tableGT = document.getElementById("tableGR");
@@ -123,19 +161,34 @@ async function gradesEdit(id) {
   await updateDoc(docRef, gradesObject);
 }
 
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log("User logged in:", user.uid);
+    // Fetch and display teacher details for the logged-in user
+    getTeacherDetails(user.uid);
+    console.log("Teacher details displayed successfully.");
+    const gradeBtn = document.querySelectorAll("#gradesbtn");
+    console.log(gradeBtn);
+    gradeBtn.forEach((btn) => {
 
-gradeBtn.forEach((btn) => {
-  btn.addEventListener("click", async (event) => {
-    try {
-      const reqId = btn.getAttribute("data-id");
-      console.log("Request ID:", reqId);
-      displayGradeDetails(reqId);
-      applyBtn.addEventListener("click", async (event) => {
-        gradesEdit(reqId);
+      btn.addEventListener("click", async (event) => {
+        console.log("Button clicked");
+        try {
+          const reqId = btn.getAttribute("data-id");
+          console.log("Request ID:", reqId);
+          displayGradeDetails(reqId);
+          applyBtn.addEventListener("click", async (event) => {
+            gradesEdit(reqId);
+          })
+
+        } catch (e) {
+          console.error("Error fetching document:", e);
+        }
       })
-
-    } catch (e) {
-      console.error("Error fetching document:", e);
-    }
-  })
+    });
+  } else {
+    console.log("No user is logged in.");
+    // Optionally, redirect to login page
+    window.location.href = "/landing/login.html";
+  }
 });
