@@ -111,63 +111,49 @@ body {
     justify-content: center;
 }
 
-.grades-card {
-    text-align: center;
-    background-color: #265DCC;
-    color: #fff;
-    padding: 20px;
-    margin: 20px;
-    border-radius: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.general-average {
-    font-size: 1.5rem;
-}
-
-.quarter-scores {
-    display: flex;
-    justify-content: space-evenly;
-    margin-top: 20px;
-}
-
-.quarter-scores a {
-    text-decoration: none;
-}
-
-.quarter {
-    color: var(--white-font-color);
-    padding: 10px;
-    font-weight: bold;
-    display: flex;
-    flex-direction: column;
-    align-self: center;
-}
-
-.highlight{
-    color: var(--primary-color);
-    background-color: var(--white-font-color);
-    border-radius: 20px;
-    padding: 10px 20px;
-}
-
-.subject-grades {
-    margin: 20px;
+/* grades-table-container */
+.grades-table-container {
+    margin: 10px;
     background-color: #fff;
-    border-radius: 20px;
-    padding: 20px;
+    border-radius: 15px;
+    padding: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .subject-row {
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #F9F9F9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.subject-row h3 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #265DCC;
+    margin-bottom: 10px;
+}
+
+.grading-section {
     display: flex;
-    justify-content: space-between;
-    margin: 10px 0;
-    border-bottom: 1px solid #E5EEFF;
-    padding-bottom: 20px;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
-@media (min-width: 768px) {
+.grading-section span {
+    font-size: 14px;
+    margin-bottom: 40px;
+    color: #555;
+}
+
+.subject-row:hover {
+    background-color: #E5EEFF;
+    cursor: pointer;
+}
+
+
+@media (min-width: 756px) {
     body {
         background-image: url("/assets/desktop/background.png");
         display: grid;
@@ -189,99 +175,29 @@ body {
         margin: 20px auto 0;
     }
 
-    section {
-        padding: 40px;
-        justify-content: flex-start;
+
+     .grades-table-container {
+        padding: 5px;
     }
 
-    .card-container {
-        max-width: 600px;
-        padding: 20px;
+    .subject-row h3 {
+        font-size: 14px;
     }
 
-    .card-title {
-        font-size: 1.5rem;
+    .grading-section span {
+        font-size: 12px;
     }
 
-    .card-content {
-        font-size: 1rem;
+
+    .subject-row {
+        padding: 10px;
+        font-size: 12px;
     }
 
-    .bottom-nav-background {
-        width: 50px;
-        height: 100vh;
-        background: linear-gradient(#265DCC, #e0e0e0);
-        position: absolute;
-        left: 0;
-        top: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-        box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
+    .grading-section {
+        display: block;
+        margin-top: 5px;
     }
-    
-    .bottom-nav {
-        margin: 0;
-        width: 50px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        align-items: center;
-        background-color: #fff;
-        border-radius: 20px 0 0 20px;
-        padding: 20px 0;
-        z-index: 10;
-        overflow: hidden;
-        position: fixed;
-        left: 0;
-        top: 0;
-        height: 100vh;
-        box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
-    }
-}
-
-@media (min-width: 768px) {
-    body {
-        background-image: url("/assets/desktop/background.png");
-        display: grid;
-        grid-template-columns: 1fr 3fr;
-        gap: 20px;
-        padding: 20px;
-    }
-
-    .header {
-        grid-column: span 2;
-        justify-content: space-around;
-        padding: 10px 40px;
-        border-bottom: 2px solid var(--gray-border-color);
-    }
-
-    .bottom-nav {
-        width: 60%;
-        position: static;
-        margin: 20px auto 0;
-    }
-
-    section {
-        padding: 40px;
-        justify-content: flex-start;
-    }
-
-    .card-container {
-        max-width: 600px;
-        padding: 20px;
-    }
-
-    .card-title {
-        font-size: 1.5rem;
-    }
-
-    .card-content {
-        font-size: 1rem;
-    }
-
-    
 
     .bottom-nav-background {
         width: 50px;
