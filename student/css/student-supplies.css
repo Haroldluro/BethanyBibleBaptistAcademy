@@ -56,6 +56,69 @@ body {
     color: var(--primary-color);
 }
 
+/* Item Styles for Uniforms and Books */
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    font-size: 1rem;
+}
+
+.item label {
+    flex: 1;
+    text-align: left;
+}
+
+.item .price {
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.item input {
+    flex: 1;
+    margin-left: 10px;
+    padding: 5px;
+    font-size: 0.9rem;
+    border: 1px solid var(--gray-border-color);
+    border-radius: 5px;
+    max-width: 100px;
+}
+
+/* Total Section */
+.total-container {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--black-font-color);
+}
+
+.total-container p {
+    margin-bottom: 10px;
+}
+
+/* Submit Button */
+.checkout-btn {
+    width: 100%;
+    background-color: var(--primary-color);
+    color: var(--white-font-color);
+    border: none;
+    padding: 15px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.checkout-btn:hover {
+    background-color: var(--highlight-color);
+    color: var(--black-font-color);
+}
+
 .bottom-nav-background {
 
     bottom: 0;
@@ -198,38 +261,19 @@ section {
         margin: 20px auto 0;
     }
 
-    section {
-        padding: 40px;
-        justify-content: flex-start;
-    }
-
-    .card-container {
-        max-width: 600px;
-        padding: 20px;
-    }
-
-    .card-title {
-        font-size: 1.5rem;
-    }
-
-    .card-content {
-        font-size: 1rem;
-    }
-
-    
 
     .bottom-nav-background {
         width: 50px;
         height: 100vh;
         background: linear-gradient(#265DCC, #e0e0e0);
-        position: fixed; 
+        position: fixed;
         right: 0;
         top: 0;
-        display: flex; 
-        justify-content: center; 
-        align-items: center; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
-    
+
     .bottom-nav {
         width: 50px;
         height: 80vh;
@@ -242,5 +286,73 @@ section {
         padding: 20px 0;
         z-index: 10;
         box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
+    }
+}
+
+/* Mobile Layout */
+@media (max-width: 768px) {
+    body {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .card-container {
+        width: 100%;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .uniforms-container {
+        order: 1;
+    }
+
+    .books-container {
+        order: 2;
+        margin-top: 20px;
+    }
+
+    .total-container {
+        order: 3;
+        margin-top: auto;
+    }
+
+    .checkout-btn {
+        order: 4;
+        position: sticky;
+        bottom: 20px;
+    }
+}
+
+/* Desktop Layout */
+@media (min-width: 769px) {
+    body {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 30px;
+        padding: 40px;
+    }
+
+    .header {
+        grid-column: span 2;
+        margin-bottom: 30px;
+    }
+
+    .uniforms-container {
+        grid-column: 1 / 2;
+    }
+
+    .books-container {
+        grid-column: 1 / 2;
+    }
+
+    .total-container {
+        grid-column: 2 / 3;
+    }
+
+    .checkout-btn {
+        grid-column: 2 / 3;
+        width: auto;
     }
 }

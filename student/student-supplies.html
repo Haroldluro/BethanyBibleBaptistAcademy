@@ -35,21 +35,107 @@
             </svg>
         </a>
     </div>
-    <section>
-        <div class="card-container">
-            <div class="card-header">
-                <div class="profile-info">
-                    <img src="../assets/logo/BethanyLogo.png" alt="Admin Logo" class="profile-image">
-                    <h3>Mr. Admin</h3>
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Student Supplies Store</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <body>
+        <header class="header">
+            <h1>Student Supplies Store</h1>
+        </header>
+
+        <main>
+            <section>
+                <!-- Uniforms Section -->
+                <div class="card-container">
+                    <h2 class="card-title">Uniforms</h2>
+                    <div class="card-content">
+                        <div class="item">
+                            <label for="polo">Polo:</label>
+                            <span class="price">₱300</span>
+                            <input type="number" id="polo" name="polo" min="0" placeholder="Quantity">
+                        </div>
+                        <div class="item">
+                            <label for="pants">Pants:</label>
+                            <span class="price">₱500</span>
+                            <input type="number" id="pants" name="pants" min="0" placeholder="Quantity">
+                        </div>
+                        <div class="item">
+                            <label for="pe">P.E. Uniform:</label>
+                            <span class="price">₱400</span>
+                            <input type="number" id="pe" name="pe" min="0" placeholder="Quantity">
+                        </div>
+                    </div>
                 </div>
-                <h3 class="timestamp">08/19/24 8PM</h3>
-            </div>
-            <h4 class="card-title">No Class Advisory</h4>
-            <p class="card-content">
-                Please be advised that there would be no classes today August 19, 2024 due to inclement weather.
-            </p>
-        </div>
-    </section>
+
+                <!-- Books Section -->
+                <div class="card-container">
+                    <h2 class="card-title">Books</h2>
+                    <div class="card-content">
+                        <div class="item">
+                            <label for="math">Math:</label>
+                            <span class="price">₱250</span>
+                            <input type="checkbox" id="math" name="books" value="Math">
+                        </div>
+                        <div class="item">
+                            <label for="science">Science:</label>
+                            <span class="price">₱300</span>
+                            <input type="checkbox" id="science" name="books" value="Science">
+                        </div>
+                        <div class="item">
+                            <label for="english">English:</label>
+                            <span class="price">₱200</span>
+                            <input type="checkbox" id="english" name="books" value="English">
+                        </div>
+                        <div class="item">
+                            <label for="filipino">Filipino:</label>
+                            <span class="price">₱200</span>
+                            <input type="checkbox" id="filipino" name="books" value="Filipino">
+                        </div>
+                        <div class="item">
+                            <label for="mapeh">MAPEH:</label>
+                            <span class="price">₱250</span>
+                            <input type="checkbox" id="mapeh" name="books" value="MAPEH">
+                        </div>
+                        <div class="item">
+                            <label for="values">Values:</label>
+                            <span class="price">₱150</span>
+                            <input type="checkbox" id="values" name="books" value="Values">
+                        </div>
+                        <div class="item">
+                            <label for="tle">TLE:</label>
+                            <span class="price">₱350</span>
+                            <input type="checkbox" id="tle" name="books" value="TLE">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Section -->
+                <div class="total-container">
+                    <p>Total: <span id="total-price">₱0</span></p>
+                    <button class="checkout-btn">Submit Order</button>
+                </div>
+            </section>
+        </main>
+
+        <footer class="bottom-nav-background">
+            <nav class="bottom-nav">
+                <a href="#" class="nav-item selected">Home</a>
+                <a href="#" class="nav-item">Cart</a>
+                <a href="#" class="nav-item">Profile</a>
+            </nav>
+        </footer>
+    </body>
+
+    </html>
+
 
     <div class="bottom-nav-background">
         <nav class="bottom-nav">
@@ -91,7 +177,7 @@
                 </div>
                 <span>Home</span>
             </a>
-            <a href="student-grades-first.html" class="nav-item">
+            <a href="student-grades.html" class="nav-item">
                 <div class="icon">
                     <!-- Grades SVG -->
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
