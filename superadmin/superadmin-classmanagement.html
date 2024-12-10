@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Bethany Bible Baptist Academy</title>
     <link rel="icon" href="../assets/logo/BethanyLogo.png" type="image/x-icon">
-    <link rel="stylesheet" href="/superadmin/css/superadmin-studentlist.css">
+    <link rel="stylesheet" href="/superadmin/css/superadmin-classmanagement.css">
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -157,6 +157,7 @@
                         <tr class="header-title">
                             <th>Grade</th>
                             <th>Sections</th>
+                            <th>Subjects</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -166,6 +167,7 @@
                                 <tr class="hidden tablerow" id="templateGL">
                                     <td id="GLID"></td>
                                     <td id="GLName"></td>
+                                    <td id="GLSubjects"></td>
                                     <td class="operations">
                                         <a class="status_border grade" id='editbtn' href="#edit">
                                             <p>Edit</p>
@@ -199,9 +201,9 @@
 
         <!-- Editable Popup -->
         <div id="edit" class="popup-container">
-            <div class="popup-content">
+            <div class="popup-content class-popup">
                 <a href="#" class="close-popup" id="close-popup">&times;</a>
-                <h2>Edit Sections</h2>
+                <h2>Edit Class</h2>
                 <div class="form-header">
                     <h1 id="grade-level">Create Post</h1>
                 </div>
@@ -216,11 +218,42 @@
                     </thead>
 
                     <tbody id="tableGR">
-                        <template grade-template-table>
+                        <template section-template-table id="section-template">
                             <tr>
                                 <td><button class="delete-btn" id="delete-btn">X</button></td>
                                 <td><input id="section-name" type="text" value="90" /></td>
-                                <td><input id="teacher" type="text" value="92" /></td>
+                                <td>
+                                    <div class="select-container">
+                                        <select id="combobox-teacher">
+                                            <option value="" id="template-teacher">-- Select Teacher --</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+
+                <button class="save-button" id="add-subject" style="float: left; margin-bottom: 10px;">Add Subject</button>
+                <table class="popup-table">
+                    <thead>
+                        <tr>
+                            <th>Remove</th>
+                            <th>Subject</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tableSubject">
+                        <template subject-template-table id="subject-template">
+                            <tr>
+                                <td><button class="delete-btn" id="delete-btn">X</button></td>
+                                <td>
+                                    <div class="select-container">
+                                        <select id="combobox-subject">
+                                            <option value="" id="template-subject">-- Select Subject --</option>
+                                        </select>
+                                    </div>
+                                </td>
                             </tr>
                         </template>
                     </tbody>

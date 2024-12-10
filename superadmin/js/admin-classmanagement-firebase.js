@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getFirestore, updateDoc,getDoc, getDocs, doc,collection, getCountFromServer } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import { getFirestore, updateDoc,getDoc, getDocs, doc,collection, getCountFromServer, DocumentReference } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 import { query, where } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
@@ -27,8 +27,11 @@ onAuthStateChanged(auth, (user) => {
 const db = getFirestore(app);
 const gradeLevelCollectionRef = collection(db, "gradeLevel");
 const gradeLevelSnapshot = await getDocs(gradeLevelCollectionRef);
-const gradeCollectionRef = collection(db, "grades");
-const gradeSnapshot = await getDocs(gradeCollectionRef);
+const teacherCollectionRef = collection(db, "teacher");
+const teacherSnapshot = await getDocs(teacherCollectionRef);
+const subjectsCollectionRef = collection(db, "subjects");
+const subjectsSnapshot = await getDocs(subjectsCollectionRef);
+
 
 let gradeLevelDetails = [];
 const tableTemplate = document.querySelector('[gradeLevel-template]');
@@ -40,6 +43,7 @@ async function getGradeLevelDetails() {
       const gradeLevel = tableTemplate.content.cloneNode(true).children[0];
       gradeLevel.querySelector("#GLID").innerHTML = doc.data()["name"];
       gradeLevel.querySelector("#GLName").innerHTML = doc.data().sections.length;
+      gradeLevel.querySelector("#GLSubjects").innerHTML = doc.data().subjects.length;
 
       console.log();
       gradeLevel.querySelector('#editbtn').setAttribute("data-id", doc.id);
@@ -55,44 +59,66 @@ getGradeLevelDetails();
 
 const gradeBtn = document.querySelectorAll("#editbtn");
 const addSection = document.getElementById("add-section");
-const gradeTableTemplate = document.querySelector('[grade-template-table]');
+const addSubject = document.getElementById("add-subject");
+const sectionTableTemplate = document.querySelector('[section-template-table]');
+const subjectTableTemplate = document.querySelector('[subject-template-table]');
 const applyBtn = document.querySelector("#save-changes");
 const closeBtn = document.querySelector("#close-popup");
 
-async function displayGradeDetails(id) {
-  const docRef = doc(db, "gradeLevel", id);
-  const docSnap = await getDoc(docRef);
+async function displayClassDetails(id) {
+  const gradeLevelRef = doc(db, "gradeLevel", id);
+  const gradeLevelSnap = await getDoc(gradeLevelRef);
+
   const tableGT = document.getElementById("tableGR");
+  const tableSubject = document.getElementById("tableSubject")
   
-  const grades = docSnap.data().sections;
+  const sections = gradeLevelSnap.data().sections;
+  const subjects = gradeLevelSnap.data()["subjects"];
+  
   tableGT.innerHTML = "";
   
-  document.getElementById("grade-level").innerHTML = docSnap.data().name
-  // Iterate through all keys in the Grades map
-  for (const i of grades) {
-    const grade = gradeTableTemplate.content.cloneNode(true).children[0];
-    grade.querySelector("#section-name").value = i.sectionName;
-    grade.querySelector("#teacher").value = i.teacher;
+  document.getElementById("grade-level").innerHTML = gradeLevelSnap.data().name
+  // Iterate through all keys in the Sections array
+  for (const i of sections) {
+    const section = sectionTableTemplate.content.cloneNode(true).children[0];
+    section.querySelector("#section-name").value = i.sectionName;
+    section.querySelector("#combobox-teacher").value = i.teacher;
 
-    const deleteBtn = grade.querySelector("#delete-btn");
+    const deleteBtn = section.querySelector("#delete-btn");
     deleteBtn.addEventListener("click", function(){
       deleteBtn.parentNode.closest("tr").remove();
     })
 
-    tableGT.append(grade);
+    tableGT.append(section);
   }
   
+  for (var subject of subjects) {
+    const subjectData = await getDoc(subject);
+    const subjectClone = subjectTableTemplate.content.cloneNode(true).children[0];
+
+    subjectClone.querySelector("#combobox-subject").value = subjectData.id;
+
+    const deleteBtn = subjectClone.querySelector("#delete-btn");
+    deleteBtn.addEventListener("click", function(){
+      deleteBtn.parentNode.closest("tr").remove();
+    })
+
+    tableSubject.append(subjectClone);
+  }
 }
 
-async function gradesEdit(id) {
+async function classEdit(id) {
   console.log(id);
   const docRef = doc(db, "gradeLevel", id);
 
   var sectionsArr = [];
-  const tbody = document.getElementById("tableGR")
-  for (let row of tbody.rows) {
+  var subjectsArr = [];
+  const tbody_teacher = document.getElementById("tableGR");
+  const tbody_subjects = document.getElementById("tableSubject");
+
+  for (let row of tbody_teacher.rows) {
     var sectionName = row.querySelector("#section-name").value;
-    var teacher = row.querySelector("#teacher").value;
+    var teacher = row.querySelector("#combobox-teacher").value;
     
     if(sectionName == '' && teacher == '') continue;
     const section = {
@@ -102,27 +128,72 @@ async function gradesEdit(id) {
     
     sectionsArr.push(section);
   }
+
+  for (let row of tbody_subjects.rows) {
+    var subject = row.querySelector("#combobox-subject").value;
+    if (subject == '') continue;
+    subjectsArr.push(doc(db, "subjects", subject));
+  }
+
+  console.log(subjectsArr)
   
   await updateDoc(docRef, {
-    sections: sectionsArr
+    sections: sectionsArr,
+    subjects: subjectsArr
   });
 
   location.href = "#"
   location.reload();
 }
 
-function addRow() {
-  const tableGT = document.getElementById("tableGR");
-  const grade = gradeTableTemplate.content.cloneNode(true).children[0];
+teacherSnapshot.docs.map((doc) => {
+  const template = document.getElementById("section-template");
+  const comboBox = template.content.querySelector("#combobox-teacher");
+  const comboBoxTemplate = comboBox.querySelector("#template-teacher");
+
+  const clone = comboBoxTemplate.cloneNode(true);
+  clone.value = doc.id;
+  clone.innerHTML = doc.data()["firstName"] + " " + doc.data()["lastName"];
+
+  comboBox.appendChild(clone);
+})
+
+subjectsSnapshot.docs.map((doc) => {
+  const template = document.getElementById("subject-template");
+  const comboBox = template.content.querySelector("#combobox-subject");
+  const comboBoxTemplate = comboBox.querySelector("#template-subject");
+
+  const clone = comboBoxTemplate.cloneNode(true);
+  clone.value = doc.id;
+  clone.innerHTML = doc.data()["name"];
+
+  comboBox.appendChild(clone);
+})
+
+function addRowSection() {
+  const table = document.getElementById("tableGR");
+  const grade = sectionTableTemplate.content.cloneNode(true).children[0];
     grade.querySelector("#section-name").value = "";
-    grade.querySelector("#teacher").value = "";
+    grade.querySelector("#combobox-teacher").value = "";
 
     const deleteBtn = grade.querySelector("#delete-btn");
     deleteBtn.addEventListener("click", function(){
       deleteBtn.parentNode.closest("tr").remove();
     })
 
-    tableGT.append(grade);
+    table.append(grade);
+}
+
+function addRowSubject() {
+  const table = document.getElementById("tableSubject");
+  const grade = subjectTableTemplate.content.cloneNode(true).children[0];
+
+    const deleteBtn = grade.querySelector("#delete-btn");
+    deleteBtn.addEventListener("click", function(){
+      deleteBtn.parentNode.closest("tr").remove();
+    })
+
+    table.append(grade);
 }
 
 gradeBtn.forEach((btn) => {
@@ -130,9 +201,9 @@ gradeBtn.forEach((btn) => {
     try {
       const reqId = btn.getAttribute("data-id");
       console.log("Request ID:", reqId);
-      displayGradeDetails(reqId);
+      displayClassDetails(reqId);
       applyBtn.addEventListener("click", async (event) => {
-        gradesEdit(reqId);
+        classEdit(reqId);
       })
 
       closeBtn.addEventListener("click", function(){
@@ -140,11 +211,13 @@ gradeBtn.forEach((btn) => {
         location.reload();
       })
 
-      addSection.addEventListener("click", addRow)
+      addSection.addEventListener("click", addRowSection);
+      addSubject.addEventListener("click", addRowSubject);
 
     } catch (e) {
       console.error("Error fetching document:", e);
     }
   })
 });
+
 
