@@ -169,9 +169,13 @@
                                     <td id="GLName"></td>
                                     <td id="GLSubjects"></td>
                                     <td class="operations">
-                                        <a class="status_border grade" id='editbtn' href="#edit">
+                                        <a class="status_border view" id='editbtn' href="#">
                                             <p>Edit</p>
                                         </a>
+                                        <a class="status_border grade" id='editstudentsbtn' href="#editStudents">
+                                            <p>Students</p>
+                                        </a>
+                                        
                                     </td>
                                 </tr>
                             </template>
@@ -182,19 +186,45 @@
 
         </main>
 
-        <div id="deleteModal" class="modal-overlay">
-            <div class="modal">
-                <div class="modal-header">
-                    <span></span>
-                    <a href="#" class="close-btn">&times;</a>
+        <div id="editStudents" class="popup-container">
+            <div class="popup-content class-popup">
+                <a href="#" class="close-popup" id="close-popup-students">&times;</a>
+                <h2>Edit Students</h2>
+                <div class="form-header">
+                    <h1 id="grade-level">Grade 1</h1>
+                    <h3 class="hidden" id="teacherLabel">Teacher: <span id="teacherName"> Juan Dela Cruz</span></h3>
                 </div>
-                <div class="modal-body">
-                    <p>Are you sure to <strong>delete</strong> this request?</p>
+
+                <div class="select-container" style="width: fit-content;">
+                    <select id="combobox-section">
+                        <template grade-template-section id="grade-template-section">
+                            <option value="" id="template-section">-- Select Section --</option>
+                        </template>
+                    </select>
                 </div>
-                <div class="modal-footer">
-                    <a href="#" class="cancel-btn">Cancel</a>
-                    <a href="#" class="delete-btn">Delete</a>
-                </div>
+
+
+                <table class="popup-table">
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Student Name</th>
+                            <th>Section</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tableStudent">
+                        <template student-template-table id="student-template">
+                            <tr>
+                                <td><input type="checkbox" id="checkbox" name="" value="" ></td>
+                                <td><span id="studentName"></span></td>
+                                <td><span id="studentSection"></span></td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+                
+                <button class="save-button" id="save-changes-students">Apply</button>
             </div>
         </div>
 
