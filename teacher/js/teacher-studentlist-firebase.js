@@ -180,13 +180,11 @@ onAuthStateChanged(auth, (user) => {
 
 function attachGradeButtonListeners() {
   const gradeBtns = document.querySelectorAll("#gradesbtn");
-  console.log("Grade Buttons Found:", gradeBtns.length); // Check if buttons exist
   gradeBtns.forEach((btn) => {
     btn.addEventListener("click", async (event) => {
       console.log("Button clicked");
       try {
         const reqId = btn.getAttribute("data-id");
-        console.log("Request ID:", reqId);
         displayGradeDetails(reqId);
         applyBtn.addEventListener("click", async (event) => {
           gradesEdit(reqId);
