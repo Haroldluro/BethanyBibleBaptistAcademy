@@ -95,8 +95,63 @@ async function getTeacherDetails(uid) {
   }
 }
 
+const searchInput = document.getElementById("searchinput");
+
+let debounceTimeout;
+
+searchInput.addEventListener("input", (event) => {
+  clearTimeout(debounceTimeout); // Clear the previous timeout
+  const searchTerm = event.target.value.toLowerCase();
+
+  debounceTimeout = setTimeout(async () => {
+    try {
+      // Clear the existing table rows
+      tableST.innerHTML = ""; // Clear all rows before appending new ones
+
+      if (searchTerm.trim() === "") {
+        // If the search term is empty, reload all students
+        await getTeacherDetails(uid);
+        return;
+      }
+
+      // Query Firestore for students whose LRN, lastName, or firstName matches the search term
+      const matchingStudents = [];
+      const querySnapshot = await getDocs(studentCollectionRef);
+
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const lrn = data["studentID"] || "";
+        const lastName = data["lastName"] || "";
+        const firstName = data["firstName"] || ""; // Fetch the status field
+
+        // Check if the search term matches any of the student details and if the status is "Pending"
+        if (
+          (lrn.toLowerCase().includes(searchTerm) ||
+            lastName.toLowerCase().includes(searchTerm) ||
+            firstName.toLowerCase().includes(searchTerm)) &&
+          section === sectionHandled
+        ) {
+          matchingStudents.push(doc);
+        }
+      });
+
+      // Add only the matching students to the table
+      matchingStudents.forEach((doc) => {
+        const student = tableTemplate.content.cloneNode(true).children[0];
+        student.querySelector("#STID").innerHTML = doc.data()["studentID"];
+        student.querySelector("#STFName").innerHTML = doc.data()["firstName"];
+        student.querySelector("#STLName").innerHTML = doc.data()["lastName"];
+        student.querySelector("#gradesbtn").setAttribute("data-id", doc.data()["studentID"]);
+        student.classList.remove("hidden");
 
 
+        tableST.append(student);
+      });
+    } catch (e) {
+      console.error("Error searching Firebase:", e);
+    }
+  }, 200); // Delay of 300ms before executing the search
+});
 
 
 const gradeTableTemplate = document.querySelector('[grade-template-table]');
@@ -188,6 +243,7 @@ function attachGradeButtonListeners() {
         displayGradeDetails(reqId);
         applyBtn.addEventListener("click", async (event) => {
           gradesEdit(reqId);
+          console.log("dumaan");
         });
       } catch (e) {
         console.error("Error fetching document:", e);
@@ -195,3 +251,57 @@ function attachGradeButtonListeners() {
     });
   });
 }
+
+document.querySelector('.filter-btn').addEventListener('click', (e) => {
+  e.preventDefault();
+  const dropdownMenu = document.querySelector('.dropdown-menu');
+  dropdownMenu.classList.toggle('show'); // Toggle visibility of the menu
+});
+
+// Function to handle sorting and filtering
+function applyFilter(filterType) {
+  console.log("Applying filter:", filterType); // For debugging purposes
+
+  const rows = Array.from(document.querySelectorAll("#tableST .tablerow"));
+
+  if (filterType === 'ascName') {
+    rows.sort((a, b) => {
+      const nameA = a.querySelector("#STLName").textContent + a.querySelector("#STFName").textContent;
+      const nameB = b.querySelector("#STLName").textContent + b.querySelector("#STFName").textContent;
+      return nameA.localeCompare(nameB); // Sort ascending by name
+    });
+  } else if (filterType === 'descName') {
+    rows.sort((a, b) => {
+      const nameA = a.querySelector("#STLName").textContent + a.querySelector("#STFName").textContent;
+      const nameB = b.querySelector("#STLName").textContent + b.querySelector("#STFName").textContent;
+      return nameB.localeCompare(nameA); // Sort descending by name
+    });
+  } else if (filterType === 'ascID') {
+    rows.sort((a, b) => {
+      const IDA = a.querySelector("#STID").textContent;
+      const IDB = b.querySelector("#STID").textContent;
+      return IDA.localeCompare(IDB); // Sort ascending by name
+    });
+  } else if (filterType === 'descID') {
+    rows.sort((a, b) => {
+      const IDA = a.querySelector("#STID").textContent;
+      const IDB = b.querySelector("#STID").textContent;
+      return IDB.localeCompare(IDA); // Sort ascending by name
+    });
+  }
+  // Append the sorted rows back into the table
+  const tbody = document.querySelector("#tableST");
+  rows.forEach(row => tbody.appendChild(row)); // Reorder the rows in the table
+}
+
+// Event listeners for filter options
+document.querySelectorAll('.dropdown-menu li a').forEach((filter) => {
+  filter.addEventListener('click', (e) => {
+    e.preventDefault();
+    const filterType = filter.getAttribute('data-filter');
+    applyFilter(filterType); // Call the applyFilter function
+
+    // Close the dropdown after the filter is applied
+    document.querySelector('.dropdown-menu').classList.remove('show');
+  });
+});

@@ -64,7 +64,7 @@
 
 
                 <div class="search-container">
-                    <input type="text" class="search-input" placeholder="Search Name">
+                    <input id="searchinput" type="text" class="search-input" placeholder="Search Name">
                     <button class="filter-btn">
                         <svg xmlns="http://www.w3.org/2000/svg" x-bind:width="size" x-bind:height="size"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" x-bind:stroke-width="stroke"
@@ -75,15 +75,11 @@
                         </svg>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Nursery</a></li>
-                        <li><a href="#">Kinder 1</a></li>
-                        <li><a href="#">Kinder 2</a></li>
-                        <li><a href="#">Grade 1</a></li>
-                        <li><a href="#">Grade 2</a></li>
-                        <li><a href="#">Grade 3</a></li>
-                        <li><a href="#">Grade 4</a></li>
-                        <li><a href="#">Grade 5</a></li>
-                        <li><a href="#">Grade 6</a></li>
+                        <li><a href="#" data-filter="ascName">Ascending Last Name</a></li>
+                        <li><a href="#" data-filter="descName">Descending First Name</a></li>
+                        <li><a href="#" data-filter="ascID">Ascending StudentID</a></li>
+                        <li><a href="#" data-filter="descID">Descending StudentID</a></li>
+
                     </ul>
                 </div>
             </header>
@@ -160,11 +156,11 @@
                         <template grade-template-table>
                             <tr>
                                 <td id="subject">Math</td>
-                                <td><input id="first" type="text" value="90" /></td>
-                                <td><input id="second" type="text" value="92" /></td>
-                                <td><input id="third" type="text" value="88" /></td>
-                                <td><input id="fourth" type="text" value="85" /></td>
-                                <td><input id="final" type="text" value="89" /></td>
+                                <td><input class="gradetxt" id="first" type="text" value="90" /></td>
+                                <td><input class="gradetxt" id="second" type="text" value="92" /></td>
+                                <td><input class="gradetxt" id="third" type="text" value="88" /></td>
+                                <td><input class="gradetxt" id="fourth" type="text" value="85" /></td>
+                                <td><input class="gradetxt" id="final" type="text" value="89" /></td>
                             </tr>
                         </template>
                     </tbody>

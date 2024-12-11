@@ -185,7 +185,8 @@ header div {
     flex-direction: row;
     gap: 20px;
 }
-.headertitle{
+
+.headertitle {
     color: var(--primary-color);
 }
 
@@ -248,12 +249,15 @@ header div {
     display: none;
     /* Hidden by default */
     z-index: 1000;
-    /* Ensure it's above other elements */
     width: 200px;
     /* Adjust as needed */
 }
 
-/* Dropdown menu item styling */
+/* New class for showing the dropdown */
+.dropdown-menu.show {
+    display: block;
+}
+
 .dropdown-menu li {
     display: block;
 }
@@ -272,20 +276,6 @@ header div {
     color: var(--button-bg-color);
 }
 
-/* Show dropdown when button or container is hovered */
-.filter-btn:focus+.dropdown-menu,
-.dropdown-menu:focus {
-    display: block;
-}
-
-.search-btn svg {
-    stroke: var(--white-font-color);
-    transition: all 0.3s ease-in-out;
-}
-
-.search-btn:hover svg {
-    stroke: #f3f3f3;
-}
 
 /* Search Container */
 
@@ -316,6 +306,20 @@ header div {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+}
+
+.gradetxt {
+    padding: 10px 0px;
+    text-align: center;
+    max-width: 100px;
+    border: 1px solid #dadada;
+    border-radius: 20px;
+}
+
+.gradetxt:focus {
+    outline: none;
+    border-color: #427beb;
+    box-shadow: 0 0 5px rgba(66, 123, 235, 0.5);
 }
 
 .table {
@@ -688,11 +692,17 @@ select:focus {
     width: 100%;
 }
 
+
+
 .popup-table th,
 .popup-table td {
-    border: 1px solid #ddd;
+
     padding: 8px;
     text-align: center;
+}
+
+.popup-table tr {
+    height: 50px;
 }
 
 .popup-table th {

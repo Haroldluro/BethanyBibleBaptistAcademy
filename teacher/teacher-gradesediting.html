@@ -52,22 +52,20 @@
         </nav>
         <main>
             <header>
-                <div class="studnamectr">
-                    <h1 class="headertitle">Student:</h1>
-
-                    <h1 id="studentName"></h1>
+                <div class="studnamectr">   
+                    <h2 class="headertitle">Name:</h2>
+                    <h2 id="studentName"></h2>
                 </div>
                 <div>
-                    <h1 class="headertitle">Student:</h1>
-
-                    <h1 id="studentID"></h1>
+                    <h2 class="headertitle">StudentID:</h2>
+                    <h2 id="studentID"></h2>
                 </div>
 
                 <div class="search-container">
                     <button id="apply-btn" class="apply-btn">
                         Apply
                     </button>
-                    <input type="text" class="search-input" placeholder="Search Name">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Search by name..." />
                     <button id="leftbtn" class="filter-btn">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-linecap="round" stroke-linejoin="round" width="17" height="17" stroke-width="2">
@@ -90,16 +88,7 @@
                         </svg>
                     </button>
 
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Nursery</a></li>
-                        <li><a href="#">Kinder 1</a></li>
-                        <li><a href="#">Kinder 2</a></li>
-                        <li><a href="#">Grade 1</a></li>
-                        <li><a href="#">Grade 2</a></li>
-                        <li><a href="#">Grade 3</a></li>
-                        <li><a href="#">Grade 4</a></li>
-                        <li><a href="#">Grade 5</a></li>
-                        <li><a href="#">Grade 6</a></li>
+                    <ul id="searchresult" class="dropdown-menu">
                     </ul> -->
                 </div>
             </header>

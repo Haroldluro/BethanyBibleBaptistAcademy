@@ -113,11 +113,31 @@ async function fetchAndDisplayGrades(studentID) {
       // Clone the template row and populate it with grade data
       const row = templateRow.cloneNode(true);
       row.querySelector("#subject").textContent = subject;
-      row.querySelector("#first").value = first || "";
-      row.querySelector("#second").value = second || "";
-      row.querySelector("#third").value = third || "";
-      row.querySelector("#fourth").value = fourth || "";
-      row.querySelector("#final").value = calculateFinalGrade(first, second, third, fourth);
+
+      const firstInput = row.querySelector("#first");
+      const secondInput = row.querySelector("#second");
+      const thirdInput = row.querySelector("#third");
+      const fourthInput = row.querySelector("#fourth");
+      const finalInput = row.querySelector("#final");
+
+      // Set initial values
+      firstInput.value = first || "";
+      secondInput.value = second || "";
+      thirdInput.value = third || "";
+      fourthInput.value = fourth || "";
+      finalInput.value = calculateFinalGrade(first, second, third, fourth);
+
+      // Add input event listeners for real-time updates
+      [firstInput, secondInput, thirdInput, fourthInput].forEach((input) => {
+        input.addEventListener("input", () => {
+          const updatedFirst = parseFloat(firstInput.value) || 0;
+          const updatedSecond = parseFloat(secondInput.value) || 0;
+          const updatedThird = parseFloat(thirdInput.value) || 0;
+          const updatedFourth = parseFloat(fourthInput.value) || 0;
+
+          finalInput.value = calculateFinalGrade(updatedFirst, updatedSecond, updatedThird, updatedFourth);
+        });
+      });
 
       gradesTableElement.appendChild(row);
     }
@@ -128,6 +148,7 @@ async function fetchAndDisplayGrades(studentID) {
     gradesTableElement.innerHTML = "<tr><td colspan='6'>Failed to load grades.</td></tr>";
   }
 }
+
 
 
 // Calculate the final grade as an average of the four quarters
@@ -155,21 +176,29 @@ function updateDisplayedStudent() {
 }
 
 // Button click event listeners
-rightBtn.addEventListener("click", () => {
+// Button click event listeners
+rightBtn.addEventListener("click", async () => {
   if (studentDetails.length > 0) {
+    // Save current grades before moving to the next student
+    await saveUpdatedGrades();
+
+    // Move to the next student
     currentIndex = (currentIndex + 1) % studentDetails.length; // Loop to the beginning
     updateDisplayedStudent();
-
   }
 });
 
-leftBtn.addEventListener("click", () => {
+leftBtn.addEventListener("click", async () => {
   if (studentDetails.length > 0) {
+    // Save current grades before moving to the previous student
+    await saveUpdatedGrades();
+
+    // Move to the previous student
     currentIndex = (currentIndex - 1 + studentDetails.length) % studentDetails.length; // Loop to the end
     updateDisplayedStudent();
-
   }
 });
+
 
 // Listen for authentication changes
 onAuthStateChanged(auth, (user) => {
@@ -219,7 +248,7 @@ async function saveUpdatedGrades() {
     await updateDoc(gradesDocRef, { Grades: gradesData });
 
     console.log("Grades updated successfully.");
-    alert("Grades saved successfully.");
+    // alert("Grades saved successfully.");
   } catch (error) {
     console.error("Error updating grades:", error);
     alert("Failed to save grades.");
@@ -228,3 +257,4 @@ async function saveUpdatedGrades() {
 
 // Attach event listener to the "Apply" button
 applyBtn.addEventListener("click", saveUpdatedGrades);
+
