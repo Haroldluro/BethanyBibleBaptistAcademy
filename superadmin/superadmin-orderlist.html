@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Bethany Bible Baptist Academy</title>
     <link rel="icon" href="../assets/logo/BethanyLogo.png" type="image/x-icon">
-    <link rel="stylesheet" href="/superadmin/css/superadmin-usermanagement.css">
+    <link rel="stylesheet" href="/superadmin/css/superadmin-orderlist.css">
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,7 +33,7 @@
                         </svg>
                         Overview
                     </a></li>
-                <li><a href="superadmin-Enrollees.html">
+                <li><a href="superadmin-enrollees.html">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler nav-icon" width="44" height="44"
                             viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round"
                             stroke-linejoin="round">
@@ -44,7 +44,6 @@
                         </svg>
                         Enrollees
                     </a></li>
-
                 <!-- <li><a href="superadmin-announcements.html">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler nav-icon" width="44" height="44"
                             viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round"
@@ -84,7 +83,7 @@
                         </svg>
                         Teacher List
                     </a></li>
-                <li><a class="selected" href="#">
+                <li><a href="superadmin-usermanagement.html">
                         <svg xmlns="http://www.w3.org/2000/svg" x-bind:width="size" x-bind:height="size"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" x-bind:stroke-width="stroke"
                             stroke-linecap="round" stroke-linejoin="round" width="44" height="44" stroke-width="1.5">
@@ -108,7 +107,7 @@
                         </svg>
                         Class Management
                     </a></li>
-                <li><a href="superadmin-schoolitems.html">
+                <li><a  href="superadmin-schoolitems.html">
                         <svg xmlns="http://www.w3.org/2000/svg" x-bind:width="size" x-bind:height="size"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" x-bind:stroke-width="stroke"
                             stroke-linecap="round" stroke-linejoin="round" width="44" height="44" stroke-width="1.5">
@@ -120,7 +119,7 @@
                         </svg>
                         School Items
                     </a></li>
-                <li><a href="superadmin-orderlist.html">
+                <li><a class="selected" href="#">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-linecap="round" stroke-linejoin="round" width="44" height="44" stroke-width="1.5">
                             <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
@@ -136,110 +135,68 @@
         </nav>
         <main>
             <header>
-
-                <h1>User Management</h1>
-                <div class="header-actions">
-                    <div class="search-container">
-                        <input type="text" class="search-input" placeholder="Search Name">
-                        <div>
-                            <button class="filter-btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" x-bind:width="size" x-bind:height="size"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" x-bind:stroke-width="stroke"
-                                    stroke-linecap="round" stroke-linejoin="round" width="18" height="18"
-                                    stroke-width="2">
-                                    <path
-                                        d="M4 4h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414v7l-6 2v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227z">
-                                    </path>
-                                </svg>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" data-filter="ascName">Ascending Name</a></li>
-                                <li><a href="#" data-filter="descName">Descending Name</a></li>
-                                <li><a href="#" data-filter="student">Student</a></li>
-                                <li><a href="#" data-filter="teacher">Teacher</a></li>
-                                <!-- <li><a href="#">Locked</a></li> -->
-                            </ul>
-                        </div>
-                    </div>
+                <h1>Order List</h1>
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Search Name">
+                    <button class="search-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        Search
+                    </button>
+                    <button onclick="window.location.href = '#additem' " class="add-item-button">Add Item</button>
                 </div>
+
             </header>
+
             <section class="table">
                 <table class="tablescroll">
                     <thead class="table-header">
                         <tr class="header-title">
-                            <th>Account ID</th>
                             <th>Name</th>
-                            <th>User Role</th>
-                            <th class="columnend">Actions</th>
+                            <th>Grade</th>
+                            <th>Sections</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="tableUM">
-                        <template user-template>
-                            <tr class="hidden tablerow" id="templateUM">
-                                <td id="UMID">2023-001</td>
-                                <td id="UMName">Luro, Harold Jay</td>
-                                <td id="UMUserRole">
-                                    <p class="hidden locked status_border">Locked</p>
-                                    <p class="hidden student status_border">Student</p>
-                                    <p class="hidden teacher status_border">Teacher</p>
-                                </td>
+                    <div>
+                        <tbody id="tableGL">
+                            <template gradeLevel-template>
+                                <tr class="hidden tablerow" id="templateGL">
+                                    <td id="OLName"></td>
+                                    <td id="OLGrade"></td>
+                                    <td id="OLSubjects"></td>
+                                    <td class="operations">
+                                        <a class="status_border grade" id='editbtn' href="#edit">
+                                            <p>Edit</p>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </template>
+                            <tr class="tablerow" id="templateGL">
+                                <td id="OLName">jere</td>
+                                <td id="OLGrade">aa</td>
+                                <td id="OLSubjects">aa</td>
                                 <td class="operations">
-                                    <a href="#changePassModal" class="status_border view">
-                                        <p>Reset Pass</p>
+                                    <a class="status_border accept" id='acceptbtn' href="#accept">
+                                        <p>Accept</p>
                                     </a>
-                                    <a href="#deleteModal" class="status_border delete">
-                                        <p>Remove</p>
+                                    <a class="status_border reject" id='rejectbtn' href="#reject">
+                                        <p>Reject</p>
                                     </a>
                                 </td>
                             </tr>
-                        </template>
-                    </tbody>
+
+                        </tbody>
+                    </div>
                 </table>
             </section>
         </main>
     </div>
 
-    <div id="deleteModal" class="modal-overlay">
-        <div class="modal">
-            <div class="modal-header">
-                <span></span>
-                <a href="#" class="close-btn">&times;</a>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure to <strong>remove</strong> this user?</p>
-            </div>
-            <div class="modal-footer">
-                <a href="#" class="cancel-btn">Cancel</a>
-                <a href="#" class="delete-btn">Delete</a>
-            </div>
-        </div>
-    </div>
-
-    <div id="changePassModal" class="modal-overlay">
-        <div class="modal">
-            <div class="modal-header">
-                <span></span>
-                <a href="#" class="close-btn">&times;</a>
-            </div>
-            <div class="modal-body">
-                <div class="changePass">
-                    <p>Change <strong>Password</strong> for this user</p>
-                    <input type="text" placeholder="New Password">
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <a href="#" class="cancel-btn">Cancel</a>
-                <a href="#" class="confirm-btn">Confirm</a>
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-    <script type="module" src="/superadmin/js/admin-usermanagement-firebase.js"></script>
+    <script type="module" src="/superadmin/js/admin-editsupplies-firebase.js"></script>
 </body>
 
 </html>

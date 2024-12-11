@@ -39,40 +39,28 @@
     <div class="grades-card">
         <div class="general-average">
             <p>General Average</p>
-            <h1>96.5</h1>
+            <h1 id="avggrade"></h1>
         </div>
         <div class="quarter-scores">
-            <a href = "student-grades-first.html" class="quarter"><h2>90</h2> <span>1st</span></a>
-            <a href = "student-grades-second.html" class="quarter"><h2>94</h2> <span>2nd</span></a>
-            <a href = "student-grades-third.html" class="quarter"><h2>97</h2><span>3rd</span></a>
-            <a href = "#" class="quarter highlight"><h2>93</h2><span>4th</span></a>
+            <a href="student-grades-first.html" class="quarter">
+                <h2 id="first"></h2> <span>1st</span>
+            </a>
+            <a href="student-grades-second.html" class="quarter">
+                <h2 id="second"></h2> <span>2nd</span>
+            </a>
+            <a href="student-grades-third.html" class="quarter">
+                <h2 id="third"></h2><span>3rd</span>
+            </a>
+            <a href="student-grades-fourth.html" class="quarter highlight">
+                <h2 id="fourth"></h2><span>4th</span>
+            </a>
         </div>
     </div>
 
     <div class="subject-grades">
-        <div class="subject-row">
-            <span>Math</span>
-            <p>95</p>
-        </div>
-        <div class="subject-row">
-            <span>English</span>
-            <p>92</p>
-        </div>
-        <div class="subject-row">
-            <span>Science</span>
-            <p>90</p>
-        </div>
-        <div class="subject-row">
-            <span>MAPEH</span>
-            <p>85</p>
-        </div>
-        <div class="subject-row">
-            <span>Filipino</span>
-            <p>83</p>
-        </div>
-        <div class="subject-row">
-            <span>TLE</span>
-            <p>87</p>
+        <div id="templateGD" class="subject-row">
+            <p id="subject"></p>
+            <p id="grade"></p>
         </div>
     </div>
     
@@ -148,6 +136,7 @@
             </a>
         </nav>
     </div>
+    <script type="module" src="/student/js/mobile-student-grades-fourth-firebase.js"></script>
 
 </body>
 
