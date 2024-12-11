@@ -165,26 +165,11 @@ onAuthStateChanged(auth, (user) => {
   if (user) {
     console.log("User logged in:", user.uid);
     // Fetch and display teacher details for the logged-in user
-    getTeacherDetails(user.uid);
-    console.log("Teacher details displayed successfully.");
-    const gradeBtn = document.querySelectorAll("#gradesbtn");
-    console.log(gradeBtn);
-    gradeBtn.forEach((btn) => {
+    getTeacherDetails(user.uid).then(() => {
+      console.log("Teacher details displayed successfully.");
 
-      btn.addEventListener("click", async (event) => {
-        console.log("Button clicked");
-        try {
-          const reqId = btn.getAttribute("data-id");
-          console.log("Request ID:", reqId);
-          displayGradeDetails(reqId);
-          applyBtn.addEventListener("click", async (event) => {
-            gradesEdit(reqId);
-          })
-
-        } catch (e) {
-          console.error("Error fetching document:", e);
-        }
-      })
+      // Attach event listeners to dynamically added buttons
+      attachGradeButtonListeners();
     });
   } else {
     console.log("No user is logged in.");
@@ -192,3 +177,23 @@ onAuthStateChanged(auth, (user) => {
     window.location.href = "/landing/login.html";
   }
 });
+
+function attachGradeButtonListeners() {
+  const gradeBtns = document.querySelectorAll("#gradesbtn");
+  console.log("Grade Buttons Found:", gradeBtns.length); // Check if buttons exist
+  gradeBtns.forEach((btn) => {
+    btn.addEventListener("click", async (event) => {
+      console.log("Button clicked");
+      try {
+        const reqId = btn.getAttribute("data-id");
+        console.log("Request ID:", reqId);
+        displayGradeDetails(reqId);
+        applyBtn.addEventListener("click", async (event) => {
+          gradesEdit(reqId);
+        });
+      } catch (e) {
+        console.error("Error fetching document:", e);
+      }
+    });
+  });
+}
