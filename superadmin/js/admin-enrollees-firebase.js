@@ -93,7 +93,6 @@ async function displayTableDetails() {
 };
 
 displayTableDetails();
-
 document.querySelector('.filter-btn').addEventListener('click', (e) => {
   e.preventDefault();
   const dropdownMenu = document.querySelector('.dropdown-menu');
@@ -229,17 +228,11 @@ searchInput.addEventListener("input", (event) => {
 });
 
 
-
-
-
-
-
 const accptBtn = document.getElementById("acceptbtn");
 const modalDeleteBtn = document.getElementById("modalDeleteBtn");
 const delbtn = document.querySelectorAll("#ERDelete");
 const rejBtn = document.getElementById("rejectbtn");
 const viewBtn = document.querySelectorAll("#ERView");
-
 viewBtn.forEach((btn) => {
   btn.addEventListener("click", async (event) => {
     try {
@@ -473,6 +466,8 @@ accptBtn.addEventListener("click", async (event) => {
       await setDoc(usersRef, {
         emailAddress: user.email,
         role: role,
+        firstName:fNameInp.value,
+        lastName:lNameInp.value,
         lrn: lrn,
         createdAt: new Date().toISOString(),
         isActive: true, // Optional: Indicates account status

@@ -51,6 +51,7 @@
 
     --student-color: #ed9939;
     --teacher-color: #5721d6;
+    --admin-color: #21a300;
 
 }
 
@@ -368,6 +369,11 @@ tbody tr:nth-child(odd) {
 
 .locked {
     background-color: var(--red-button);
+    color: var(--white-font-color);
+}
+
+.admin {
+    background-color: var(--admin-color);
     color: var(--white-font-color);
 }
 

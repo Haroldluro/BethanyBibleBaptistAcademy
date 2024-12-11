@@ -172,14 +172,15 @@
                                 <td id="UMUserRole">
                                     <p class="hidden locked status_border">Locked</p>
                                     <p class="hidden student status_border">Student</p>
+                                    <p class="hidden admin status_border">Super Admin</p>
                                     <p class="hidden teacher status_border">Teacher</p>
                                 </td>
                                 <td class="operations">
                                     <a href="#changePassModal" class="status_border view">
                                         <p>Reset Pass</p>
                                     </a>
-                                    <a href="#deleteModal" class="status_border delete">
-                                        <p>Remove</p>
+                                    <a href="#deleteModal" id ="lockbtn" class="status_border delete">
+                                        <p>Lock</p>
                                     </a>
                                 </td>
                             </tr>
@@ -201,7 +202,7 @@
             </div>
             <div class="modal-footer">
                 <a href="#" class="cancel-btn">Cancel</a>
-                <a href="#" class="delete-btn">Delete</a>
+                <a id ='deletebtn' href="#" class="delete-btn">Delete</a>
             </div>
         </div>
     </div>
