@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Bethany Bible Baptist Academy</title>
     <link rel="icon" href="../assets/logo/BethanyLogo.png" type="image/x-icon">
-    <link rel="stylesheet" href="/superadmin/css/superadmin-enrollees.css">
+    <link rel="stylesheet" href="/superadmin/css/superadmin-orderlist.css">
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,7 +33,7 @@
                         </svg>
                         Overview
                     </a></li>
-                <li><a class="selected" href="#">
+                <li><a href="superadmin-enrollees.html">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler nav-icon" width="44" height="44"
                             viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round"
                             stroke-linejoin="round">
@@ -107,7 +107,7 @@
                         </svg>
                         Class Management
                     </a></li>
-                <li><a href="superadmin-schoolitems.html">
+                <li><a  href="superadmin-schoolitems.html">
                         <svg xmlns="http://www.w3.org/2000/svg" x-bind:width="size" x-bind:height="size"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" x-bind:stroke-width="stroke"
                             stroke-linecap="round" stroke-linejoin="round" width="44" height="44" stroke-width="1.5">
@@ -119,7 +119,7 @@
                         </svg>
                         School Items
                     </a></li>
-                <li><a href="superadmin-orderlist.html">
+                <li><a class="selected" href="#">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-linecap="round" stroke-linejoin="round" width="44" height="44" stroke-width="1.5">
                             <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
@@ -135,193 +135,68 @@
         </nav>
         <main>
             <header>
-                <h1>Enrollment Requests</h1>
+                <h1>Order List</h1>
                 <div class="search-container">
-                    <input id="searchinput" type="text" class="search-input" placeholder="Search Name">
-                    <button class="filter-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" x-bind:width="size" x-bind:height="size"
-                            viewBox="0 0 24 24" fill="none" stroke="currentColor" x-bind:stroke-width="stroke"
-                            stroke-linecap="round" stroke-linejoin="round" width="18" height="18" stroke-width="2">
-                            <path
-                                d="M4 4h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414v7l-6 2v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227z">
-                            </path>
+                    <input type="text" class="search-input" placeholder="Search Name">
+                    <button class="search-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                         </svg>
+                        Search
                     </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#" data-filter="ascName">Ascending Last Name</a></li>
-                        <li><a href="#" data-filter="descName">Descending Last Name</a></li>
-                        <li><a href="#" data-filter="gradeLevel">Grade Level</a> </li>
-                    </ul>
+                    <button onclick="window.location.href = '#additem' " class="add-item-button">Add Item</button>
                 </div>
+
             </header>
 
-            <section class="table ">
+            <section class="table">
                 <table class="tablescroll">
                     <thead class="table-header">
                         <tr class="header-title">
-                            <th>Request ID</th>
-                            <th>Last Name</th>
-                            <th>First Name</th>
-                            <th>Grade Level</th>
+                            <th>Name</th>
+                            <th>Grade</th>
+                            <th>Sections</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <div>
-                        <tbody id="tableER">
-                            <template student-template>
-                                <tr class="hidden tablerow" id="templateER">
-                                    <td id="ERID"></td>
-                                    <td id="ERLastName"></td>
-                                    <td id="ERFirstName"></td>
-                                    <td id="ERGrade"></td>
+                        <tbody id="tableGL">
+                            <template gradeLevel-template>
+                                <tr class="hidden tablerow" id="templateGL">
+                                    <td id="OLName"></td>
+                                    <td id="OLGrade"></td>
+                                    <td id="OLSubjects"></td>
                                     <td class="operations">
-                                        <a class="status_border view" id="ERView" href="#enrollmentform">
-                                            <p>View</p>
-                                        </a>
-                                        <a href="#deleteModal" id="ERDelete" class="status_border delete">
-                                            <p>Reject</p>
+                                        <a class="status_border grade" id='editbtn' href="#edit">
+                                            <p>Edit</p>
                                         </a>
                                     </td>
                                 </tr>
                             </template>
+                            <tr class="tablerow" id="templateGL">
+                                <td id="OLName">jere</td>
+                                <td id="OLGrade">aa</td>
+                                <td id="OLSubjects">aa</td>
+                                <td class="operations">
+                                    <a class="status_border accept" id='acceptbtn' href="#accept">
+                                        <p>Accept</p>
+                                    </a>
+                                    <a class="status_border reject" id='rejectbtn' href="#reject">
+                                        <p>Reject</p>
+                                    </a>
+                                </td>
+                            </tr>
+
                         </tbody>
                     </div>
                 </table>
             </section>
-
-
         </main>
     </div>
 
-    <div id="deleteModal" class="modal-overlay">
-        <div class="modal">
-            <div class="modal-header">
-                <span></span>
-                <a href="#" class="close-btn">&times;</a>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure to <strong>reject</strong> this request?</p>
-            </div>
-            <div class="modal-footer">
-                <a href="#" class="cancel-btn">Cancel</a>
-                <a id="modalDeleteBtn" href="#" class="delete-btn">Reject</a>
-            </div>
-        </div>
-    </div>
-    <div id="enrollmentform" class="form-overlay">
-
-        <form class="enrollment-form">
-            <div class="form-header">
-                <h1>Enrollment Form</h1>
-                <a href="#" class="close-btn">&times;</a>
-            </div>
-            <!-- Left Column -->
-            <div>
-                <section>
-                    <h2>Basic Information</h2>
-                    <div class="form-row">
-                        <input id="LRNInp" type="text" placeholder="Student's LRN" readonly>
-                    </div>
-                    <div class="form-row">
-
-                        <input id="lNameInp" type="text" placeholder="Last Name">
-                        <input id="fNameInp" type="text" placeholder="First Name">
-                        <input id="mNameInp" type="text" placeholder="Middle Name">
-                    </div>
-                    <div class="form-row">
-                        <input id="sexInp" type="text" placeholder="Sex">
-                        <input id="birthDateInp" type="date" placeholder="Birthdate">
-                        <input id="religionInp" type="text" placeholder="Religion">
-                    </div>
-                    <div class="form-row">
-                        <input id="mobNumInp" type="tel" placeholder="Mobile number" pattern="[0-9]{11}" required
-                            title="Enter a 11-digit mobile number">
-                        <input id="emailInp" type="email" placeholder="Email Address">
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Current Address</h2>
-                    <div class="form-row">
-                        <input id="houseNumInp" type="text" placeholder="House No. / Street / Barangay">
-                        <input id="cityInp" type="text" placeholder="Municipality/City">
-                        <input id="provinceInp" type="text" placeholder="Province">
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Other Information</h2>
-                    <div class="form-row">
-                        <input id="lastSchoolInp" type="text" placeholder="Last School Attended">
-                        <div class="select-container">
-                            <label for="grade">Incoming Grade Level</label>
-                            <select name="grade" id="grade">
-                                <option value="Nursery">Nursery</option>
-                                <option value="Kinder1">Kinder 1</option>
-                                <option value="Kinder2">Kinder 2</option>
-                                <option value="Grade1">Grade 1</option>
-                                <option value="Grade2">Grade 2</option>
-                                <option value="Grade3">Grade 3</option>
-                                <option value="Grade4">Grade 4</option>
-                                <option value="Grade5">Grade 5</option>
-                                <option value="Grade6">Grade 6</option>
-                            </select>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-
-            <!-- Right Column -->
-            <div>
-                <section>
-                    <h2>Father's Information</h2>
-                    <div class="form-row">
-                        <input id="fathNameInp" type="text" placeholder="Father's Name">
-                        <input id="fathOccInp" type="text" placeholder="Occupation">
-                        <input id="fathMobNumInp" type="tel" placeholder="Mobile number" pattern="[0-9]{11}" required
-                            title="Enter a 11-digit mobile number">
-                        <input id="fathEmailInp" type="email" placeholder="Email Address">
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Mother's Information</h2>
-                    <div class="form-row">
-                        <input id="mothNameInp" type="text" placeholder="Mother's Name">
-                        <input id="mothOccInp" type="text" placeholder="Occupation">
-                        <input id="mothMobNumInp" type="tel" placeholder="Mobile number" pattern="[0-9]{11}" required
-                            title="Enter a 11-digit mobile number">
-                        <input id="mothEmailInp" type="email" placeholder="Email Address">
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Guardian's Information</h2>
-                    <div class="form-row">
-                        <input id="guarNameInp" type="text" placeholder="Guardian's Name">
-                        <input id="guarRelatsionshipInp" type="text" placeholder="Relationship">
-                        <input id="guarMobNumInp" type="tel" placeholder="Mobile number" pattern="[0-9]{11}" required
-                            title="Enter a 11-digit mobile number">
-                        <input id="guarEmailInp" type="email" placeholder="Email Address">
-                    </div>
-                </section>
-            </div>
-
-            <!-- Form Actions -->
-            <div class="form-actions">
-                <a class="cancel-btn">Close</a>
-                <div>
-                    <a href="#" id='rejectbtn' class="delete-btn">Reject</a>
-                    <a href="#" id='acceptbtn' class="accept-btn">Accept</a>
-                </div>
-            </div>
-        </form>
-    </div>
-
-
-
-    <script type="module" src="/superadmin/js/admin-enrollees-firebase.js"></script>
+    <script type="module" src="/superadmin/js/admin-editsupplies-firebase.js"></script>
 </body>
 
 </html>

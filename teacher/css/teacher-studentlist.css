@@ -190,6 +190,10 @@ header div {
     color: var(--primary-color);
 }
 
+.name {
+    min-width: 300px;
+}
+
 /* Dropdown styling */
 /* Main dropdown button styling */
 

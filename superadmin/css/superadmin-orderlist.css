@@ -291,13 +291,13 @@ table {
 table td {
   min-width: 150px;
   text-align: left;
-  padding: 19px 20px;
+  padding: 19px 23px;
 }
 
 table th {
   min-width: 150px;
   text-align: left;
-  padding: 19px 15px;
+  padding: 19px 12px;
 }
 
 thead {
@@ -333,24 +333,24 @@ tbody tr:nth-child(odd) {
   background-color: #004992;
 }
 
-.grade {
+.accept {
   color: var(--white-font-color);
-  background-color: #015db9;
+  background-color: #00cf4f;
   transition: all 0.3s ease-in-out;
 }
 
-.grade:hover {
-  background-color: #004992;
+.accept:hover {
+  background-color: #01aa42;
 }
 
 
-.delete {
+.reject {
   color: var(--white-font-color);
   background-color: var(--red-button);
   transition: all 0.3s ease-in-out;
 }
 
-.delete:hover {
+.reject:hover {
   background-color: var(--red-hover-button);
 }
 

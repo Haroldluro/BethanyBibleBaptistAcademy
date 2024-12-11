@@ -119,6 +119,15 @@
                         </svg>
                         School Items
                     </a></li>
+                <li><a href="superadmin-orderlist.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-linecap="round" stroke-linejoin="round" width="44" height="44" stroke-width="1.5">
+                            <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                            <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
+                            <path d="M9 15l2 2l4 -4"></path>
+                        </svg>
+                        Order List
+                    </a></li>
             </ul>
             <button onclick="window.location.href='/landing/login.html'">
                 Logout
@@ -142,18 +151,174 @@
 
             </header>
 
-            <div id="items-container">
-                <!-- Items will be dynamically inserted here -->
-            </div>
-
-            <div class="pagination">
-                <button class="pagination-btn">First</button>
-                <button class="pagination-btn">&lt;</button>
-                <span class="pagination-number">1</span>
-                <span class="pagination-number">2</span>
-                <button class="pagination-btn">&gt;</button>
-                <button class="pagination-btn">Last</button>
-            </div>
+            <section class="table">
+                <table class="tablescroll">
+                    <thead class="table-header">
+                        <tr class="header-title">
+                            <th>Grade</th>
+                            <th>Sections</th>
+                            <th>Subjects</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <div>
+                        <tbody id="tableGL">
+                            <template gradeLevel-template>
+                                <tr class="hidden tablerow" id="templateGL">
+                                    <td id="GLID"></td>
+                                    <td id="GLName"></td>
+                                    <td id="GLSubjects"></td>
+                                    <td class="operations">
+                                        <a class="status_border grade" id='editbtn' href="#edit">
+                                            <p>Edit</p>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </template>
+                            <tr class="tablerow" id="templateGL">
+                                <td id="GLID">aa</td>
+                                <td id="GLName">aa</td>
+                                <td id="GLSubjects">aa</td>
+                                <td class="operations">
+                                    <a class="status_border grade" id='editbtn' href="#edit">
+                                        <p>Edit</p>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr class="tablerow" id="templateGL">
+                                <td id="GLID">aa</td>
+                                <td id="GLName">aa</td>
+                                <td id="GLSubjects">aa</td>
+                                <td class="operations">
+                                    <a class="status_border grade" id='editbtn' href="#edit">
+                                        <p>Edit</p>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr class="tablerow" id="templateGL">
+                                <td id="GLID">aa</td>
+                                <td id="GLName">aa</td>
+                                <td id="GLSubjects">aa</td>
+                                <td class="operations">
+                                    <a class="status_border grade" id='editbtn' href="#edit">
+                                        <p>Edit</p>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr class="tablerow" id="templateGL">
+                                <td id="GLID">aa</td>
+                                <td id="GLName">aa</td>
+                                <td id="GLSubjects">aa</td>
+                                <td class="operations">
+                                    <a class="status_border grade" id='editbtn' href="#edit">
+                                        <p>Edit</p>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr class="tablerow" id="templateGL">
+                                <td id="GLID">aa</td>
+                                <td id="GLName">aa</td>
+                                <td id="GLSubjects">aa</td>
+                                <td class="operations">
+                                    <a class="status_border grade" id='editbtn' href="#edit">
+                                        <p>Edit</p>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr class="tablerow" id="templateGL">
+                                <td id="GLID">aa</td>
+                                <td id="GLName">aa</td>
+                                <td id="GLSubjects">aa</td>
+                                <td class="operations">
+                                    <a class="status_border grade" id='editbtn' href="#edit">
+                                        <p>Edit</p>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr class="tablerow" id="templateGL">
+                                <td id="GLID">aa</td>
+                                <td id="GLName">aa</td>
+                                <td id="GLSubjects">aa</td>
+                                <td class="operations">
+                                    <a class="status_border grade" id='editbtn' href="#edit">
+                                        <p>Edit</p>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr class="tablerow" id="templateGL">
+                                <td id="GLID">aa</td>
+                                <td id="GLName">aa</td>
+                                <td id="GLSubjects">aa</td>
+                                <td class="operations">
+                                    <a class="status_border grade" id='editbtn' href="#edit">
+                                        <p>Edit</p>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr class="tablerow" id="templateGL">
+                                <td id="GLID">aa</td>
+                                <td id="GLName">aa</td>
+                                <td id="GLSubjects">aa</td>
+                                <td class="operations">
+                                    <a class="status_border grade" id='editbtn' href="#edit">
+                                        <p>Edit</p>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr class="tablerow" id="templateGL">
+                                <td id="GLID">aa</td>
+                                <td id="GLName">aa</td>
+                                <td id="GLSubjects">aa</td>
+                                <td class="operations">
+                                    <a class="status_border grade" id='editbtn' href="#edit">
+                                        <p>Edit</p>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr class="tablerow" id="templateGL">
+                                <td id="GLID">aa</td>
+                                <td id="GLName">aa</td>
+                                <td id="GLSubjects">aa</td>
+                                <td class="operations">
+                                    <a class="status_border grade" id='editbtn' href="#edit">
+                                        <p>Edit</p>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr class="tablerow" id="templateGL">
+                                <td id="GLID">aa</td>
+                                <td id="GLName">aa</td>
+                                <td id="GLSubjects">aa</td>
+                                <td class="operations">
+                                    <a class="status_border grade" id='editbtn' href="#edit">
+                                        <p>Edit</p>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr class="tablerow" id="templateGL">
+                                <td id="GLID">aa</td>
+                                <td id="GLName">aa</td>
+                                <td id="GLSubjects">aa</td>
+                                <td class="operations">
+                                    <a class="status_border grade" id='editbtn' href="#edit">
+                                        <p>Edit</p>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr class="tablerow" id="templateGL">
+                                <td id="GLID">ab</td>
+                                <td id="GLName">aa</td>
+                                <td id="GLSubjects">aa</td>
+                                <td class="operations">
+                                    <a class="status_border grade" id='editbtn' href="#edit">
+                                        <p>Edit</p>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </div>
+                </table>
+            </section>
         </main>
     </div>
 
