@@ -27,7 +27,7 @@ const sectionEl = document.querySelector("#section");
 // Fetch and display student details
 const loadGradesDetails = async () => {
   onAuthStateChanged(auth, async (user) => {
-    if (user) {
+    if (user) { 
       try {
         const uid = user.uid;
 
