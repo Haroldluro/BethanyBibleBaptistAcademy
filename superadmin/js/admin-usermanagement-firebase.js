@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
 import { getFirestore, getDoc, getDocs, doc, collection } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
-
+import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 // Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDQrgbw4TlLtLbex-BiEk58aA4l_zoDAmo",
@@ -15,6 +15,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const admin = getAuth();
 
 // Firestore collections
 const usersCollectionRef = collection(db, "users"); // Main user collection
@@ -35,7 +36,6 @@ async function fetchUserAccounts() {
     for (const userDoc of userDocs.docs) {
 
       const userData = userDoc.data(); // User data from "users" collection
-      console.log(userData);
       let roleSpecificData;
 
       // Fetch data from the relevant collection based on the role
@@ -93,6 +93,21 @@ async function fetchUserAccounts() {
 // Fetch and display accounts on page load
 fetchUserAccounts();
 
+
+const adminResetPassword = async (email, oldPassword, newPassword) => {
+  try {
+    // Authenticate as the user (or reauthenticate)
+    const userCredential = await signInWithEmailAndPassword(auth, email, oldPassword);
+    const user = userCredential.user;
+
+    // Update the user's password
+    await updatePassword(user, newPassword);
+    console.log("Password updated successfully.");
+  } catch (error) {
+    console.error("Error updating password:", error);
+  }
+};
+adminResetPassword();
 
 document.querySelector('.filter-btn').addEventListener('click', (e) => {
   e.preventDefault();

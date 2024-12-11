@@ -190,7 +190,7 @@ header div {
     color: var(--primary-color);
 }
 
-.name {
+.studnamectr {
     min-width: 300px;
 }
 
@@ -233,10 +233,33 @@ header div {
     color: var(--white-font-color);
     border: none;
     border-radius: 10px;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.filter-btn:hover {
+    background-color: var(--nav-selected-color);
+}
+
+.apply-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 15px;
+    background-color: var(--green-button);
+    color: var(--white-font-color);
+    border: none;
+    border-radius: 10px;
     font-size: 14px;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+}
+
+.apply-btn:hover {
+    background-color: var(--green-hover-button);
 }
 
 .dropdown-menu {
@@ -253,15 +276,12 @@ header div {
     display: none;
     /* Hidden by default */
     z-index: 1000;
+    /* Ensure it's above other elements */
     width: 200px;
     /* Adjust as needed */
 }
 
-/* New class for showing the dropdown */
-.dropdown-menu.show {
-    display: block;
-}
-
+/* Dropdown menu item styling */
 .dropdown-menu li {
     display: block;
 }
@@ -280,6 +300,20 @@ header div {
     color: var(--button-bg-color);
 }
 
+/* Show dropdown when button or container is hovered */
+.filter-btn:focus+.dropdown-menu,
+.dropdown-menu:focus {
+    display: block;
+}
+
+.search-btn svg {
+    stroke: var(--white-font-color);
+    transition: all 0.3s ease-in-out;
+}
+
+.search-btn:hover svg {
+    stroke: #f3f3f3;
+}
 
 /* Search Container */
 
@@ -696,17 +730,11 @@ select:focus {
     width: 100%;
 }
 
-
-
 .popup-table th,
 .popup-table td {
-
+    border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
-}
-
-.popup-table tr {
-    height: 50px;
 }
 
 .popup-table th {
