@@ -113,10 +113,16 @@ body {
 
 section {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
     padding: 20px 20px 0;
+    text-align: start;
+}
 
+section div {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
 }
 
 /* Card Styles */
@@ -216,20 +222,20 @@ section {
         font-size: 1rem;
     }
 
-    
+
 
     .bottom-nav-background {
         width: 50px;
         height: 100vh;
         background: linear-gradient(#265DCC, #e0e0e0);
-        position: fixed; 
+        position: fixed;
         right: 0;
         top: 0;
-        display: flex; 
-        justify-content: center; 
-        align-items: center; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
-    
+
     .bottom-nav {
         width: 50px;
         height: 80vh;
