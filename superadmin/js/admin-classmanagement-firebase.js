@@ -151,7 +151,7 @@ async function displayClassStudents(id) {
     if (event.target.selectedIndex == 0) return;
     var section = event.target.value;
 
-    const teacher_id = event.target.options[event.target.selectedIndex].getAttribute("teacher-id")
+    const teacher_id = event.target.options[event.target.selectedIndex].getAttribute("teacher-id");
 
     const docRef = doc(db, "teacher", teacher_id);
     const docSnap = await getDoc(docRef);

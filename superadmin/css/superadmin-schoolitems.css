@@ -289,12 +289,16 @@ table {
 }
 
 table td {
+  flex-basis: 0;
+  flex-grow: 1;
   min-width: 150px;
   text-align: left;
   padding: 19px 20px;
 }
 
 table th {
+  flex-basis: 0;
+  flex-grow: 1;
   min-width: 150px;
   text-align: left;
   padding: 19px 15px;
@@ -569,6 +573,5 @@ tbody tr:nth-child(odd) {
   .modal-button.add:hover {
     background: #218838;
   }
-
 
 /* #endregion enrollmentform */

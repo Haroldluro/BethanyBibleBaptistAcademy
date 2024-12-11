@@ -155,166 +155,33 @@
                 <table class="tablescroll">
                     <thead class="table-header">
                         <tr class="header-title">
-                            <th>Grade</th>
-                            <th>Sections</th>
-                            <th>Subjects</th>
-                            <th>Actions</th>
+                            <th>Item Name</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            <th>Operation</th>
                         </tr>
                     </thead>
                     <div>
-                        <tbody id="tableGL">
-                            <template gradeLevel-template>
-                                <tr class="hidden tablerow" id="templateGL">
-                                    <td id="GLID"></td>
-                                    <td id="GLName"></td>
-                                    <td id="GLSubjects"></td>
+                        <tbody id="tableItem">
+                            <template item-template>
+                                <tr class="tablerow" id="templateGL">
+                                    <td id="itemName"></td>
+                                    <td id="itemCategory"></td>
+                                    <td id="itemQuantity"></td>
+                                    <td>₱<span id="itemPrice"></span></td>
+                                    <td id="itemStatus"></td>
                                     <td class="operations">
-                                        <a class="status_border grade" id='editbtn' href="#edit">
+                                        <a class="status_border grade" id='editbtn' href="#edititem">
                                             <p>Edit</p>
+                                        </a>
+                                        <a class="status_border delete" id='deletebtn' href="#delete">
+                                            <p>Delete</p>
                                         </a>
                                     </td>
                                 </tr>
                             </template>
-                            <tr class="tablerow" id="templateGL">
-                                <td id="GLID">aa</td>
-                                <td id="GLName">aa</td>
-                                <td id="GLSubjects">aa</td>
-                                <td class="operations">
-                                    <a class="status_border grade" id='editbtn' href="#edit">
-                                        <p>Edit</p>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr class="tablerow" id="templateGL">
-                                <td id="GLID">aa</td>
-                                <td id="GLName">aa</td>
-                                <td id="GLSubjects">aa</td>
-                                <td class="operations">
-                                    <a class="status_border grade" id='editbtn' href="#edit">
-                                        <p>Edit</p>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr class="tablerow" id="templateGL">
-                                <td id="GLID">aa</td>
-                                <td id="GLName">aa</td>
-                                <td id="GLSubjects">aa</td>
-                                <td class="operations">
-                                    <a class="status_border grade" id='editbtn' href="#edit">
-                                        <p>Edit</p>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr class="tablerow" id="templateGL">
-                                <td id="GLID">aa</td>
-                                <td id="GLName">aa</td>
-                                <td id="GLSubjects">aa</td>
-                                <td class="operations">
-                                    <a class="status_border grade" id='editbtn' href="#edit">
-                                        <p>Edit</p>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr class="tablerow" id="templateGL">
-                                <td id="GLID">aa</td>
-                                <td id="GLName">aa</td>
-                                <td id="GLSubjects">aa</td>
-                                <td class="operations">
-                                    <a class="status_border grade" id='editbtn' href="#edit">
-                                        <p>Edit</p>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr class="tablerow" id="templateGL">
-                                <td id="GLID">aa</td>
-                                <td id="GLName">aa</td>
-                                <td id="GLSubjects">aa</td>
-                                <td class="operations">
-                                    <a class="status_border grade" id='editbtn' href="#edit">
-                                        <p>Edit</p>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr class="tablerow" id="templateGL">
-                                <td id="GLID">aa</td>
-                                <td id="GLName">aa</td>
-                                <td id="GLSubjects">aa</td>
-                                <td class="operations">
-                                    <a class="status_border grade" id='editbtn' href="#edit">
-                                        <p>Edit</p>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr class="tablerow" id="templateGL">
-                                <td id="GLID">aa</td>
-                                <td id="GLName">aa</td>
-                                <td id="GLSubjects">aa</td>
-                                <td class="operations">
-                                    <a class="status_border grade" id='editbtn' href="#edit">
-                                        <p>Edit</p>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr class="tablerow" id="templateGL">
-                                <td id="GLID">aa</td>
-                                <td id="GLName">aa</td>
-                                <td id="GLSubjects">aa</td>
-                                <td class="operations">
-                                    <a class="status_border grade" id='editbtn' href="#edit">
-                                        <p>Edit</p>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr class="tablerow" id="templateGL">
-                                <td id="GLID">aa</td>
-                                <td id="GLName">aa</td>
-                                <td id="GLSubjects">aa</td>
-                                <td class="operations">
-                                    <a class="status_border grade" id='editbtn' href="#edit">
-                                        <p>Edit</p>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr class="tablerow" id="templateGL">
-                                <td id="GLID">aa</td>
-                                <td id="GLName">aa</td>
-                                <td id="GLSubjects">aa</td>
-                                <td class="operations">
-                                    <a class="status_border grade" id='editbtn' href="#edit">
-                                        <p>Edit</p>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr class="tablerow" id="templateGL">
-                                <td id="GLID">aa</td>
-                                <td id="GLName">aa</td>
-                                <td id="GLSubjects">aa</td>
-                                <td class="operations">
-                                    <a class="status_border grade" id='editbtn' href="#edit">
-                                        <p>Edit</p>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr class="tablerow" id="templateGL">
-                                <td id="GLID">aa</td>
-                                <td id="GLName">aa</td>
-                                <td id="GLSubjects">aa</td>
-                                <td class="operations">
-                                    <a class="status_border grade" id='editbtn' href="#edit">
-                                        <p>Edit</p>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr class="tablerow" id="templateGL">
-                                <td id="GLID">ab</td>
-                                <td id="GLName">aa</td>
-                                <td id="GLSubjects">aa</td>
-                                <td class="operations">
-                                    <a class="status_border grade" id='editbtn' href="#edit">
-                                        <p>Edit</p>
-                                    </a>
-                                </td>
-                            </tr>
                         </tbody>
                     </div>
                 </table>
@@ -327,6 +194,24 @@
             <div class="modal-content">
                 <h2>Add New Item</h2>
                 <form id="add-item-form">
+                    <div style="display: flex;">
+                        <label for="item-category" style="flex-basis: 0; flex-grow: 1;">Category:</label>
+                        <label for="item-category" style="flex-basis: 0; flex-grow: 1;">Sub-Category:</label>
+                    </div>
+                    <div>
+                        <select name="" id="item-category" style="width: 49%;" required>
+                            <template category-template id="category-template">
+                                <option value="" id="template-section">-- Select Category --</option>
+                            </template>
+                            <option value="" id="template-section">-- Select Category --</option>
+                        </select>
+                        <select name="" id="item-sub-category" style="width: 49%;" required>
+                            <template sub-category-template id="sub-category-template">
+                                <option value="" id="template-section">-- Select Sub Category --</option>
+                            </template>
+                        </select>
+                    </div>
+
                     <label for="item-name">Item Name:</label>
                     <input type="text" id="item-name" placeholder="Enter item name" required>
 
@@ -336,27 +221,95 @@
                     <label for="item-price">Price:</label>
                     <input type="number" id="item-price" placeholder="Enter price" required>
 
-                    <label for="item-image">Image URL:</label>
-                    <input type="text" id="item-image" placeholder="Enter image URL" required>
+                    <!-- <label for="item-image">Image URL:</label>
+                    <input type="text" id="item-image" placeholder="Enter image URL" required> -->
 
                     <label for="item-status">Status:</label>
                     <select id="item-status" required>
-                        <option value="in-stock">In Stock</option>
-                        <option value="out-of-stock">Out of Stock</option>
+                        <option value="In Stock">In Stock</option>
+                        <option value="Out of Stock">Out of Stock</option>
                     </select>
 
                     <div class="modal-actions">
                         <button type="button" onclick="window.location.href = '#' " id="cancel-button"
                             class="modal-button cancel">Cancel</button>
-                        <button type="submit" class="modal-button add">Add Item</button>
+                        <button type="submit" class="modal-button add" id="edit-button">Add Item</button>
                     </div>
                 </form>
             </div>
-        </div>
-
-
+        </div> 
     </div>
 
+    <div id='edititem' class="modal-overlay">
+        <div id="edit-item-modal" class="modal">
+            <div class="modal-content">
+                <h2>Edit Item</h2>
+                <form id="edit-item-form">
+                    <div style="display: flex;">
+                        <label for="item-category" style="flex-basis: 0; flex-grow: 1;">Category:</label>
+                        <label for="item-category" style="flex-basis: 0; flex-grow: 1;">Sub-Category:</label>
+                    </div>
+                    <div>
+                        <select name="" id="item-category-edit" style="width: 49%;" required>
+                            <template category-template-edit id="category-template">
+                                <option value="" id="template-section">-- Select Category --</option>
+                            </template>
+                            <option value="" id="template-section">-- Select Category --</option>
+                        </select>
+                        <select name="" id="item-sub-category-edit" style="width: 49%;" required>
+                            <template sub-category-template-edit id="sub-category-template">
+                                <option value="" id="template-section">-- Select Sub Category --</option>
+                            </template>
+                        </select>
+                    </div>
+
+                    <label for="item-name">Item Name:</label>
+                    <input type="text" id="item-name-edit" placeholder="Enter item name" required>
+
+                    <label for="item-quantity">Quantity:</label>
+                    <input type="number" id="item-quantity-edit" placeholder="Enter quantity" required>
+
+                    <label for="item-price">Price:</label>
+                    <input type="number" id="item-price-edit" placeholder="Enter price" required>
+
+                    <!-- <label for="item-image">Image URL:</label>
+                    <input type="text" id="item-image" placeholder="Enter image URL" required> -->
+
+                    <label for="item-status">Status:</label>
+                    <select id="item-status-edit" required>
+                        <option value="In Stock">In Stock</option>
+                        <option value="Out of Stock">Out of Stock</option>
+                    </select>
+
+                    <div class="modal-actions">
+                        <button type="button" onclick="window.location.href = '#' "  id="cancel-edit-button"
+                            class="modal-button cancel">Cancel</button>
+                        <button type="submit" class="modal-button add" id="edit-item-button">Edit Item</button>
+                    </div>
+                </form>
+            </div>
+        </div> 
+    </div>
+
+    <div id='delete' class="modal-overlay">
+        <div id="add-item-modal" class="modal">
+            <div class="modal-content">
+                <h2>Delete Item</h2>
+                <form id="add-item-form">
+                    <div class="modal-body" style="text-align: center;">
+                        <p>Are you sure to <strong>delete</strong> this item?</p>
+                    </div>
+
+                    <h3 style="text-align: center;" id="delete-item-name"></h3>
+                    <div class="modal-actions">
+                        <button type="button" onclick="window.location.href = '#' " id="cancel-delete-button"
+                            class="modal-button grade">Cancel</button>
+                        <button type="submit" class="modal-button delete" id="delete-item-button">Delete Item</button>
+                    </div>
+                </form>
+            </div>
+        </div> 
+    </div>
     <script type="module" src="/superadmin/js/admin-editsupplies-firebase.js"></script>
 </body>
 
