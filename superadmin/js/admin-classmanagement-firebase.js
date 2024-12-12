@@ -45,7 +45,6 @@ async function getGradeLevelDetails() {
       gradeLevel.querySelector("#GLName").innerHTML = doc.data().sections.length;
       gradeLevel.querySelector("#GLSubjects").innerHTML = doc.data().subjects.length;
 
-      console.log();
       gradeLevel.querySelector('#editbtn').setAttribute("data-id", doc.id);
       gradeLevel.querySelector('#editstudentsbtn').setAttribute("data-id", doc.id);
       gradeLevel.classList.remove("hidden");
