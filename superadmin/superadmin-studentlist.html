@@ -178,7 +178,7 @@
                                     <td id="STName"></td>
                                     <td id="STGrade"></td>
                                     <td class="operations">
-                                        <a class="status_border accounts" id='accountsbtn' href="#accounts">
+                                        <a class="status_border accounts" id='accountsbtn' href="#accountsModal">
                                             <p>Accounts</p>
                                         </a>
                                         <a class="status_border grade" id='gradesbtn' href="#grades">
@@ -194,8 +194,9 @@
                     </div>
                 </table>
             </section>
-
         </main>
+
+        
 
         <div id="deleteModal" class="modal-overlay">
             <div class="modal">
@@ -250,6 +251,31 @@
                 <button class="save-button" id="save-changes">Apply</button>
             </div>
         </div>
+
+        <div id="accountsModal" class="popup-container">
+            <div class="popup-content">
+                <a href="#" class="close-popup">&times;</a>
+                <h2>Accountabilities</h2>
+                <div class="form-header">
+                    <h1></h1>
+                </div>
+                
+                <div class="checkbox-group">
+                    <label>
+                        <input id= "cbRC" type="checkbox" name="accountability" value="reportCard"> Report Card (Form 137)
+                    </label>
+                    <label>
+                        <input id = "cbBC" type="checkbox" name="accountability" value="birthCertificate"> Birth Certificate
+                    </label>
+                    <label>
+                        <input id = "cbGM" type="checkbox" name="accountability" value="goodMoral"> Good Moral
+                    </label>
+                </div>
+
+                <button class="save-button" id="save-changes-accounts">Apply</button>
+            </div>
+        </div>
+
     </div>
 
     <script type="module" src="/superadmin/js/admin-studentlist-firebase.js"></script>

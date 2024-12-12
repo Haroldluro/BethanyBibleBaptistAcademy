@@ -155,40 +155,32 @@
                 <table class="tablescroll">
                     <thead class="table-header">
                         <tr class="header-title">
-                            <th>Name</th>
-                            <th>Grade</th>
-                            <th>Sections</th>
+                            <th>Order ID</th>
+                            <th>Student Name</th>
+                            <th>Receipt</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <div>
-                        <tbody id="tableGL">
-                            <template gradeLevel-template>
-                                <tr class="hidden tablerow" id="templateGL">
+                        <tbody id="tableOrders">
+                            <template orderList-template>
+                                <tr class="tablerow" id="templateOrder">
+                                    <td id="OLID"></td>
                                     <td id="OLName"></td>
-                                    <td id="OLGrade"></td>
-                                    <td id="OLSubjects"></td>
+                                    <td id="OLReceipts"><a href="#">aa</a></td>
                                     <td class="operations">
-                                        <a class="status_border grade" id='editbtn' href="#edit">
-                                            <p>Edit</p>
+                                        <a class="status_border accounts" id='viewbtn' href="#view">
+                                            <p>View</p>
+                                        </a>
+                                        <a class="status_border accept" id='acceptbtn' href="#accept">
+                                            <p>Accept</p>
+                                        </a>
+                                        <a class="status_border reject" id='rejectbtn' href="#reject">
+                                            <p>Reject</p>
                                         </a>
                                     </td>
                                 </tr>
                             </template>
-                            <tr class="tablerow" id="templateGL">
-                                <td id="OLName">jere</td>
-                                <td id="OLGrade">aa</td>
-                                <td id="OLSubjects">aa</td>
-                                <td class="operations">
-                                    <a class="status_border accept" id='acceptbtn' href="#accept">
-                                        <p>Accept</p>
-                                    </a>
-                                    <a class="status_border reject" id='rejectbtn' href="#reject">
-                                        <p>Reject</p>
-                                    </a>
-                                </td>
-                            </tr>
-
                         </tbody>
                     </div>
                 </table>
@@ -196,7 +188,26 @@
         </main>
     </div>
 
-    <script type="module" src="/superadmin/js/admin-editsupplies-firebase.js"></script>
+    <div id='reject' class="modal-overlay">
+        <div id="add-item-modal" class="modal">
+            <div class="modal-content">
+                <h2>Delete Item</h2>
+                <form id="add-item-form">
+                    <div class="modal-body" style="text-align: center;">
+                        <p>Are you sure to <strong>delete</strong> this item?</p>
+                    </div>
+
+                    <h3 style="text-align: center;" id="delete-item-name"></h3>
+                    <div class="modal-actions">
+                        <button type="button" onclick="window.location.href = '#' " id="cancel-delete-button"
+                            class="modal-button accounts">Cancel</button>
+                        <button type="submit" class="modal-button reject" id="delete-item-button">Delete Item</button>
+                    </div>
+                </form>
+            </div>
+        </div> 
+    </div>
+    <script type="module" src="/superadmin/js/admin-orderlist-firebase.js"></script>
 </body>
 
 </html>

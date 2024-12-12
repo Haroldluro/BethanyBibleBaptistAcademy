@@ -45,7 +45,7 @@ async function getStudentDetails() {
       student.querySelector("#STGrade").innerHTML = doc.data()["gradeLevel"];
       student.querySelector('#gradesbtn').setAttribute("data-id", doc.data()["studentID"]);
       student.querySelector('#deletebtn').setAttribute("data-id", doc.data()["studentID"]);
-      student.querySelector('#accountsbtn').setAttribute("data-id", doc.data()["studentID"]);
+      student.querySelector('#accountsbtn').setAttribute("data-id", doc.id);
       student.classList.remove("hidden");
       tableST.append(student);
       return {
@@ -65,6 +65,12 @@ getStudentDetails();
 const gradeBtn = document.querySelectorAll("#gradesbtn");
 const gradeTableTemplate = document.querySelector('[grade-template-table]');
 const applyBtn = document.querySelector("#save-changes");
+const applyBtnAcc = document.querySelector("#save-changes-accounts");
+const accountsBtn = document.querySelectorAll("#accountsbtn");
+const cbRC = document.querySelector("#cbRC");
+const cbGM = document.querySelector("#cbGM");
+const cbBC = document.querySelector("#cbBC");
+
 async function displayGradeDetails(id) {
   const docRef = doc(db, "grades", id);
   const docSnap = await getDoc(docRef);
@@ -97,7 +103,6 @@ async function displayGradeDetails(id) {
 
 async function gradesEdit(id) {
   const docRef = doc(db, "grades", id);
-  const docSnap = await getDoc(docRef);
   const tableGT = document.getElementById("tableGR");
   let outterMap = new Map();
   let innerMap = new Map();
@@ -123,6 +128,45 @@ async function gradesEdit(id) {
   await updateDoc(docRef, gradesObject);
 }
 
+async function updateAccountabilities(id) {
+  const docRef = doc(db, "students", id);
+
+  const bc = cbBC ? cbBC.checked : false; 
+  const gm = cbGM ? cbGM.checked : false;
+  const rc = cbRC ? cbRC.checked : false;
+  let accounts = {
+    birthCertificate: bc,
+    goodMoral: gm,
+    reportCard: rc,
+  }
+  await updateDoc(docRef, {
+    accountabilities: accounts
+  })
+}
+
+async function displayAccountabilities(id) {
+  const docRef = doc(db, "students", id);
+  const docSnap = await getDoc(docRef);
+  const accounts = docSnap.data().accountabilities;
+  cbBC.checked = accounts.birthCertificate? true : false;
+  cbGM.checked = accounts.goodMoral? true : false;
+  cbRC.checked = accounts.reportCard? true : false;
+}
+
+accountsBtn.forEach((btn) => {
+  btn.addEventListener("click", async (event) => {
+    try {
+      const reqId = btn.getAttribute("data-id");
+      console.log("Request ID:", reqId);
+      displayAccountabilities(reqId);
+      applyBtnAcc.addEventListener("click", async (event) => {
+        updateAccountabilities(reqId);
+      })
+    } catch (e) {
+      console.error("Error fetching document:", e);
+    }
+  })
+});
 
 gradeBtn.forEach((btn) => {
   btn.addEventListener("click", async (event) => {
@@ -133,7 +177,6 @@ gradeBtn.forEach((btn) => {
       applyBtn.addEventListener("click", async (event) => {
         gradesEdit(reqId);
       })
-
     } catch (e) {
       console.error("Error fetching document:", e);
     }
