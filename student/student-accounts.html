@@ -39,13 +39,14 @@
     <div class="accountability-card">
         <div>
             <p>Accountability Progress</p>
-        <button class="view-button">View</button>
+            <!-- Trigger to open the modal -->
+            <button class="view-button" onclick="window.location.href='#myModal'">View</button>
         </div>
         <div class="progress-circle">
             <span>75%</span>
         </div>
     </div>
-    
+
     <div class="account-details">
         <div class="detail-row">
             <span>Total Amount</span>
@@ -69,7 +70,25 @@
         </div>
         <div class="detail-row">
             <span>Balance</span>
-            <span><p class="balance">₱5,000</p></span>
+            <span>
+                <p class="balance">₱5,000</p>
+            </span>
+        </div>
+    </div>
+
+    <!-- Modal Popup -->
+    <div class="modal" id="myModal">
+        <div class="modal-content">
+            <div class="modal-item green-box">
+                <h3>Report Card (Form 137)</h3>
+            </div>
+            <div class="modal-item red-box">
+                <h3>Birth Certificate</h3>
+            </div>
+            <div class="modal-item green-box">
+                <h3>Good Moral Certificate</h3>
+            </div>
+            <a class="close-button" id="closeBtn" href="#">Close</a>
         </div>
     </div>
 
