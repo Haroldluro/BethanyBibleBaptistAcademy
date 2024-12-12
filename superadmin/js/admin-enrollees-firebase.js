@@ -620,9 +620,6 @@ accptBtn.addEventListener("click", async (event) => {
     console.error("Error fetching document:", e);
   }
 });
-//try lang to harold hehe
-
-
 
 // Event listener for modalDeleteBtn
 modalDeleteBtn.addEventListener("click", async (event) => {

@@ -32,20 +32,28 @@ const itemTable = document.getElementById("tableItem");
 const queryitems = query(itemsRef, orderBy("category"));
 const itemsSnapshot = await getDocs(queryitems);
 
-itemsSnapshot.forEach((doc) => {
-  const clone = itemTemplate.content.cloneNode(true).children[0];
+async function displayItems() {
+  try {
+    itemsSnapshot.forEach((doc) => {
+      const clone = itemTemplate.content.cloneNode(true).children[0];
+    
+      clone.querySelector("#itemName").innerHTML = doc.data()["name"];
+      clone.querySelector("#itemCategory").innerHTML = doc.data()["category"];
+      clone.querySelector("#itemQuantity").innerHTML = doc.data()["quantity"];
+      clone.querySelector("#itemPrice").innerHTML = doc.data()["price"];
+      clone.querySelector("#itemStatus").innerHTML = doc.data()["status"];
+    
+      clone.querySelector("#editbtn").setAttribute("data-id", doc.id);
+      clone.querySelector("#deletebtn").setAttribute("data-id", doc.id);
+    
+      itemTable.append(clone);
+    });
+  }catch (error) {
+    
+  }
+}
 
-  clone.querySelector("#itemName").innerHTML = doc.data()["name"];
-  clone.querySelector("#itemCategory").innerHTML = doc.data()["category"];
-  clone.querySelector("#itemQuantity").innerHTML = doc.data()["quantity"];
-  clone.querySelector("#itemPrice").innerHTML = doc.data()["price"];
-  clone.querySelector("#itemStatus").innerHTML = doc.data()["status"];
-
-  clone.querySelector("#editbtn").setAttribute("data-id", doc.id);
-  clone.querySelector("#deletebtn").setAttribute("data-id", doc.id);
-
-  itemTable.append(clone);
-});
+displayItems();
 
 const comboboxCategory = document.getElementById("item-category");
 const comboboxSubCategory = document.getElementById("item-sub-category");
@@ -245,4 +253,58 @@ deleteBtn.forEach((btn) => {
       console.error("Error fetching document:", e);
     }
   })
+});
+
+const searchInput = document.getElementById("searchinput");
+let debounceTimeout;
+
+searchInput.addEventListener("input", (event) => {
+  clearTimeout(debounceTimeout); // Clear the previous timeout
+  const searchTerm = event.target.value.toLowerCase();
+
+  debounceTimeout = setTimeout(async () => {
+    try {
+      // Clear the existing table rows
+      itemTable.innerHTML = ""; // Clear all rows before appending new ones
+
+      if (searchTerm.trim() === "") {
+        // If the search term is empty, reload all students
+        await displayItems();
+        return;
+      }
+
+      // Query Firestore for students whose LRN, lastName, or firstName matches the search term
+      const matchingStudents = [];
+      const querySnapshot = await getDocs(itemsRef);
+
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const name = data["name"] || "";
+        const category = data["category"] || "";
+        
+
+        // Check if the search term matches any of the student details and if the status is "Pending"
+        if (name.toLowerCase().includes(searchTerm) || category.toLowerCase().includes(searchTerm)) {
+          matchingStudents.push(doc);
+        }
+      });
+
+      // Add only the matching students to the table
+      matchingStudents.forEach((doc) => {
+        const clone = itemTemplate.content.cloneNode(true).children[0];
+        clone.querySelector("#itemName").innerHTML = doc.data()["name"];
+        clone.querySelector("#itemCategory").innerHTML = doc.data()["category"];
+        clone.querySelector("#itemQuantity").innerHTML = doc.data()["quantity"];
+        clone.querySelector("#itemPrice").innerHTML = doc.data()["price"];
+        clone.querySelector("#itemStatus").innerHTML = doc.data()["status"];
+      
+        clone.querySelector("#editbtn").setAttribute("data-id", doc.id);
+        clone.querySelector("#deletebtn").setAttribute("data-id", doc.id);
+      
+        itemTable.append(clone);
+      });
+    } catch (e) {
+      console.error("Error searching Firebase:", e);
+    }
+  }, 200); // Delay of 300ms before executing the search
 });
