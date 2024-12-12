@@ -59,7 +59,6 @@ async function displayUserAccounts() {
   }
 }
 displayUserAccounts();
-console.log(tableUM); 
 
 const lockBtn = document.querySelectorAll("#lockbtn");
 const deleteBtn = document.querySelector("#deletebtn");
@@ -67,7 +66,7 @@ console.log(lockBtn);
 async function lockAccount(id){
   console.log(id);
   const userDocsRef = doc(db, "users", id)
-  updateDoc(userDocsRef, {
+  await updateDoc(userDocsRef, {
     isActive: false
   })
   
@@ -75,15 +74,12 @@ async function lockAccount(id){
 
 
 lockBtn.forEach((btn) =>{
-  btn.addEventListener("click", async(event) => {
+  btn.addEventListener("click", (event) => {
     const reqid = btn.getAttribute("data-id");
-    const userDocsRef = doc(db, "users", reqid);
-    const email = userDocsRef.data().emailAddress;
-    console.log(email);
     deleteBtn.addEventListener("click", async(event) => {
-      getUserEmail(email);
       lockAccount(reqid);
     });
+    
   })
 });
 
