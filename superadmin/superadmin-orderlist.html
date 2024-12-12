@@ -188,6 +188,25 @@
         </main>
     </div>
 
+    <div id='reject' class="modal-overlay">
+        <div id="add-item-modal" class="modal">
+            <div class="modal-content">
+                <h2>Delete Item</h2>
+                <form id="add-item-form">
+                    <div class="modal-body" style="text-align: center;">
+                        <p>Are you sure to <strong>delete</strong> this item?</p>
+                    </div>
+
+                    <h3 style="text-align: center;" id="delete-item-name"></h3>
+                    <div class="modal-actions">
+                        <button type="button" onclick="window.location.href = '#' " id="cancel-delete-button"
+                            class="modal-button accounts">Cancel</button>
+                        <button type="submit" class="modal-button reject" id="delete-item-button">Delete Item</button>
+                    </div>
+                </form>
+            </div>
+        </div> 
+    </div>
     <script type="module" src="/superadmin/js/admin-orderlist-firebase.js"></script>
 </body>
 
